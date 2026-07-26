@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+
+  body {
+    @apply bg-fixed bg-linear-[-10deg] from-[#111111] to-[#010b13]; /* 0f0f0f */
+  }
+
+  .titleSection {
+    @apply text-[#ffffff] font-bold text-[1.4rem] sm:text-[1.7rem];
+  }
+
+}
+
+@layer components {
+
+}
+
+/* Esto le quita el remarco negro que se le hace al grafico al hacerle clic */
+.recharts-wrapper *:focus {
+  outline: none !important;
+}
+
+/* Esto respeta usuarios que desactivan animaciones en el sistema operativo */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* 
+Para definir mis clases se hacen en diferentes lugares dependiendo para que sea:
+@layer base {} → estilos globales HTML (Para cosas que afectan tags directamente.)
+
+@layer components {} → clases reutilizables (Acá van todas  las clases custom semánticas: 
+                                                                                        .card-hover { ... }
+                                                                                        .glass-card { ... }
+                                                                                        .btn-primary { ... }
+                                                                                        .section-container { ... }
+                                                                                        )
+
+@layer utilities {} → helpers atómicos muy específicos ( Para mini utilidades que no existen en Tailwind. Ej:
+                                                                                        .text-shadow {
+                                                                                          text-shadow: 0 2px 8px rgba(0,0,0,.3);
+                                                                                        }
+                                                                                      )
+*/
