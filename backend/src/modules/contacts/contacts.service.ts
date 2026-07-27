@@ -1,0 +1,181 @@
+import * as contactsRepository from "./contacts.repository.js";
+
+import type { 
+  ContactRelationship,
+  Contact
+} from "@shared/index.js";
+
+
+import { 
+  getExistingUserById
+} from "../../shared/helpers/getExistingUser.js";
+
+// ========================================
+// CREAR SOLICITUD
+// ========================================
+export async function createContact(
+  requesterId: number,
+  addresseeId: number
+): Promise<Contact> {
+  const userAExisting = await getExistingUserById(requesterId);
+  const userBExisting = await getExistingUserById(addresseeId);
+
+  if (!userAExisting || !userBExisting) {
+    throw new Error("Uno de los usuarios no existe");
+  }
+
+  const contact = 
+    await contactsRepository.createContactRequest(
+      requesterId,
+      addresseeId
+    );
+
+  if (!contact) {
+    throw new Error("No se pudo crear el contacto")
+  }
+
+  return contact;
+}
+
+// ========================================
+// OBTENER RELACIÓN ENTRE DOS USUARIOS
+// ========================================
+export async function findRelationship(
+  userA: number,
+  userB: number
+): Promise<ContactRelationship> {
+  const userAExisting = await getExistingUserById(userA);
+  const userBExisting = await getExistingUserById(userB);
+
+  if (!userAExisting || !userBExisting) {
+    throw new Error("Uno de los usuarios no existe");
+  }
+
+  const relation = 
+    await contactsRepository.findRelationship(
+      userA,
+      userB
+    );
+
+  if (!relation) {
+    throw new Error("La relación entre usuarios no existe");
+  }
+
+  return relation;
+}
+
+// ========================================
+// SOLICITUDES PENDIENTES
+// ========================================
+export async function getPending(
+  userId: number,
+): Promise<Contact[]> {
+  const userExisting = await getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe");
+  }
+
+  const pending = 
+    await contactsRepository.getPendingRequest(
+      userId,
+    );
+
+  return pending;
+}
+
+// ========================================
+// OBTENER SOLICITUD POR ID
+// ========================================
+export async function getContactById(
+  id: number,
+): Promise<Contact> {
+  const contact = 
+    await contactsRepository.getContactRequestById(
+      id,
+    );
+  
+  if (!contact) {
+    throw new Error("La solicitud no existe");
+  }
+
+  return contact;
+}
+
+// ========================================
+// ACEPTAR SOLICITUD
+// ========================================
+export async function acceptRequest(
+  id: number,
+) {
+  await contactsRepository.acceptRequest(id);
+}
+
+// ========================================
+// ELIMINAR RELACIÓN
+// ========================================
+export async function deleteRelationship(
+  id: number,
+) {
+  await contactsRepository.deleteRelationship(id);
+}
+
+// ========================================
+// LISTA DE AMIGOS
+// ========================================
+export async function getAcceptedContacts(
+  userId: number,
+): Promise<Contact[]> {
+  const userExisting = await getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe");
+  }
+
+  const contacts = 
+    await contactsRepository.getAcceptedContacts(
+      userId,
+    );
+  
+  return contacts;
+}
+
+// ========================================
+// CONTADOR DE PENDIENTES
+// ========================================
+export async function countPendingRequests(
+  userId: number,
+) {
+  const userExisting = await getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe");
+  }
+
+  const count = 
+    await contactsRepository.countPendingRequests(
+      userId,
+    );
+  
+  return count;
+}
+
+// ========================================
+// CONTADOR DE CONTACTOS
+// ========================================
+export async function countContacts(
+  userId: number,
+) {
+  const userExisting = await getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe");
+  }
+
+  const count = 
+    await contactsRepository.countContacts(
+      userId,
+    );
+  
+  return count;
+}

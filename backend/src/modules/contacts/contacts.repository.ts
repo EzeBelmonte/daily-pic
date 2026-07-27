@@ -28,7 +28,11 @@ export async function findRelationship(
   userB: number
 ) {
   const [contact] = await db
-    .select()
+    // Decidimos que datos devolver
+    .select({
+      id: contacts.id,
+      status: contacts.status,
+    })
     .from(contacts)
     .where(
       or(
@@ -117,8 +121,6 @@ export async function getAcceptedContacts(userId: number) {
       )
     );
 }
-
-
 
 // ========================================
 // CONTADOR DE PENDIENTES
