@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 
-import * as postService from "./posts.service.js";
+import * as postsService from "./posts.service.js";
 
 import type { UpdatePost } from "@shared/index.js";
 
@@ -19,7 +19,7 @@ export async function createPost(
     const data = req.body;
 
     // Creamos el post
-    const post = await postService.createPost(
+    const post = await postsService.createPost(
       userId,
       req.file?.buffer,
       data,
@@ -49,7 +49,7 @@ export async function getPost(
     const postId = Number(req.params.postId);
 
     // Obtenemos el post
-    const post = await postService.getPost(postId);
+    const post = await postsService.getPost(postId);
 
     // Retornamos el post
     return res.status(201).json(post);
@@ -74,7 +74,7 @@ export async function getPosts(
     // Obtenemos el ID del usuario
     const userId = req.user.userId;
 
-    const posts = await postService.getPosts(userId);
+    const posts = await postsService.getPosts(userId);
 
     // Retornamos los posts
     return res.status(201).json(posts);
@@ -105,7 +105,7 @@ export async function updatePost(
     const data: UpdatePost = req.body;
 
     // Obtenemos el post actualizado
-    const post = await postService.updatePost(
+    const post = await postsService.updatePost(
       userId,
       postId,
       data
@@ -138,7 +138,7 @@ export async function deletePost(
     const postId = Number(req.params.postId);
 
     // Eliminamos el post
-    await postService.deletePost(
+    await postsService.deletePost(
       userId,
       postId
     );
@@ -166,7 +166,7 @@ export async function getUserPosts(
     // Obtenemos el ID del usuario
     const username = String(req.params.username);
 
-    const posts = await postService.getPostsByUsername(username);
+    const posts = await postsService.getPostsByUsername(username);
 
     // Retornamos los posts
     return res.status(201).json(posts);

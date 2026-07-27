@@ -1,4 +1,4 @@
-import * as postRepository from "./posts.repository.js";
+import * as postsRepository from "./posts.repository.js";
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
@@ -32,7 +32,7 @@ export async function createPost(
   imageUrl = upload.imageUrl;
   imagePublicId = upload.imagePublicId;
   
-  const post = await postRepository.createPost({
+  const post = await postsRepository.createPost({
     userId,
     imageUrl,
     imagePublicId,
@@ -52,7 +52,7 @@ export async function createPost(
 export async function getPost(
   postId: number
 ) {
-  const post = await postRepository.findById(postId);
+  const post = await postsRepository.findById(postId);
 
   if (!post) {
     throw new Error("Error al obtener la publicación");
@@ -67,7 +67,7 @@ export async function getPost(
 export async function getPosts(
   userId: number
 ): Promise<Post[]> {  
-  const posts = await postRepository.findByUserId(userId);
+  const posts = await postsRepository.findByUserId(userId);
 
   return posts.map(toPostDTO);
 }
@@ -81,7 +81,7 @@ export async function updatePost(
   data: UpdatePost
 ) {
   // Obtenemos el post
-  const post = await postRepository.findById(postId);
+  const post = await postsRepository.findById(postId);
 
   if (!post) {
     throw new Error("El post no existe");
@@ -91,7 +91,7 @@ export async function updatePost(
     throw new Error("No tienes permiso para editar este post");
   }
 
-  const updatePost = await postRepository.updatePost(postId, data);
+  const updatePost = await postsRepository.updatePost(postId, data);
 
   return updatePost;
 }
@@ -104,7 +104,7 @@ export async function deletePost(
   postId: number
 ) {
   // Buscamos el post a eliminar
-  const post = await postRepository.findById(postId);
+  const post = await postsRepository.findById(postId);
 
   if (!post) {
     throw new Error("El post no existe");
@@ -115,7 +115,7 @@ export async function deletePost(
   }
 
   await cloudinaryService.deleteImage(post.imagePublicId);
-  await postRepository.deletePost(postId);
+  await postsRepository.deletePost(postId);
 }
 
 // ========================================
@@ -134,7 +134,7 @@ export async function getPostsByUsername(
     return [];
   }
   
-  const posts = await postRepository.findByUserId(user.id);
+  const posts = await postsRepository.findByUserId(user.id);
 
   return posts.map(toPostDTO);
 }

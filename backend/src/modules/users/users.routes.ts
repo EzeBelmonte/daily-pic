@@ -8,14 +8,14 @@ import { upload } from "../../shared/middlewares/upload.middleware.js";
 const router: Router = Router();
 
 // ========================================
-// RUTAS DEL MÓDOLO USERS - PRIVADAS
+// PRIVADAS
 // ========================================
 router.get("/me", authenticate, userController.getMe);
 router.get("/profile", authenticate, userController.getMyCompleteUser);
 router.patch("/config", authenticate, upload.single("image"), userController.updateProfileUser);
 
 // ========================================
-// RUTAS DEL MÓDOLO USERS - PÚBLICAS
+// PÚBLICAS
 // ========================================
 router.get("/:username", userController.getCompleteUser);
 

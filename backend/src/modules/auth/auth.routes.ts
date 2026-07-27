@@ -3,6 +3,9 @@ import * as authController from "./auth.controller.js";
 
 const router: Router = Router();
 
+// ========================================
+// PÚBLICAS
+// ========================================
 router.post("/register", authController.register);
 router.post("/login", authController.login);
 

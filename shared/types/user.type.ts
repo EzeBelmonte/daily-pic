@@ -31,7 +31,8 @@ export interface CompleteUser extends UserBase {
 // ========================================
 export interface UpdateUser {
   //email: string;
-  nickname?: string | null;
+  name?: string;
+  lastname?: string | "";
   bio?: string | null;
   isPrivate?: boolean;
 }
