@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useUser } from "@/app/hooks/useUser";
+import { useUser } from "@/app/hooks/useUsers";
 
 import {
   configSchema,
@@ -116,16 +116,16 @@ const ConfigPage = () => {
         </div>
 
         <Input
-          id="nickname"
-          placeholder="Nickname"
+          id="name"
+          placeholder="Nombre/s"
           type="text"
           error={errors.name?.message}
           {...register("name")}
         />
 
         <Input
-          id="nickname"
-          placeholder="Nickname"
+          id="lastname"
+          placeholder="Apellido/s (Opcional)"
           type="text"
           error={errors.lastname?.message}
           {...register("lastname")}

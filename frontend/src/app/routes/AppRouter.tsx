@@ -18,6 +18,7 @@ import {
 
 import { ProtectedRoute } from "./ProtectedRoute";
 import { PublicRoute } from "./PublicRoute";
+import RootRedirect from "./RootRedirect";
 
 export function AppRouter() {
 
@@ -25,10 +26,12 @@ export function AppRouter() {
     <BrowserRouter>
       <Routes>
 
+        <Route path="/" element={<RootRedirect />} />
+
         {/* MAINLAYOUT */}
         <Route element={<MainLayout />} >
           
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
 
           {/* Rutas privadas */}
           {/*<Route

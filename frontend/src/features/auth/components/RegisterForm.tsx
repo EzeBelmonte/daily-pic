@@ -25,6 +25,19 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+      <Input 
+        id="name"
+        placeholder="Nombre/s"
+        error={errors.name?.message}
+        {...register("name")}
+      />
+
+      <Input 
+        id="lastname"
+        placeholder="Apellido/s (Opcional)"
+        error={errors.lastname?.message}
+        {...register("lastname")}
+      />
 
       <Input 
         id="email"

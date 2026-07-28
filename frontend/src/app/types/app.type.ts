@@ -25,7 +25,7 @@ export interface AuthContextType {
 // ========================================
 // USER
 // ========================================
-export interface UserContextType {
+export interface UsersContextType {
   // Estado
   completeUser: CompleteUser | null;
   isLoading: boolean;

@@ -20,8 +20,8 @@ app.use(express.json());
 
 // Rutas
 app.use("/auth", authRouter);
-app.use("/user", usersRouter);
-app.use("/user", contactsRouter);
+app.use("/users", usersRouter);
+app.use("/users", contactsRouter);
 app.use("/posts", postsRouter);
 app.use("/posts", likesRouter);
 

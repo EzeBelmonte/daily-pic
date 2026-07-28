@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../providers/UsersProvider";
 
-export function useUser() {
+export function useUsers() {
   const context = useContext(UserContext);
 
   if (!context) {

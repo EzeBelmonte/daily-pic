@@ -2,19 +2,19 @@ import { createContext, useCallback, useMemo, useState, useEffect, type ReactNod
 
 import * as usersApi from "@/api/users.api";
 
-import type { UserContextType } from "../types/app.type";
+import type { UsersContextType } from "../types/app.type";
 import type { CompleteUser, UpdateUser } from "@shared/index";
 
 import { getErrorMessage } from "@/utils/getErrorMessage";
 
 export const UserContext =
-  createContext<UserContextType | null>(null);
+  createContext<UsersContextType | null>(null);
 
 type Props = {
   children: ReactNode;
 }
 
-export function UserProvider({ children }: Props) {
+export function UsersProvider({ children }: Props) {
   // ========================================
   // ESTADOS
   // ========================================

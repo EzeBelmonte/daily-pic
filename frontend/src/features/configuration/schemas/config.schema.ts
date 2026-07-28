@@ -12,7 +12,6 @@ export const configSchema = z.object({
   
   lastname: z
     .string()
-    .min(3)
     .max(100)
     .optional(),
 

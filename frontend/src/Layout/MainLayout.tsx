@@ -5,7 +5,6 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { usePosts } from "@/app/hooks/usePosts";
 
 import Navbar from "./navbar/Navbar";
-import Topbar from "./navbar/Topbar";
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -18,16 +17,12 @@ const MainLayout = () => {
   }, [isAuthenticated, clearPosts]);
 
   return (
-    <div className="min-h-screen">ç
-      <Topbar />
-      
-      <div className="mt-10 grid min-h-[calc(100vh-2.5rem)] grid-cols-1 sm:grid-cols-[220px_minmax(0,1fr)]">
-        <Navbar />
+    <div className="min-h-screen grid grid-cols-1 sm:grid-cols-[200px_minmax(0,1fr)]">
+      <Navbar />
 
-        <main className="min-w-0">
-          <Outlet />
-        </main>
-      </div>
+      <main className="min-w-0">
+        <Outlet />
+      </main>
     </div>
   );
 }
