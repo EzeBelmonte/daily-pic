@@ -10,8 +10,7 @@ export { default as LoginPage } from "./auth/pages/LoginPage";
 export { default as RegisterPage } from "./auth/pages/RegisterPage";
 
 // PROFILE
-//export { default as ProfilePage } from "./profile/pages/ProfilePage";
-//export { default as VisitorProfilePage } from "./profile/pages/VisitorProfilePage";
+export { default as ProfilePage } from "./profile/pages/ProfilePage";
 
 // CONFIGURATION
 export { default as ConfigPage } from "./configuration/pages/ConfigPage";

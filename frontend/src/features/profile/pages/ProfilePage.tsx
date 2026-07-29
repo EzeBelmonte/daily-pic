@@ -1,21 +1,37 @@
 import { useParams } from "react-router-dom";
 
-const ProfilePage = () => {
+import { useProfileUser } from "../hooks/useProfileUser";
 
+import { ProfileHeader } from "../components";
+
+const ProfilePage = () => {
   const { username } = useParams();
 
-  const style = "flex flex-col px-1 sm:px-2 md:px-3 lg:px-10";
+  const {
+    user,
+    isOwner,
+    isLoading,
+    error,
+  } = useProfileUser(username);
 
-  if (username) {
-    return (
-      <div className={style}>
-      </div>
-    );
+  if (isLoading) {
+    return <p>Cargando...</p>;
+  }
+
+  if (error) {
+    return <p>Error al cargar el perfil.</p>;
+  }
+
+  if (!user) {
+    return <p>Usuario no encontrado.</p>;
   }
 
   return (
-    <div className={style}>
-    
+    <div className="flex flex-col px-1 sm:px-2 md:px-3 lg:px-10">
+      <ProfileHeader 
+        user={user}
+        isOwner={isOwner}
+      />
     </div>
   );
 }

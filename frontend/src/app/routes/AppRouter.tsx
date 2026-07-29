@@ -10,8 +10,7 @@ import {
   HomePage, 
   LoginPage, 
   RegisterPage, 
-  //ProfilePage,
-  //VisitorProfilePage,
+  ProfilePage,
   ConfigPage,
   //PostPage,
 } from "@/features";
@@ -32,7 +31,7 @@ export function AppRouter() {
           element={<RootRedirect />} 
         />
 
-        {/* Rutas privadas */}
+        {/* RUTAS PRIVADAS */}
         <Route 
           element={
             <ProtectedRoute>
@@ -46,14 +45,17 @@ export function AppRouter() {
           />
 
           
-          {/*<Route
+          <Route
             path="/profile"
             element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
+              <ProfilePage />
             }
-          />*/}
+          />
+
+          <Route 
+            path="/profile/:username"
+            element={<ProfilePage />}
+          />
 
           <Route 
             path="/config"
@@ -61,26 +63,21 @@ export function AppRouter() {
           />
         </Route>
 
-        {/* Rutas públicas */}
+        {/* RUTAS PÚBLICAS */}
         <Route 
-          element={<AuthLayout />}
+          element={
+            <PublicRoute>
+              <AuthLayout />
+            </PublicRoute>}
         > 
           <Route 
             path="/login" 
-            element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            } 
+            element={<LoginPage />} 
           />
 
           <Route 
             path="/register" 
-            element={
-              <PublicRoute>
-                <RegisterPage />
-              </PublicRoute>
-            } 
+            element={<RegisterPage />} 
           />
         </Route>
         
