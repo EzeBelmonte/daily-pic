@@ -10,19 +10,17 @@ export interface User {
 }
 
 // ========================================
-// DATOS DEL BASE DEL USUARIO
-// ========================================
-export interface UserBase extends User {
-  isPrivate: boolean;
-  bio: string | "";
-  contactsCount: number;
-  postsCount: number;
-}
-
-// ========================================
 // USUARIO
 // ========================================
-export interface CompleteUser extends UserBase {
+export interface CompleteUser extends User {
+  isPrivate: boolean;
+  bio: string | "";
+
+  stats: {
+    contactsCount: number;
+    postsCount: number;
+  }
+
   createdAt: string;
 }
 

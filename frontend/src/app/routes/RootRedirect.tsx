@@ -3,11 +3,15 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const RootRedirect = () => {
-  const { user } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <Navigate
-      to={user ? "/home" : "/login"}
+      to={isAuthenticated ? "/home" : "/login"}
       replace
     />
   );

@@ -26,14 +26,26 @@ export function AppRouter() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<RootRedirect />} />
+        {/* Redirección inicial */}
+        <Route 
+          path="/" 
+          element={<RootRedirect />} 
+        />
 
-        {/* MAINLAYOUT */}
-        <Route element={<MainLayout />} >
+        {/* Rutas privadas */}
+        <Route 
+          element={
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
+          } 
+        >
+          <Route 
+            path="/home" 
+            element={<HomePage />} 
+          />
+
           
-          <Route path="/home" element={<HomePage />} />
-
-          {/* Rutas privadas */}
           {/*<Route
             path="/profile"
             element={
@@ -45,36 +57,14 @@ export function AppRouter() {
 
           <Route 
             path="/config"
-            element={
-              <ProtectedRoute>
-                <ConfigPage />
-              </ProtectedRoute>
-            }
+            element={<ConfigPage />}
           />
-
-          {/*<Route
-            path="/profile/:username"
-            element={
-              <ProtectedRoute>
-                <VisitorProfilePage />
-              </ProtectedRoute>
-            }
-          />*/}
-
-          {/*<Route
-            path="/posts/:postId"
-            element={
-              <ProtectedRoute>
-                <PostPage />
-              </ProtectedRoute>
-            }
-          />*/}
         </Route>
 
-        {/* AUTHLAYOUT */}
-        <Route element={<AuthLayout />}>
-
-          {/* Rutas públicas */}
+        {/* Rutas públicas */}
+        <Route 
+          element={<AuthLayout />}
+        > 
           <Route 
             path="/login" 
             element={

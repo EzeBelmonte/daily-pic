@@ -7,16 +7,14 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from './lib/queryClient.ts'
 
 import { AuthProvider } from './app/providers/AuthProvider.tsx'
-import { PostsProvider } from './app/providers/PostsProvider.tsx'
-
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <PostsProvider>
+
           <App />
-        </PostsProvider>
+
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,

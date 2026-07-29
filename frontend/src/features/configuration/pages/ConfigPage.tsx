@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useUser } from "@/app/hooks/useUsers";
+import { useMe } from "@/app/hooks/queries/useMe";
+import { useUpdateMe } from "@/app/hooks/mutations/useUpdateMe";
 
 import {
   configSchema,
@@ -11,6 +12,7 @@ import {
 } from "../schemas/config.schema";
 
 import { cn } from "@/utils/cn";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 import {
   Input,
@@ -36,11 +38,12 @@ const ConfigPage = () => {
   });
 
   const {
-    completeUser,
-    getUser,
-    updateUser,
+    data: me,
     error,
-  } = useUser();
+    isLoading
+  } = useMe();
+
+  const updateMeMutation = useUpdateMe();
 
   // Estado de la privacidad
   const [privacy, setPrivacy] = useState(false);
@@ -48,29 +51,32 @@ const ConfigPage = () => {
   // Imagen seleccionada
   const [image, setImage] = useState<File | null>(null);
 
-  // Obtener perfil al montar el componente
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
-
   // Cuando llega el perfil, rellenar el formulario
   useEffect(() => {
-    if (!completeUser) return;
+    if (!me) return;
 
     reset({
-      name: completeUser.name ?? "",
-      lastname: completeUser.lastname ?? "",
-      bio: completeUser.bio ?? "",
+      name: me.name ?? "",
+      lastname: me.lastname ?? "",
+      bio: me.bio ?? "",
     });
 
-    setPrivacy(completeUser.isPrivate);
-  }, [completeUser, reset]);
+    setPrivacy(me.isPrivate);
+  }, [me, reset]);
 
   // Enviar formulario
   async function onSubmit(data: ConfigSchema) {
-    data.isPrivate = privacy;
-
-    await updateUser(image, data);
+    try {
+      await updateMeMutation.mutateAsync({
+        image, 
+        data: {
+          ...data,
+          isPrivate: privacy,
+        },
+      });
+    } catch (error) {
+      // El error ya queda disponible en updateMeMutation.error
+    }
   }
 
   // Cambiar privacidad
@@ -78,8 +84,12 @@ const ConfigPage = () => {
     setPrivacy((prev) => !prev);
   };
 
-  // Recién ahora hacemos el return condicional
-  if (!completeUser) {
+  // Recién ahora hacemos los return condicional
+  if (isLoading) {
+    return <p className="text-white">Cargando...</p>;
+  }
+
+  if (!me) {
     return <p className="text-white">No existe el perfil</p>;
   }
 
@@ -93,7 +103,7 @@ const ConfigPage = () => {
         <div className="relative w-[150px] h-[150px] rounded-full overflow-hidden mx-auto">
           {!image ? (
             <Image
-              src={completeUser.profileImageUrl}
+              src={me.profileImageUrl}
               alt="Foto de perfil"
               className="w-full h-full object-cover"
             />
@@ -154,7 +164,9 @@ const ConfigPage = () => {
           </Button>
         </div>
 
-        <AlertError error={error} />
+        <AlertError
+          error={getErrorMessage(updateMeMutation.error)}
+        />
 
         <Button
           type="submit"

@@ -1,5 +1,6 @@
 import * as userRepository from "./users.repository.js";
-import * as postsRepository from "../posts/posts.repository.js";
+import * as postsServices from "../posts/posts.service.js";
+import * as contactsServices from "../contacts/contacts.service.js";
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
@@ -25,10 +26,9 @@ export async function getMe(userId: number) {
   }
 
   // Obtener cantidad de post
-  const postsCount = await postsRepository.countPost(user.id);
-
-  // Obtener cantidad de contactos
-  const contactsCount = 0;
+  const postsCount = await postsServices.countPost(user.id);
+  // Obtener cantidad de contacos
+  const contactsCount = await contactsServices.countContacts(user.id);
 
   return toCompleteUserDTO(
       user,
@@ -91,10 +91,9 @@ export async function getUserByUsername(username: string) {
     }
   
     // Obtener cantidad de post
-    const postsCount = await postsRepository.countPost(user.id);
-
-    // Obtener cantidad de contactos
-    const contactsCount = 0;
+    const postsCount = await postsServices.countPost(user.id);
+    // Obtener cantidad de contacos
+    const contactsCount = await contactsServices.countContacts(user.id);
 
   return toCompleteUserDTO(
       user,

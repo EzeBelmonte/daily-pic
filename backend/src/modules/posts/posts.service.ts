@@ -5,7 +5,10 @@ import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
 import type { CreatePost, Post, UpdatePost } from "@shared/index.js";
 
-import { getExistingUserByUsername } from "../../shared/helpers/getExistingUser.js";
+import { 
+  getExistingUserByUsername,
+  getExistingUserById,
+ } from "../../shared/helpers/getExistingUser.js";
 
 // ========================================
 // CREAR POST
@@ -117,6 +120,25 @@ export async function deletePost(
   await cloudinaryService.deleteImage(post.imagePublicId);
   await postsRepository.deletePost(postId);
 }
+
+// ========================================
+// CONTAR POSTS
+// ========================================
+export async function countPost(
+  userId: number
+) {
+  // Obtenemos el usuario
+  const user = await getExistingUserById(userId);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+  
+  const count = await postsRepository.countPost(userId);
+
+  return count;
+}
+
 
 // ========================================
 // OBTENER POST DE USUARIO

@@ -18,4 +18,4 @@ export interface Contact {
   requesterId: number;
   addresseeId: number;
   status: ContactStatus;
-} 
+}

@@ -1,7 +1,8 @@
-type AlertProps = {
+type Props = {
   error: string | null;
 }
-const AlertError = ({ error }: AlertProps) => {
+const AlertError = ({ error }: Props) => {
+  if (!error) return null;
 
   return (
     <>

@@ -37,8 +37,10 @@ export function toCompleteUserDTO(
     bio: user.bio || "",
     isPrivate: user.isPrivate,
 
-    contactsCount,
-    postsCount,
+    stats: {
+      contactsCount,
+      postsCount,
+    },
 
     createdAt: user.createdAt.toISOString(),
   }

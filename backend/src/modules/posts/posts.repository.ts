@@ -76,7 +76,7 @@ export async function deletePost(
 }
 
 // ========================================
-// CONTAR FOTOS SUBIDAS
+// CONTAR POSTS
 // ========================================
 export async function countPost(
   userId: number
