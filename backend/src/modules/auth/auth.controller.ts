@@ -49,10 +49,10 @@ export async function login(
     // Obtenemos los datos del inicio de sesión
     const data = loginSchema.parse(req.body);
 
-    const result = await authService.login(data);
+    const token = await authService.login(data);
 
-    // Retornamos la sesión
-    return res.status(201).json(result);
+    // Retornamos el token
+    return res.status(201).json(token);
   } catch (error) {
     return res.status(400).json({
       message: error instanceof Error ? error.message : "Error desconocido",

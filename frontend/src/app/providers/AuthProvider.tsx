@@ -1,7 +1,8 @@
 import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { User } from "@shared/index";
+
+import { useQueryClient } from "@tanstack/react-query";
+
 import type { AuthContextType } from "../types/app.type";
-import { getMe } from "@/api/users.api";
 import { registerLogout } from "@/app/services/auth.service";
 
 export const AuthContext =
@@ -12,71 +13,49 @@ type Props = {
 }
 
 export function AuthProvider({ children }: Props) {
-  const [user, setUser] = useState<User | null>(null);
-  
+  const queryClient = useQueryClient();
+
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const isAuthenticated = !!user;
+  const isAuthenticated = !!token;
 
   // El useCallback recuerda la función y no la está creando por cada render
-  const login = useCallback(async (token: string) => {
+  const login = useCallback((token: string) => {
     localStorage.setItem("token", token);
     setToken(token);
-
-    const user = await getMe();
-    setUser(user);
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem("token");
 
-    setUser(null);
     setToken(null);
-  }, []);
+
+    queryClient.clear();
+  }, [queryClient]);
 
   // Cuando alguien pide de manera global un logout, se ejecuta
   useEffect(() => {
     registerLogout(logout);
-  }, []);
+  }, [logout]);
 
   useEffect(() => {
-    async function restoreSession() {
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const user = await getMe();
-
-        setUser(user);
-      } catch (error) {
-        logout();
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    restoreSession();
-  }, [token]);
-
+    setIsLoading(false);
+  }, []);
 
   const value = useMemo(
     () => ({
-      user,
       token,
-
       isAuthenticated,
       isLoading,
 
       login,
       logout,
     }),
-    [user, token, isAuthenticated, isLoading]
+    [token, isAuthenticated, isLoading, login, logout]
   );
 
   return (

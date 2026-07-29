@@ -1,9 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
-import { useLogin } from "../hooks/useLogin";
+import { useLogin } from "@/app/hooks/mutations/useLogin";
+
 import { loginSchama, type LoginSchema } from "../schemas/auth.schema";
 import { Input, Button, AlertError } from "@/components";
+
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 const LoginForm = () => {
   const {
@@ -17,10 +21,14 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchama),
   });
 
-  const { loginUser, error } = useLogin();
+  const loginMutation = useLogin();
+
+  const navigate = useNavigate();
 
   async function onSubmit(data: LoginSchema) {
-    await loginUser(data);
+    await loginMutation.mutateAsync(data);
+
+    navigate("/home");
   }
 
   return (
@@ -41,7 +49,11 @@ const LoginForm = () => {
         {...register("password")}
       />
 
-      <AlertError error={error} />
+      <AlertError error={
+        loginMutation.error
+          ? getErrorMessage(loginMutation.error)
+          : null
+      } />
 
       <Button
         type="submit"

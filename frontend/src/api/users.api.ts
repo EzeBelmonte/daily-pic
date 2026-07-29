@@ -1,9 +1,8 @@
 import api from "./axios";
 
 import type {  
-  User,
   CompleteUser,
-  UpdateUser
+  UpdateMe
 } from "@shared/index";
 
 // ========================================
@@ -11,28 +10,17 @@ import type {
 // ========================================
 export async function getMe() {
   const response =
-    await api.get<User>("/users/me");
+    await api.get<CompleteUser>("/users/me");
 
   return response.data;
 }
 
 // ========================================
-// OBTENER PERFIL
+// ACTUALIZAR MIS DATOS
 // ========================================
-export async function getMyProfile() {
-  const response =
-    await api.get<CompleteUser>("/users/profile");
-
-  return response.data;
-}
-
-
-// ========================================
-// ACTUALIZAR PERFIL
-// ========================================
-export async function updateProfile(
+export async function updateMe(
   image: File | null,
-  data: UpdateUser
+  data: UpdateMe
 ) {
   const formData = new FormData();
 
@@ -47,7 +35,20 @@ export async function updateProfile(
   });
 
   const response = 
-    await api.patch<CompleteUser>("/users/config", formData);
+    await api.patch<CompleteUser>("/users/me", formData);
+
+  return response.data;
+}
+
+
+// ========================================
+// OBTENER USUARIO
+// ========================================
+export async function getUserByUsername(
+  username: string
+) {
+  const response =
+    await api.get<CompleteUser>(`/users/${username}`);
 
   return response.data;
 }

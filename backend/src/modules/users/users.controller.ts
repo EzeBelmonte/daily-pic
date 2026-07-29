@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import * as userService from "./users.service.js";
 
-import type { UpdateUser } from "@shared/index.js";
+import type { UpdateMe } from "@shared/index.js";
 
 // ========================================
 // OBTENER MI USUARIO
@@ -28,55 +28,9 @@ export async function getMe(
 }
 
 // ========================================
-// OBTENER USUARIO COMPLETO
+// ACTUALIZAR MIS DATOS
 // ========================================
-export async function getMyCompleteUser(
-  req: Request,
-  res: Response
-) {
-  try {
-    // Obtenemos el ID usuario logueado
-    const userId = req.user.userId;
-
-    // Obtenemos el perfil propio
-    const profile = await userService.getMyCompleteUser(userId);
-
-    // Retornamos el perfil
-    return res.status(200).json(profile);
-  } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// OBTENER PERFIL DE USUARIO 
-// ========================================
-export async function getCompleteUser(
-  req: Request,
-  res: Response
-) {
-  try {
-    // Obtenemos el usuario buscado
-    const username = String(req.params.username);
-
-    // Obtenemos el perfil propio
-    const profile = await userService.getCompleteUser(username);
-
-    // Retornamos el perfil
-    return res.status(200).json(profile);
-  } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// ACTUALIZAR PERFIL
-// ========================================
-export async function updateProfileUser(
+export async function updateMe(
   req: Request,
   res: Response
 ) {
@@ -86,13 +40,13 @@ export async function updateProfileUser(
     const userId = req.user.userId;
 
     // Obtenemos los datos actualizados
-    const data: UpdateUser = {
+    const data: UpdateMe = {
       ...req.body,
       isPrivate: req.body.isPrivate === "true",
     };
 
     // Obtener perfil del usuario
-    const profile = await userService.updateUser(
+    const profile = await userService.updateMe(
       userId,
       req.file?.buffer,
       data
@@ -101,6 +55,30 @@ export async function updateProfileUser(
     // Retornamos el perfil
     return res.status(200).json(profile);
     
+  } catch (error) {
+    return res.status(401).json({
+      message: error instanceof Error ? error.message : "Error desconocido",
+    });
+  }
+}
+
+
+// ========================================
+// OBTENER PERFIL DE USUARIO 
+// ========================================
+export async function getUserByUsername(
+  req: Request,
+  res: Response
+) {
+  try {
+    // Obtenemos el usuario buscado
+    const username = String(req.params.username);
+
+    // Obtenemos el perfil propio
+    const profile = await userService.getUserByUsername(username);
+
+    // Retornamos el perfil
+    return res.status(200).json(profile);
   } catch (error) {
     return res.status(401).json({
       message: error instanceof Error ? error.message : "Error desconocido",

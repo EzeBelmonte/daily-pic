@@ -1,5 +1,4 @@
 import type { 
-  User, 
   CompleteUser,
   UpdateUser,
   Post,
@@ -11,13 +10,12 @@ import type { PostSchema } from "@/features/posts/schemas/posts.schema";
 // AUTH
 // ========================================
 export interface AuthContextType {
-  user: User | null;
   token: string | null;
-
-  isAuthenticated: boolean;
   isLoading: boolean;
 
-  login: (token: string) => Promise<void>;
+  isAuthenticated: boolean;
+
+  login: (token: string) => void;
   logout: () => void;
 
 }

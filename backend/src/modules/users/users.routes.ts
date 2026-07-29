@@ -11,12 +11,11 @@ const router: Router = Router();
 // PRIVADAS
 // ========================================
 router.get("/me", authenticate, userController.getMe);
-router.get("/profile", authenticate, userController.getMyCompleteUser);
-router.patch("/config", authenticate, upload.single("image"), userController.updateProfileUser);
+router.patch("/me", authenticate, upload.single("image"), userController.updateMe);
 
 // ========================================
 // PÚBLICAS
 // ========================================
-router.get("/:username", userController.getCompleteUser);
+router.get("/:username", userController.getUserByUsername);
 
 export default router;

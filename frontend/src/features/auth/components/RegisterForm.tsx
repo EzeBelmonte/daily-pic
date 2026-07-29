@@ -1,9 +1,12 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 import { useRegister } from "../hooks/useRegister";
 import { registerSchema, type RegisterSchema } from "../schemas/auth.schema";
 import { Input, Button, AlertError } from "@/components";
+
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 const RegisterForm = () => {
   const {
@@ -17,10 +20,19 @@ const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const { registerUser, error } = useRegister();
+  const registerMutation = useRegister();
+
+  const navigate = useNavigate();
 
   async function onSubmit(data: RegisterSchema) {
-    await registerUser(data);
+    try {
+      await registerMutation.mutateAsync(data);
+
+      navigate("/login");
+    } catch (error) {
+      // No hacemos nada.
+      // TanStack ya guardó el error en registerMutation.error
+    }
   }
 
   return (
@@ -62,7 +74,11 @@ const RegisterForm = () => {
         {...register("password")}
       />
 
-      <AlertError error={error} />
+      {registerMutation.isError && (
+        <AlertError
+            error={getErrorMessage(registerMutation.error)}
+        />
+      )}
 
       <Button
         type="submit"

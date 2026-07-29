@@ -71,12 +71,7 @@ export async function login(data: LoginRequest) {
     userId: user.id,
   });
 
-  const safeUser = toUserDTO(user);
-
-  const result: LoginResponse = {
-    user: safeUser,
+  return { 
     token,
   }
-
-  return result;
 }

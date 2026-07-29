@@ -29,7 +29,7 @@ export interface CompleteUser extends UserBase {
 // ========================================
 // DATOS EDITABLES
 // ========================================
-export interface UpdateUser {
+export interface UpdateMe {
   //email: string;
   name?: string;
   lastname?: string | "";
