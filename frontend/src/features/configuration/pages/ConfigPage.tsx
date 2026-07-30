@@ -165,7 +165,7 @@ const ConfigPage = () => {
         </div>
 
         <AlertError
-          error={getErrorMessage(updateMeMutation.error)}
+          error={getErrorMessage(updateMeMutation.error ?? error)}
         />
 
         <Button

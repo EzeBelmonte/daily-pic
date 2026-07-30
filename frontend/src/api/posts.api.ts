@@ -40,10 +40,14 @@ export async function getPosts() {
 // EDITAR POST
 // ========================================
 export async function editPost(
-  postId: number
+  postId: number,
+  data: UpdatePost
 ) {
   const response =
-    await api.patch<UpdatePost>(`/posts/${postId}`);
+    await api.patch<UpdatePost>(
+        `/posts/${postId}`,
+      data
+    );
 
   return response.data;
 }

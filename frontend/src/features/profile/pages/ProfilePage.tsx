@@ -2,19 +2,31 @@ import { useParams } from "react-router-dom";
 
 import { useProfileUser } from "../hooks/useProfileUser";
 
-import { ProfileHeader } from "../components";
+import { 
+  ProfileHeader, 
+  ProfileSection 
+} from "../components";
+import { useProfilePosts } from "../hooks/useProfilePosts";
 
 const ProfilePage = () => {
+  // Obtenemos el usuario de la url si es que visitamos un perfil
   const { username } = useParams();
 
+  // Obtenemos mis datos o el del usuario visitado
   const {
     user,
     isOwner,
-    isLoading,
+    isLoading: userLoading,
     error,
   } = useProfileUser(username);
 
-  if (isLoading) {
+  // Obtenemos mis posts o el del usuario visitado
+  const {
+    posts,
+    isLoading: postsLoading,
+  } = useProfilePosts(username);
+
+  if (userLoading) {
     return <p>Cargando...</p>;
   }
 
@@ -28,10 +40,20 @@ const ProfilePage = () => {
 
   return (
     <div className="flex flex-col px-1 sm:px-2 md:px-3 lg:px-10">
+      {/* Header */}
       <ProfileHeader 
         user={user}
         isOwner={isOwner}
       />
+
+      {/* Section */}
+      {postsLoading ? (
+        <p>Cargando publicaciones...</p>
+      ) : posts.length === 0 ? (
+        <p className="text-white">No hay publicaciones</p>
+      ) : (
+        <ProfileSection posts={posts} />
+      )}
     </div>
   );
 }

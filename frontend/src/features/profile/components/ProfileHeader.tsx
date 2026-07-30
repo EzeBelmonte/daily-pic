@@ -68,9 +68,7 @@ const ProfileHeader = ({ user, isOwner }: Props) => {
               bioStyle
             )}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem recusandae culpa maxime architecto ad 
-            perspiciatis facere, cum asperiores tempore neque assumenda, distinctio eveniet dolor cupiditate optio provident, 
-            veniam vel magni!{user.bio}
+            {user.bio}
           </p>
         </div>
       </div>
@@ -81,9 +79,7 @@ const ProfileHeader = ({ user, isOwner }: Props) => {
           bioStyle
         )}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem recusandae culpa maxime architecto ad 
-        perspiciatis facere, cum asperiores tempore neque assumenda, distinctio eveniet dolor cupiditate optio provident, 
-        veniam vel magni!{user.bio}
+        {user.bio}
       </p>
 
       {/* Botón de seguir y bloquear */}
