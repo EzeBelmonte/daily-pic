@@ -16,4 +16,4 @@ export { default as ProfilePage } from "./profile/pages/ProfilePage";
 export { default as ConfigPage } from "./configuration/pages/ConfigPage";
 
 // POST
-//export { default as PostPage } from "./post/pages/PostPage";
+export { default as CreatePost } from "./posts/components/CreatePost";

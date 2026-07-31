@@ -16,7 +16,7 @@ const MobileNavbar = ({ className = "" }:Props) => {
     <nav 
       id="mobile-menu"
       aria-hidden={!scrollingUp}
-    className={cn(`
+      className={cn(`
         flex justify-around
         fixed bottom-0 left-0 w-full
         bg-[rgb(50,51,53)] text-white

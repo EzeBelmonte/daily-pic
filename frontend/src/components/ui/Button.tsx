@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({ children, onClick, type = 'button', dis
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`flex items-center justify-center ${className}`} // Puedes agregar clases adicionales si las pasas
+      className={`cursor-pointer ${className}`} // Puedes agregar clases adicionales si las pasas
     >
       {children}
     </button>

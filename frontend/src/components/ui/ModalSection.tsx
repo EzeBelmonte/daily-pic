@@ -1,145 +1,88 @@
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
+//import { X } from "lucide-react";
+import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 
-import { Button } from ".."
+import { cn } from "@/utils/cn";
 
-type Props = {
-  isOpen: boolean;
+interface ModalProps {
+  open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
-  title?: string;
-};
-
+  children: ReactNode;
+  className?: string;
+}
 
 const ModalSection = ({
-  isOpen,
+  open,
   onClose,
   children,
-  title = "",
-}: Props) => {
+  className = "",
+}: ModalProps) => {
 
-  // Bloquear scroll
-  useEffect(() => {
-
-    if (!isOpen) return;
-
-    const originalOverflow = document.body.style.overflow;
-
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-
-  }, [isOpen]);
-
-  // Escape
-  useEffect(() => {
-
-    if (!isOpen) return;
-
-    const handleEscape = (event: KeyboardEvent) => {
-
-      if (event.key === "Escape") {
-        onClose();
-      }
-
-    };
-
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      window.removeEventListener("keydown", handleEscape);
-    };
-
-  }, [isOpen, onClose]);
-
-  return createPortal(
-
-    <AnimatePresence>
-
-      {isOpen && (
-
-        // Fondo general del Modal
-        <motion.div
+  return (
+    <Dialog.Root
+      open={open}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <Dialog.Portal>
+        {/* Fondo Principal */}
+        <Dialog.Overlay
           className="
-            fixed inset-0 z-50
-            flex items-center justify-center
-            bg-black/50 backdrop-blur-sm
-            p-2 sm:p-6
+            fixed inset-0
+            bg-black/50
+            backdrop-blur-sm
+            z-50
           "
-          onClick={onClose}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+        />
+
+        <Dialog.Content
+          className={cn(`
+            fixed
+            left-1/2 top-1/2
+            z-50
+            w-full max-w-[600px]
+            -translate-x-1/2 -translate-y-1/2
+            p-2
+            shadow-xl
+            outline-none`,
+            className
+          )}
+
+          asChild
         >
-          {/* Contenedor interno */}
           <motion.div
-            className="
-              relative
-              w-full md:w-[700px]
-              max-h-[70vh]
-              rounded
-              bg-[rgba(32,36,37,0.88)]
-              px-2 pb-6 pt-4
-              shadow-2xl overflow-y-auto
-            "
-            onClick={(e) => e.stopPropagation()}
-            initial={{
-              scale: 0.95,
-              opacity: 0,
-              y: 10,
-            }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-              y: 0,
-            }}
-            exit={{
-              scale: 0.95,
-              opacity: 0,
-              y: 10,
-            }}
-            transition={{
-              duration: 0.2,
-              ease: "easeOut",
-            }}
+            initial={{ opacity: 0, scale: .95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: .95 }}
           >
-
-            <div className="mb-10">
-              
-              <h3 className="text-[.8rem] font-semibold text-white">{title}</h3>
-
-              <Button
-                onClick={onClose}
+            {/*<Dialog.Close asChild>
+              <button
                 className="
-                  absolute right-2 top-2
-                  text-2xl text-white/70
-                  hover:text-[#c96464] cursor-pointer
+                  absolute
+                  right-2
+                  top-2
+                  rounded-md
+                  p-1
+                  text-gray-500
+                  transition
+                  hover:bg-gray-100
+                  hover:text-black
                 "
+                aria-label="Cerrar"
               >
-                <X  size={14}/>
-              </Button>
+                <X size={18} />
+              </button>
+            </Dialog.Close>*/}
 
-            </div>
-
-            <div className="flex flex-col items-center">
-              {children}
-            </div>
+            {children}
 
           </motion.div>
-
-        </motion.div>
-
-      )}
-
-    </AnimatePresence>,
-
-    document.body
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
-};
+}
 
 export default ModalSection;
