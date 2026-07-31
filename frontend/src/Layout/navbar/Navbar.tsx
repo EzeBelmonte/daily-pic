@@ -1,11 +1,13 @@
 import DesktopSidebar from "./components/DesktopSidebar";
-import MobileNavbar from "./components/MobileNavbar";
+import MobileNavbarTop from "./components/MobileNavbarTop"
+import MobileNavbarBottom from "./components/MobileNavbarBottom";
 
 const Navbar = () => {
   
   return (
     <>
-      <MobileNavbar className="sm:hidden" />
+      <MobileNavbarTop className="sm:hidden" />
+      <MobileNavbarBottom className="sm:hidden" />
 
       <div className="hidden sm:block">
         <div

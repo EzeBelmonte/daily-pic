@@ -8,7 +8,11 @@ type Props = {
   className?: string;
 }
 
-const NavItem = ({ item, showLabel = false, className = "" }: Props) => {
+const NavItem = ({ 
+  item, 
+  showLabel = false, 
+  className = "" ,
+}: Props) => {
   const Icon = item.icon;
 
   return (
@@ -17,6 +21,7 @@ const NavItem = ({ item, showLabel = false, className = "" }: Props) => {
       className={className}
     >
       <Icon size={20} />
+
       {showLabel && item.label}
     </Link>
   );

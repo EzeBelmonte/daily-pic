@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="490" height="110" viewBox="0 0 490 110">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- Icono -->
+  <circle cx="60" cy="55" r="52" fill="url(#grad)"/>
+  <circle cx="60" cy="55" r="18" fill="rgba(0, 0, 0, 0.35)"/>
+  <circle cx="90" cy="40" r="8" fill="rgba(255, 255, 255, 0.40)"/>
+
+  <!-- Texto -->
+  <text
+    x="120"
+    y="80"
+    font-size="64"
+    font-weight="900"
+    font-family="Lilita One, sans-serif"
+    fill="#fdfdfd"
+    letter-spacing="1">
+    DAILY PIC
+  </text>
+</svg>

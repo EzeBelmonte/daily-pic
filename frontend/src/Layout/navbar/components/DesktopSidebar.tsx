@@ -1,10 +1,18 @@
+import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
+
 import { navItems } from "../constants/navItems";
 
 import NavItem from "./NavItem";
 
-import CreatePostMenuButton from "./CreatePostMenuButton";
+import CreatePostMenuButton from "./buttons/CreatePostMenuButton";
 
 const DesktopSidebar = () => {
+  const { 
+    data: pendingContacts,
+  } = usePendingContacts();
+
+  const pendingCount = pendingContacts?.length ?? 0;
+
   const itemStyle = `
     text-white text-[1.05rem] font-semibold 
     flex items-center 
@@ -27,6 +35,11 @@ const DesktopSidebar = () => {
             item={item} 
             showLabel={true}
             className={itemStyle}
+            notificationCount={
+              item.id === "notifications"
+                ? pendingCount
+                : 0
+            }
           />
         ))}
       </div>

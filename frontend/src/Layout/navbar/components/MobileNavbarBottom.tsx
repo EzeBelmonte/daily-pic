@@ -8,8 +8,7 @@ type Props = {
   className?: string;
 }
 
-const MobileNavbar = ({ className = "" }:Props) => {
-
+const MobileNavbarBottom = ({ className = "" }:Props) => {
   const { scrollingUp } = useScroll();
 
   return (
@@ -19,9 +18,8 @@ const MobileNavbar = ({ className = "" }:Props) => {
       className={cn(`
         flex justify-around
         fixed bottom-0 left-0 w-full
-        bg-[rgb(50,51,53)] text-white
+        bg-[rgb(31,31,31)] text-white
         z-50 shadow-xl
-
         px-2 py-1.5
 
         transform transition-all duration-200 ease-in
@@ -31,16 +29,18 @@ const MobileNavbar = ({ className = "" }:Props) => {
 
       scrollingUp
         ? "translate-y-0 opacity-100"
-        : "translate-y-12 opacity-100"
+        : "translate-y-12 opacity-0"
     )}
     
     >
       {navItems.map((item) => (
-        <NavItem key={item.id} item={item} />
+        <NavItem
+          key={item.id}
+          item={item}
+        />
       ))}
-
     </nav>
   );
 }
 
-export default MobileNavbar;
+export default MobileNavbarBottom;

@@ -1,4 +1,4 @@
-import { useRelationContact } from "@/features/contacts/hooks/queries/useRelationContact";
+import { useRelationContacts } from "@/features/contacts/hooks/queries/useRelationContacts";
 import { useAddContact } from "@/features/contacts/hooks/mutations/useAddContact";
 import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectContact";
 
@@ -22,7 +22,7 @@ const ProfileHeaderStats = ({
 
   const {
     data: relation,
-  } = useRelationContact(user.id);
+  } = useRelationContacts(user.id);
 
   const handleSendContact = () => {
     if (

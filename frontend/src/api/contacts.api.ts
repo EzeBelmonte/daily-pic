@@ -36,3 +36,13 @@ export async function rejectRequest(
     `/users/contacts/requests/${requestId}/reject`
   );
 }
+
+// ========================================
+// LISTADO DE PENDIENTES
+// ========================================
+export async function getPending() {
+  const response =
+    await api.get("/users/contacts/pending-list");
+
+  return response.data;
+}

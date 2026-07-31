@@ -2,7 +2,7 @@
 const HomePage = () => {
 
   return (
-    <p>
+    <p className="text-white">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum voluptatem, porro alias eos sunt mollitia deleniti dolorem? Neque nihil quaerat odit voluptates voluptatum reiciendis omnis, nesciunt ratione porro minima cupiditate.
       Nobis tempore doloribus rerum dolore minima numquam ea cum dolor, ipsam sequi modi, maxime veritatis quidem distinctio. Obcaecati, blanditiis fugit? Earum, tempore. Ullam mollitia veniam aperiam ratione deleniti incidunt facere?
       Minima reprehenderit nam dolore consequatur amet veritatis laudantium unde, earum libero, obcaecati aspernatur soluta reiciendis error ipsum incidunt quam corrupti dolor. Odit voluptate quasi temporibus amet obcaecati aliquam rerum autem.

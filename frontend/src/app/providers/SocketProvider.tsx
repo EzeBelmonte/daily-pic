@@ -6,6 +6,8 @@ import {
   type ReactNode,
 } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 import { socket } from "@/lib/socket";
 
 import { useAuth } from "../hooks/useAuth";
@@ -31,6 +33,8 @@ export function SocketProvider({
   const { isAuthenticated } = useAuth();
   const { data: user } = useMe();
 
+  const queryClient = useQueryClient();
+
   // Nos conectamos al Socket
   useEffect(() => {
     if (!isAuthenticated || !user) {
@@ -54,6 +58,12 @@ export function SocketProvider({
         ...prev,
         notification,
       ]);
+
+      if (data.type === "contactRequest") {
+        queryClient.invalidateQueries({
+          queryKey: ["contacts", "pending"],
+        });
+      }
     }
 
     socket.on("connect", () => {
