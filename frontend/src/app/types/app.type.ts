@@ -1,6 +1,6 @@
 import type { 
   CompleteUser,
-  UpdateUser,
+  UpdateMe,
   Post,
 } from "@shared/index";
 
@@ -32,7 +32,7 @@ export interface UsersContextType {
   getUser: (force?: boolean) => Promise<void>;
   updateUser: (
     image: File | null,
-    data: UpdateUser
+    data: UpdateMe
   ) => Promise<void>;
    clearUser: () => void;
 }
@@ -58,5 +58,5 @@ export interface PostContextType {
 }
 
 // ========================================
-// FOLLOWS
+// 
 // ========================================

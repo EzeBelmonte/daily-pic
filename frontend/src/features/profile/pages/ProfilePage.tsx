@@ -6,6 +6,7 @@ import {
   ProfileHeader, 
   ProfileSection 
 } from "../components";
+
 import { useProfilePosts } from "../hooks/useProfilePosts";
 
 const ProfilePage = () => {
