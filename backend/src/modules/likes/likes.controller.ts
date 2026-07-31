@@ -10,12 +10,11 @@ export async function getLikes(
   res: Response
 ) {
   try {
-    // Obtenemos el ID del usuario
-    const userId = req.user.userId;
+    const postId = Number(req.params.postId);
 
-    const response = await likesService.countLikes(userId);
+    const likes = await likesService.countLikes(postId);
 
-    res.status(200).json(response);
+    return res.status(200).json(likes);
   } catch (error) {
     return res.status(400).json({
       message: error instanceof Error 
@@ -91,9 +90,9 @@ export async function hasLiked(
     // Obtenemos el ID del post
     const postId = Number(req.params.postId);
 
-    await likesService.hasLiked(userId, postId);
+    const hasLiked = await likesService.hasLiked(userId, postId);
 
-    return res.sendStatus(204);
+    return res.status(200).json(hasLiked);
   } catch (error) {
     return res.status(400).json({
       message: error instanceof Error 

@@ -12,7 +12,7 @@ import {
   RegisterPage, 
   ProfilePage,
   ConfigPage,
-  //PostPage,
+  PostPage,
 } from "@/features";
 
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -25,11 +25,39 @@ export function AppRouter() {
     <BrowserRouter>
       <Routes>
 
-        {/* Redirección inicial */}
+        {/* REDIRECCIÓN INICIAL */}
         <Route 
           path="/" 
           element={<RootRedirect />} 
         />
+
+        {/* RUTAS PÚBLICAS */}
+        <Route 
+          element={<MainLayout />}
+        > 
+          <Route 
+            path="/post/:postId" 
+            element={<PostPage />} 
+          />
+        </Route>
+
+        {/* RUTAS DE AUTENTICACIÓN */}
+        <Route 
+          element={
+            <PublicRoute>
+              <AuthLayout />
+            </PublicRoute>}
+        > 
+          <Route 
+            path="/login" 
+            element={<LoginPage />} 
+          />
+
+          <Route 
+            path="/register" 
+            element={<RegisterPage />} 
+          />
+        </Route>
 
         {/* RUTAS PRIVADAS */}
         <Route 
@@ -44,7 +72,6 @@ export function AppRouter() {
             element={<HomePage />} 
           />
 
-          
           <Route
             path="/profile"
             element={
@@ -62,25 +89,6 @@ export function AppRouter() {
             element={<ConfigPage />}
           />
         </Route>
-
-        {/* RUTAS PÚBLICAS */}
-        <Route 
-          element={
-            <PublicRoute>
-              <AuthLayout />
-            </PublicRoute>}
-        > 
-          <Route 
-            path="/login" 
-            element={<LoginPage />} 
-          />
-
-          <Route 
-            path="/register" 
-            element={<RegisterPage />} 
-          />
-        </Route>
-        
       </Routes>
     </BrowserRouter>
   )

@@ -12,7 +12,7 @@ const Navbar = () => {
           className="
             fixed
             top-0 left-0
-            h-screen w-[200px]
+            h-screen w-[220px]
             border border-e-[rgba(255,255,255,0.4)]
             px-2
           "

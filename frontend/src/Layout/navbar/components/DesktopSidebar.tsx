@@ -1,6 +1,5 @@
-import { cn } from "@/utils/cn";
-
 import { navItems } from "../constants/navItems";
+
 import NavItem from "./NavItem";
 
 import CreatePostMenuButton from "./CreatePostMenuButton";
@@ -13,6 +12,7 @@ const DesktopSidebar = () => {
     hover:bg-[rgba(255,255,255,0.1)] rounded 
     transition-colors duration-200
   `;
+
   return (
     <nav className="flex-col items-center">
       <div className="

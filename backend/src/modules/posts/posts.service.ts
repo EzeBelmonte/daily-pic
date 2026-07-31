@@ -1,9 +1,9 @@
 import * as postsRepository from "./posts.repository.js";
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
-import { toPostDTO } from "../../shared/mappers/post.mapper.js";
+import { toCreatePostDTO, toPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { CreatePost, Post, UpdatePost } from "@shared/index.js";
+import type { CreatePost, Post, PostResponse, UpdatePost } from "@shared/index.js";
 
 import { 
   getExistingUserByUsername,
@@ -18,6 +18,11 @@ export async function createPost(
   imageBuffer: Buffer | undefined,
   data: CreatePost,
 ): Promise<Post> {
+  const user = getExistingUserById(userId);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
 
   if (!data) {
     throw new Error("La imagen es obligatoria");
@@ -46,7 +51,7 @@ export async function createPost(
     throw new Error("Error al crear la publicación");
   }
 
-  return toPostDTO(post);
+  return toCreatePostDTO(post);
 }
 
 // ========================================
@@ -54,14 +59,20 @@ export async function createPost(
 // ========================================
 export async function getPost(
   postId: number
-) {
+): Promise<PostResponse> {
   const post = await postsRepository.findById(postId);
 
   if (!post) {
     throw new Error("Error al obtener la publicación");
   }
 
-  return toPostDTO(post);
+  const user = await getExistingUserById(post.userId);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+
+  return toPostDTO(post, user);
 }
 
 // ========================================
@@ -70,9 +81,18 @@ export async function getPost(
 export async function getPosts(
   userId: number
 ): Promise<Post[]> {  
-  const posts = await postsRepository.findByUserId(userId);
 
-  return posts.map(toPostDTO);
+  const posts = await postsRepository.findByUserId(userId);
+  
+  const user = await getExistingUserById(userId);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+
+  return posts.map((post) => 
+    toPostDTO(post, user)
+  );
 }
 
 // ========================================
@@ -158,5 +178,7 @@ export async function getPostsByUsername(
   
   const posts = await postsRepository.findByUserId(user.id);
 
-  return posts.map(toPostDTO);
+  return posts.map((post) => 
+    toPostDTO(post, user)
+  );
 }

@@ -1,12 +1,20 @@
-export interface CreatePost {
+export interface PostBase {
   description?: string;
 }
 
-export interface Post extends CreatePost {
+export interface CreatePost extends PostBase {}
+export interface UpdatePost extends PostBase {}
+
+export interface Post extends PostBase {
+  id: number;
   imageUrl: string;
   imagePublicId: string;
-  id: number;
   createdAt: string;
 }
 
-export interface UpdatePost extends CreatePost {}
+export interface PostResponse extends Post {
+  user: {
+    id: number;
+    username: string;
+  };
+}

@@ -1,6 +1,6 @@
 import api from "./axios";
 
-import type { CreatePost, Post, UpdatePost } from "@shared/index";
+import type { CreatePost, PostResponse, UpdatePost } from "@shared/index";
 
 // ========================================
 // CREAR POST
@@ -31,7 +31,7 @@ export async function createPost(
 // ========================================
 export async function getPosts() {
   const response =
-    await api.get<Post[]>("/posts/me");
+    await api.get<PostResponse[]>("/posts/me");
 
   return response.data;
 }
@@ -71,7 +71,7 @@ export async function getPost(
   postId: number
 ) {
   const response =
-    await api.get<Post>(`/posts/${postId}`);
+    await api.get<PostResponse>(`/posts/${postId}`);
 
   return response.data;
 }
@@ -83,53 +83,7 @@ export async function getUserPosts(
   username: string
 ) {
   const response =
-    await api.get<Post[]>(`/posts/user/${username}`);
-
-  return response.data;
-}
-
-// ========================================
-// CONTAR LIKES
-// ========================================
-export async function getLikes(
-  postId: number
-) {
-  const response =
-    await api.get(`/posts/${postId}/count`);
-
-  return response.data;
-}
-
-// ========================================
-// DAR LIKE
-// ========================================
-export async function addLike(
-  postId: number
-) {
-
-  await api.post(`/posts/${postId}/add-like`);
-
-}
-
-// ========================================
-// QUITAR LIKE
-// ========================================
-export async function removeLike(
-  postId: number
-) {
-
-  await api.post(`/posts/${postId}/remove-like`);
-
-}
-
-// ========================================
-// YA DIO LIKE
-// ========================================
-export async function hasLiked(
-  postId: number
-) {
-  const response =
-    await api.get(`/posts/${postId}/has-liked`);
+    await api.get<PostResponse[]>(`/posts/user/${username}`);
 
   return response.data;
 }
