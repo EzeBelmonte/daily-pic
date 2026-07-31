@@ -5,7 +5,7 @@ import { and, eq, or, count } from "drizzle-orm";
 // ========================================
 // CREAR SOLICITUD
 // ========================================
-export async function createContactRequest(
+/*export async function createContactRequest(
   requesterId: number,
   addresseeId: number
 ) {
@@ -18,6 +18,25 @@ export async function createContactRequest(
     .returning();
 
   return contact;
+}*/
+export async function createContactRequest(
+  requesterId: number,
+  addresseeId: number
+) {
+  try {
+    const [contact] = await db
+      .insert(contacts)
+      .values({
+        requesterId,
+        addresseeId,
+      })
+      .returning();
+
+    return contact;
+  } catch (error) {
+    console.error("❌ ERROR INSERT CONTACT:", error);
+    throw error;
+  }
 }
 
 // ========================================
@@ -98,7 +117,7 @@ export async function acceptRequest(id: number) {
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function deleteRelationship(id: number) {
+export async function rejectRequest(id: number) {
   await db
     .delete(contacts)
     .where(eq(contacts.id, id));

@@ -1,5 +1,7 @@
 import type { Request, Response } from "express";
 
+import { getIO } from "../../socket.js";
+
 import * as contactsService from "./contacts.service.js";
 
 // ========================================
@@ -10,23 +12,32 @@ export async function createContact(
   res: Response
 ) {
   try {
-    // Quien envia la solicitud
-    const requesterId = Number(req.params.userId);
+    // Usuario que está enviando la solicitud
+    const requesterId = req.user.userId;
 
-    // Quien acepta la solicitud
-    const addresseeId = req.user.userId;
+    // Usuario al que se le envía la solicitud
+    const addresseeId = Number(req.params.userId);
 
-    const contact = 
+    const contact =
       await contactsService.createContact(
         requesterId,
         addresseeId
       );
-    
+
+    // Notificar al usuario que recibió la solicitud
+    getIO()
+      .to(`user:${addresseeId}`)
+      .emit("notification", {
+        type: "contactRequest",
+        fromUserId: requesterId,
+      });
+
     return res.status(201).json(contact);
+
   } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error 
-        ? error.message 
+    return res.status(400).json({
+      message: error instanceof Error
+        ? error.message
         : "Error desconocido",
     });
   }
@@ -47,7 +58,7 @@ export async function findRelationship(
     const userB = Number(req.params.userId);
 
     const relation = 
-      await contactsService.createContact(
+      await contactsService.findRelationship(
         userA,
         userB
       );
@@ -141,15 +152,15 @@ export async function acceptRequest(
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function deleteRelationship(
+export async function rejectRequest(
   req: Request,
   res: Response
 ) {
   try {
     // Id de la relación
-    const id = Number(req.params.contactId);
+    const id = Number(req.params.requestId);
 
-    await contactsService.deleteRelationship(id);
+    await contactsService.rejectRequest(id);
     
     // Devolvemos mensaje de exito
     return res.status(200).send();

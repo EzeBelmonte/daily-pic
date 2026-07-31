@@ -24,6 +24,16 @@ export async function createContact(
     throw new Error("Uno de los usuarios no existe");
   }
 
+  const existingRelation =
+    await contactsRepository.findRelationship(
+      requesterId,
+      addresseeId
+    );
+
+  if (existingRelation) {
+    throw new Error("Ya existe una solicitud o relación entre estos usuarios");
+  }
+
   const contact = 
     await contactsRepository.createContactRequest(
       requesterId,
@@ -43,7 +53,7 @@ export async function createContact(
 export async function findRelationship(
   userA: number,
   userB: number
-): Promise<ContactRelationship> {
+): Promise<ContactRelationship | null> {
   const userAExisting = await getExistingUserById(userA);
   const userBExisting = await getExistingUserById(userB);
 
@@ -57,11 +67,7 @@ export async function findRelationship(
       userB
     );
 
-  if (!relation) {
-    throw new Error("La relación entre usuarios no existe");
-  }
-
-  return relation;
+  return relation ?? null;
 }
 
 // ========================================
@@ -114,10 +120,10 @@ export async function acceptRequest(
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function deleteRelationship(
+export async function rejectRequest(
   id: number,
 ) {
-  await contactsRepository.deleteRelationship(id);
+  await contactsRepository.rejectRequest(id);
 }
 
 // ========================================
