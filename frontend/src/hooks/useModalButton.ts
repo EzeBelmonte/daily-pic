@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export function useCreatePostButton () {
+export function useModalButton () {
   const [open, setOpen] = useState(false);
 
   return {

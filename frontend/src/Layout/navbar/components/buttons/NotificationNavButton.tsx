@@ -11,7 +11,8 @@ const NotificationNavButton = () => {
 
   return (
     <div className="relative">
-      <Bell />
+      <Bell size={24}/>
+
       {pendingCount > 0 && (
         <span className="
           absolute

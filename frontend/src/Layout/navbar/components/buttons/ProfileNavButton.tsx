@@ -1,8 +1,17 @@
 import { useMe } from "@/app/hooks/queries/useMe";
+import { useModalButton } from "@/hooks/useModalButton";
 
-import { Image } from "@/components";
+import { Image, ModalList } from "@/components";
+
+import ProfileNavCard  from "../cards/ProfileNavCard";
 
 const ProfileNavButton = () => {
+  const {
+    open,
+    openModal,
+    closeModal,
+  } = useModalButton();
+
   const {
     data: user,
     isLoading,
@@ -22,8 +31,17 @@ const ProfileNavButton = () => {
           src={user?.profileImageUrl ?? ""}
           alt="Foto perfil"
           className="w-7 h-7 rounded-full cursor-pointer"
+          onClick={openModal}
         />
       )}
+      
+      <ModalList 
+        open={open}
+        onClose={closeModal}
+      >
+        <ProfileNavCard onClose={closeModal} /> 
+      </ModalList>
+
     </>
   );
 }

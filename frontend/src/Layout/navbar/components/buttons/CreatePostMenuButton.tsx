@@ -1,6 +1,6 @@
 import { DiamondPlus } from "lucide-react";
 
-import { useCreatePostButton } from "@/Layout/hooks/useCreatePostButton";
+import { useModalButton } from "@/hooks/useModalButton";
 
 import { Button, ModalSection } from "@/components";
 import { CreatePost } from "@/features";
@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 }
 const CreatePostMenuButton = ({ className }: Props) => {
-  const { open, openModal, closeModal } = useCreatePostButton();
+  const { open, openModal, closeModal } = useModalButton();
 
   return (
     <>

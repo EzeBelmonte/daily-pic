@@ -75,7 +75,7 @@ const ModalSection = ({
                 <X size={18} />
               </button>
             </Dialog.Close>*/}
-
+            
             {children}
 
           </motion.div>

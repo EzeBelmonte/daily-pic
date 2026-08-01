@@ -1,84 +1,68 @@
-import { useEffect } from "react";
-import { X } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
 
-import { Button } from "@/components";
+import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 
-type ModalProps = {
-  isOpen: boolean;
+import { cn } from "@/utils/cn";
+
+interface ModalProps {
+  open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
-  title?: string;
-};
+  children: ReactNode;
+  className?: string;
+}
 
 const ModalList = ({
-  isOpen,
+  open,
   onClose,
   children,
-  title,
+  className = "",
 }: ModalProps) => {
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-
-    window.addEventListener("keydown", handleEscape);
-
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
   return (
-    <div
-      className="
-        fixed inset-0
-        flex flex-col
-        z-50 mt-11
-      "
+    <Dialog.Root
+      open={open}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
     >
-      <div
-        className="
-          w-[300px]
-          max-h-[70vh]
-          bg-zinc-800
-          rounded-lg
-          shadow-xl
-          absolute right-0
-        "
-      >
-        <div className="flex justify-between items-center p-4 border-b border-zinc-700">
-          <h3 className="text-sm sm:text-[1rem] text-white">
-            {title}
-          </h3>
+      <Dialog.Portal>
+        {/* Fondo Principal */}
+        <Dialog.Overlay
+          className="
+            fixed inset-0
+            z-50
+          "
+        />
 
-          <Button onClick={onClose}>
-            <X 
-              size={18} 
-              className="text-red-400 cursor-pointer"
-            />
-          </Button>
-        </div>
+        <Dialog.Content
+          className={cn(`
+            fixed
+            top-10
+            left-0
+            z-50
+            w-full max-w-[170px]
+            rounded-bl rounded-br
+            shadow-xl
+            outline-none`,
+            className
+          )}
 
-        <div className="flex flex-col gap-2 p-4 overflow-y-auto">
-          {children}
-        </div>
-      </div>
-    </div>
+          asChild
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: .95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: .95 }}
+          >
+            
+            {children}
+
+          </motion.div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
-};
+}
 
 export default ModalList;

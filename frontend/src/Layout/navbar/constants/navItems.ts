@@ -1,4 +1,4 @@
-import { House, UserRound, Search, Settings } from "lucide-react";
+import { House, UserRound, Search, MessageSquare } from "lucide-react";
 
 // Opciones del menú
 export const navItems = [
@@ -21,9 +21,9 @@ export const navItems = [
     icon: Search
   },
   { 
-    id: "configuration",
-    label: "Configuración",
-    href: "/config",
-    icon: Settings
+    id: "mensaje",
+    label: "mensaje",
+    href: "",
+    icon: MessageSquare
   },
 ];

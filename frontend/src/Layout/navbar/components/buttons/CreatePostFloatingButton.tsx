@@ -7,10 +7,10 @@ import { CreatePost } from "@/features";
 
 import { cn } from "@/utils/cn";
 
-import { useCreatePostButton } from "@/Layout/hooks/useCreatePostButton";
+import { useModalButton } from "@/hooks/useModalButton";
 
 const CreatePostFloatingButton = () => {
-  const { open, openModal, closeModal } = useCreatePostButton()
+  const { open, openModal, closeModal } = useModalButton()
 
   const { scrollingUp } = useScroll();
 

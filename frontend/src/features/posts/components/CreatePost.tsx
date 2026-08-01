@@ -13,8 +13,10 @@ const CreatePost = ({ onClose }: Props) => {
       bg-[rgba(0,65,109,0.5)]
       border border-white/20 rounded
     ">
+
       <h3 className="text-white font-semibold mb-7">Crear publicación</h3>
       <CreatePostForm onClose={onClose} />
+      
     </div>
   );
 }
