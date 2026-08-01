@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Settings, SquareArrowRightExit } from "lucide-react";
+import { UserRound, Settings, SquareArrowRightExit } from "lucide-react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 
@@ -14,17 +14,39 @@ const ProfileItemsList = ({ onClose }: Props) => {
 
   const { logout } = useAuth();
 
+  const handleProfile = () => {
+    onClose();
+    navigate("/profile")
+  }
+
   const handleConfig = () => {
     onClose();
     navigate("/config");
   }
 
-  const buttonStyle = "w-full flex items-center px-2 py-1 gap-3 bg-[rgba(59,59,59,0.5)] rounded text-white";
+  const buttonStyle = `
+    w-full 
+    flex items-center
+    px-2 py-1 gap-3 
+    bg-[rgba(59,59,59,0.5)] rounded 
+    text-white 
+    hover:bg-[rgba(6,45,71,0.4)] 
+    
+    transition-colors duration-200
+  `;
 
   return (
     <div className="
       flex flex-col gap-2
     ">
+      <Button
+        onClick={handleProfile}
+        className={`hidden sm:flex ${buttonStyle}`}
+      >
+        <UserRound size={20}/>
+        Perfil
+      </Button>
+
       <Button
         onClick={handleConfig}
         className={buttonStyle}

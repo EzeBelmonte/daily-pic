@@ -53,7 +53,7 @@ const NotificationNavButton = () => {
         onClose={closeModal}
         className="right-0 max-w-[250px]"
       >
-        <NotificationsPendingList onClose={closeModal} />
+        <NotificationsPendingList />
       </ModalList>
     </>
   );

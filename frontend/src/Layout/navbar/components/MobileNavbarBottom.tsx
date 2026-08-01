@@ -33,11 +33,13 @@ const MobileNavbarBottom = ({ className = "" }:Props) => {
     )}
     
     >
-      {navItems.map((item) => (
-        <NavItem
-          key={item.id}
-          item={item}
-        />
+      {navItems
+        .filter((item) => item.showOn.includes("mobile"))
+        .map((item) => (
+          <NavItem
+            key={item.id}
+            item={item}
+          />
       ))}
     </nav>
   );

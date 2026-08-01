@@ -30,7 +30,9 @@ const Topbar = ({ className }: Props) => {
         : "-translate-y-10 opacity-0",
       className
     )}>
-      <ProfileNavButton />
+      <ProfileNavButton 
+        variant={"compact"} 
+      />
 
       <Image 
         src={logo}
