@@ -1,5 +1,7 @@
 import api from "./axios";
 
+import type { Contact } from "@shared/index";
+
 // ========================================
 // OBTENER RELACIÓN
 // ========================================
@@ -42,7 +44,7 @@ export async function rejectRequest(
 // ========================================
 export async function getPending() {
   const response =
-    await api.get("/users/contacts/pending-list");
-
+    await api.get<Contact[]>("/users/contacts/pending-list");
+  console.log(response.data)
   return response.data;
 }

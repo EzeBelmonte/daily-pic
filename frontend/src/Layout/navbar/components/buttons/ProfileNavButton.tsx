@@ -38,6 +38,7 @@ const ProfileNavButton = () => {
       <ModalList 
         open={open}
         onClose={closeModal}
+        className="top-10 left-0 max-w-[170px]"
       >
         <ProfileNavCard onClose={closeModal} /> 
       </ModalList>
