@@ -73,8 +73,10 @@ const ProfileNavButton = ({
       <ModalList 
         open={open}
         onClose={closeModal}
-        className={cn(
-          "max-w-[180px] sm:h-[145px]",
+        className={cn(`
+          max-w-[180px]
+          rounded-bl rounded-br
+          sm:rounded`,
           modalStyle
         )}
       >

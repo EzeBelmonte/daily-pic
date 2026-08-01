@@ -40,7 +40,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex flex-col px-1 sm:px-2 md:px-3 lg:px-10">
+    <section className="flex flex-col px-1">
       {/* Header */}
       <ProfileHeader 
         user={user}
@@ -55,7 +55,7 @@ const ProfilePage = () => {
       ) : (
         <ProfileSection posts={posts} />
       )}
-    </div>
+    </section>
   );
 }
 

@@ -94,7 +94,7 @@ const ConfigPage = () => {
   }
 
   return (
-    <section className="w-full flex flex-col items-center">
+    <section className="w-full flex flex-col items-center mt-15 sm:mt-7">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[300px] flex flex-col gap-4 sm:w-[400px]"

@@ -17,7 +17,7 @@ const ProfileSection = ({ posts }: Props) => {
 
   return (
     <section className="
-      w-full max-w-[800px]
+      w-full max-w-[900px]
       mx-auto
     ">
       <div className="

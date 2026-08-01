@@ -1,8 +1,8 @@
 import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
 
-import PendingCard from "../cards/PendingCard";
+import PendingCard from "./PendingCard";
 
-const NotificationsPendingList = () => {
+const PendingList = () => {
   const {
     data: pending,
     isLoading,
@@ -28,7 +28,7 @@ const NotificationsPendingList = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="w-full flex flex-col gap-5">
       {pending?.length === 0 || pending === undefined ? (
         <p className="text-white">Sin notificaciones</p>
       ) : (
@@ -43,4 +43,4 @@ const NotificationsPendingList = () => {
   );
 }
 
-export default NotificationsPendingList;
+export default PendingList;

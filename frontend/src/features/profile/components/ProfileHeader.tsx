@@ -11,7 +11,7 @@ type Props = {
 const ProfileHeader = ({ user, isOwner }: Props) => {
 
   return (
-    <header className="px-2 py-4">
+    <header className="px-2 py-4 mt-10 sm:mt-0">
       <ProfileHeaderInformation user={user} />
 
       <ProfileHeaderStats 

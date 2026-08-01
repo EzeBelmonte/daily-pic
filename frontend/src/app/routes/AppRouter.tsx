@@ -5,12 +5,14 @@ import {
 } from "react-router-dom";
 
 import { 
-  MainLayout, 
+  AppLayout, 
+  LayoutWithSidebar,
   AuthLayout, 
   HomePage, 
   LoginPage, 
   RegisterPage, 
   ProfilePage,
+  Notifications,
   ConfigPage,
   PostPage,
 } from "@/features";
@@ -33,7 +35,7 @@ export function AppRouter() {
 
         {/* RUTAS PÚBLICAS */}
         <Route 
-          element={<MainLayout />}
+          element={<AppLayout />}
         > 
           <Route 
             path="/post/:postId" 
@@ -63,7 +65,7 @@ export function AppRouter() {
         <Route 
           element={
             <ProtectedRoute>
-              <MainLayout />
+              <LayoutWithSidebar />
             </ProtectedRoute>
           } 
         >
@@ -78,10 +80,23 @@ export function AppRouter() {
               <ProfilePage />
             }
           />
+        </Route>
 
+        <Route 
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          } 
+        >
           <Route 
             path="/profile/:username"
             element={<ProfilePage />}
+          />
+
+          <Route 
+            path="/notifications"
+            element={<Notifications />}
           />
 
           <Route 

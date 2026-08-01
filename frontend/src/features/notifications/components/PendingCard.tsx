@@ -14,16 +14,19 @@ const PendingCard = ({ contact }: Props) => {
   const rejectContactMutation = useRejectContact();
 
   return (
-    <div 
-      className="bg-[rgba(0,0,0,0.3)] p-2"
-    >
+    <div className="
+      w-full max-w-[350px]
+      bg-[rgba(0,0,0,0.3)] rounded
+      p-2 
+      border border-white/10
+    ">
       {/* Información */}
       <div className="flex gap-2">
         {/* Foto de perfil */}
         <Image 
           src={contact.requester.profileImageUrl}
           alt="Foto perfil"
-          className="w-10 h-10 rounded"
+          className="w-13 h-13 rounded"
         />
 
         <div>

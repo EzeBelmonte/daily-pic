@@ -21,7 +21,7 @@ export const navItems = [
   { 
     id: "notifications",
     label: "Notificaciones", 
-    href: "",
+    href: "/notifications",
     icon: Bell,
     showOn: ["desktop"] as Device[],
   },

@@ -71,7 +71,9 @@ const PostCard = ({ post }: Props) => {
       />
 
       {/* Descripción */}
-      <p className="text-white mt-3 mb-5">{post.description}</p>
+      {post.description !== "" &&
+        <p className="text-white mt-3 mb-5">{post.description}</p>
+      }
 
       {/* Botones */}
       <div className="w-full max-w-[350px] flex mb-3 justify-between">

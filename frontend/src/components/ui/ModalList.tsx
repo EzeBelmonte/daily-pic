@@ -42,7 +42,7 @@ const ModalList = ({
             z-50
             bg-[#222222]
             px-4 py-4
-            rounded-bl rounded-br
+            border border-white/10
             shadow-xl
             outline-none`,
             className

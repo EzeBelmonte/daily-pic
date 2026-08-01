@@ -31,7 +31,7 @@ const PostPage = () => {
       flex flex-col 
       justify-center items-center 
       bg-[rgba(44,44,44,0.2)] rounded
-      mx-auto mt-10 p-4
+      mx-auto p-10
     ">
       <PostCard post={post} />
     </div>
