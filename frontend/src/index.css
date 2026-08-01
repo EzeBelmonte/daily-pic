@@ -1,8 +1,11 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-/* Breakpoints personalizados */
+/* Temas personalizados */
 @theme {
-  --breakpoint-tablet: 56.25rem; /* 900px ÷ 16 = 56.25rem */
+  --font-outfit: "Outfit", sans-serif; /* Fuente */
+
+  --breakpoint-tablet: 56.25rem; /* Responsive. 900px ÷ 16 = 56.25rem */
 }
 
 @layer base {

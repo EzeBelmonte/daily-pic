@@ -1,9 +1,8 @@
 import { useScroll } from "@/hooks/useScroll"; 
 
-import logo from "@/assets/daliy_pic.svg";
-
 import { cn } from "@/utils/cn";
-import { Image } from "@/components";
+
+import Logo from "@/components/ui/Logo";
 
 import ProfileNavButton from "./buttons/ProfileNavButton"
 import NotificationNavButton from "./buttons/NotificationNavButton";
@@ -34,10 +33,11 @@ const Topbar = ({ className }: Props) => {
         variant={"compact"} 
       />
 
-      <Image 
-        src={logo}
-        alt="Logo"
-        className="w-30"
+      <Logo 
+        width={100}
+        iconX={-20}
+        textScale={1.1}
+        textX={20}
       />
 
       <NotificationNavButton />

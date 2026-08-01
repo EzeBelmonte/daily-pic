@@ -1,8 +1,6 @@
 import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
 
-import logo from "@/assets/daliy_pic.svg";
-
-import { Image } from "@/components";
+import Logo from "@/components/ui/Logo";
 
 import { navItems } from "../constants/navItems";
 import ProfileNavButton from "./buttons/ProfileNavButton";
@@ -27,15 +25,18 @@ const DesktopSidebar = () => {
   `;
 
   return (
-    <nav className="flex flex-col h-[100%]">
-      <Image 
-        src={logo}
-        alt="Logo"
+    <nav className="flex flex-col h-[100%] pt-5">
+      <Logo 
+        width={170} 
+        iconScale={0.6}
+        iconY={50}
+        textX={-50}
+        centered 
       />
 
       <div className="
         flex flex-col 
-        gap-3 mt-20
+        gap-3 mt-10
       ">
         <CreatePostMenuButton className={itemStyle}/>
 
