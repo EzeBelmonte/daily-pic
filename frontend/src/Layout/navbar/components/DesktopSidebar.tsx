@@ -35,11 +35,6 @@ const DesktopSidebar = () => {
             item={item} 
             showLabel={true}
             className={itemStyle}
-            notificationCount={
-              item.id === "notifications"
-                ? pendingCount
-                : 0
-            }
           />
         ))}
       </div>

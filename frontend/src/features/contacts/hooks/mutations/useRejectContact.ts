@@ -18,6 +18,10 @@ export function useRejectContact() {
       queryClient.invalidateQueries({
         queryKey: ["contacts", userId],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["contacts", "pending"],
+      });
     },
   });
 }

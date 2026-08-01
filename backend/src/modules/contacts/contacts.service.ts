@@ -2,7 +2,8 @@ import * as contactsRepository from "./contacts.repository.js";
 
 import type { 
   ContactRelationship,
-  Contact
+  Contact,
+  PendingContact
 } from "@shared/index.js";
 
 
@@ -75,7 +76,7 @@ export async function findRelationship(
 // ========================================
 export async function getPending(
   userId: number,
-): Promise<Contact[]> {
+): Promise<PendingContact[]> {
   const userExisting = await getExistingUserById(userId);
 
   if (!userExisting) {

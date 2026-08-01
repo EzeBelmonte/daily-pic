@@ -1,12 +1,8 @@
 import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
 
-import ContactCard from "./ContactCard";
+import PendingCard from "../cards/PendingCard";
 
-type Props = {
-  onClose: () => void;
-}
-
-const NotificationCard = ({ onClose }: Props) => {
+const NotificationsPendingList = () => {
   const {
     data: pending,
     isLoading,
@@ -32,14 +28,14 @@ const NotificationCard = ({ onClose }: Props) => {
   }
 
   return (
-    <div className="flex flex-col bg-[#222222] px-2 py-4 gap-3">
+    <div className="flex flex-col">
       {pending?.length === 0 || pending === undefined ? (
         <p className="text-white">Sin notificaciones</p>
       ) : (
         pending.map((contact) => (
-          <ContactCard 
+          <PendingCard 
             key={contact.id} 
-            contact={contact} 
+            contact={contact}
           />
         ))
       )}
@@ -47,4 +43,4 @@ const NotificationCard = ({ onClose }: Props) => {
   );
 }
 
-export default NotificationCard;
+export default NotificationsPendingList;

@@ -9,7 +9,7 @@ type Props = {
   onClose: () => void;
 }
 
-const ProfileNavCard = ({ onClose }: Props) => {
+const ProfileItemsList = ({ onClose }: Props) => {
   const navigate = useNavigate();
 
   const { logout } = useAuth();
@@ -19,34 +19,24 @@ const ProfileNavCard = ({ onClose }: Props) => {
     navigate("/config");
   }
 
+  const buttonStyle = "w-full flex items-center px-2 py-1 gap-3 bg-[rgba(59,59,59,0.5)] rounded text-white";
+
   return (
     <div className="
-      flex flex-col
-      bg-[#222222]
-      px-2 py-4 gap-3
+      flex flex-col gap-2
     ">
       <Button
         onClick={handleConfig}
-        className="
-          w-full
-          flex items-center
-          px-2 py-1 gap-3
-          bg-[#3b3b3b] rounded
-          text-white
-      ">
+        className={buttonStyle}
+      >
         <Settings size={20}/>
         Configuración
       </Button>
 
       <Button
         onClick={logout}
-        className="
-          w-full
-          flex items-center
-          px-2 py-1 gap-3
-          bg-[#3b3b3b] rounded
-          text-white
-      ">
+        className={buttonStyle}
+      >
         <SquareArrowRightExit size={20}/>
         Cerrar sesión
       </Button>
@@ -54,4 +44,4 @@ const ProfileNavCard = ({ onClose }: Props) => {
   );
 }
 
-export default ProfileNavCard;
+export default ProfileItemsList;

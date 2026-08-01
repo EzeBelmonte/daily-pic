@@ -60,7 +60,7 @@ const ProfileHeaderStats = ({
               ? "Seguir" 
               : relation.status === "pending"
                 ? "Pendiente"
-                : "Siguiendo"
+                : "Dejar de seguir"
             }
           </Button>
 

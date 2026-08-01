@@ -1,6 +1,7 @@
 import { db } from "../../infrastructure/database/db.js";
 import { contacts } from "../../infrastructure/database/schemas/contacts.js";
 import { and, eq, or, count } from "drizzle-orm";
+import { users } from "../../infrastructure/database/schemas/users.js";
 
 // ========================================
 // CREAR SOLICITUD
@@ -75,8 +76,24 @@ export async function findRelationship(
 // ========================================
 export async function getPendingRequest(userId: number) {
   return db
-    .select()
+    .select({
+      id: contacts.id,
+      status: contacts.status,
+      createdAt: contacts.createdAt,
+
+      requester: {
+        id: users.id,
+        profileImageUrl: users.profileImageUrl,
+        username: users.username,
+        name: users.name,
+        lastname: users.lastname,
+      }
+    })
     .from(contacts)
+    .innerJoin(
+      users,
+      eq(users.id, contacts.requesterId)
+    )
     .where(
       and(
         eq(contacts.addresseeId, userId),

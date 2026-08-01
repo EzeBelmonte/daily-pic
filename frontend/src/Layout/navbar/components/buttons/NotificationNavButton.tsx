@@ -4,7 +4,7 @@ import { usePendingContacts } from "@/features/contacts/hooks/queries/usePending
 import { useModalButton } from "@/hooks/useModalButton";
 
 import { ModalList } from "@/components";
-import NotificationCard from "../cards/NotificationCard";
+import NotificationsPendingList from "../lists/NotificationsPendingList";
 
 const NotificationNavButton = () => {
   const { 
@@ -51,9 +51,9 @@ const NotificationNavButton = () => {
       <ModalList
         open={open}
         onClose={closeModal}
-        className="top-10 right-0 max-w-[170px]"
+        className="right-0 max-w-[250px]"
       >
-        <NotificationCard onClose={closeModal} />
+        <NotificationsPendingList onClose={closeModal} />
       </ModalList>
     </>
   );

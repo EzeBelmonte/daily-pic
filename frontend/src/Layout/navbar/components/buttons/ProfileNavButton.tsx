@@ -3,7 +3,7 @@ import { useModalButton } from "@/hooks/useModalButton";
 
 import { Image, ModalList } from "@/components";
 
-import ProfileNavCard  from "../cards/ProfileNavCard";
+import ProfileItemsList  from "../lists/ProfileItemsList";
 
 const ProfileNavButton = () => {
   const {
@@ -38,9 +38,9 @@ const ProfileNavButton = () => {
       <ModalList 
         open={open}
         onClose={closeModal}
-        className="top-10 left-0 max-w-[170px]"
+        className="left-0 max-w-[180px]"
       >
-        <ProfileNavCard onClose={closeModal} /> 
+        <ProfileItemsList onClose={closeModal} /> 
       </ModalList>
 
     </>

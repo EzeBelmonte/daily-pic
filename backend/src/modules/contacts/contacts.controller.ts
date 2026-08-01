@@ -134,7 +134,7 @@ export async function acceptRequest(
 ) {
   try {
     // Id de la relación
-    const id = Number(req.params.contactId);
+    const id = Number(req.params.requestId);
 
     await contactsService.acceptRequest(id);
     

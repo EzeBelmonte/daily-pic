@@ -35,7 +35,7 @@ const Topbar = ({ className }: Props) => {
       <Image 
         src={logo}
         alt="Logo"
-        className="w-35"
+        className="w-30"
       />
 
       <NotificationNavButton />

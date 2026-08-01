@@ -37,9 +37,11 @@ const ModalList = ({
 
         <Dialog.Content
           className={cn(`
-            fixed
+            w-full
+            fixed top-9
             z-50
-            w-full 
+            bg-[#222222]
+            px-4 py-4
             rounded-bl rounded-br
             shadow-xl
             outline-none`,
