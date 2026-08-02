@@ -8,7 +8,7 @@ import {
   AppLayout, 
   LayoutWithSidebar,
   AuthLayout, 
-  HomePage, 
+  FeedPage, 
   LoginPage, 
   RegisterPage, 
   ProfilePage,
@@ -70,8 +70,8 @@ export function AppRouter() {
           } 
         >
           <Route 
-            path="/home" 
-            element={<HomePage />} 
+            path="/feed" 
+            element={<FeedPage />} 
           />
 
           <Route

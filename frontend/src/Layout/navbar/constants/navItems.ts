@@ -5,7 +5,7 @@ type Device = "mobile" | "desktop";
 // Opciones del menú
 export const navItems = [
   { 
-    id: "home",
+    id: "feed",
     label: "Inicio", 
     href: "/",
     icon: House,

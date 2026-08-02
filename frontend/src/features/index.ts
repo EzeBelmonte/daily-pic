@@ -3,8 +3,8 @@ export { default as AppLayout } from "../Layout/AppLayout";
 export { default as LayoutWithSidebar } from "../Layout/LayoutWithSidebar";
 export { default as AuthLayout } from "../Layout/AuthLayout";
 
-// HOME
-export { default as HomePage } from "./home/HomePage";
+// FEED
+export { default as FeedPage } from "./feed/pages/FeedPage";
 
 // AUTH
 export { default as LoginPage } from "./auth/pages/LoginPage";

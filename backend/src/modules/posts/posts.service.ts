@@ -202,3 +202,5 @@ export async function getPostsByUsername(
     toPostDTO(post, user)
   );
 }
+
+export { toPostDTO };

@@ -11,7 +11,7 @@ const RootRedirect = () => {
 
   return (
     <Navigate
-      to={isAuthenticated ? "/home" : "/login"}
+      to={isAuthenticated ? "/feed" : "/login"}
       replace
     />
   );

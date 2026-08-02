@@ -28,7 +28,7 @@ const LoginForm = () => {
   async function onSubmit(data: LoginSchema) {
     await loginMutation.mutateAsync(data);
 
-    navigate("/home");
+    navigate("/feed");
   }
 
   return (

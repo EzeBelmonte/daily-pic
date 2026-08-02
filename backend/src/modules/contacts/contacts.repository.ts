@@ -86,7 +86,7 @@ export async function getPendingRequest(userId: number) {
         profileImageUrl: users.profileImageUrl,
         username: users.username,
         name: users.name,
-        lastname: users.lastname,
+        lastname: users.lastname ?? "",
       }
     })
     .from(contacts)

@@ -7,6 +7,7 @@ import usersRouter from "./modules/users/users.routes.js";
 import contactsRouter from "./modules/contacts/contacts.routes.js";
 import postsRouter from "./modules/posts/posts.routes.js";
 import likesRouter from "./modules/likes/likes.routes.js";
+import feedRouter from "./modules/feed/feed.routes.js";
 
 const app: Express = express();
 
@@ -24,5 +25,6 @@ app.use("/users", usersRouter);
 app.use("/users", contactsRouter);
 app.use("/posts", postsRouter);
 app.use("/posts", likesRouter);
+app.use("/feed", feedRouter);
 
 export default app;
