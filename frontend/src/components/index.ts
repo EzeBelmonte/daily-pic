@@ -8,3 +8,4 @@ export { default as ImagePreview } from "./ui/ImagePreview";
 export { default as ModalSection } from "./ui/ModalSection";
 export { default as ModalList } from "./ui/ModalList";
 export { default as AlertError } from "./ui/AlertError";
+export { default as Message } from "./ui/Message";

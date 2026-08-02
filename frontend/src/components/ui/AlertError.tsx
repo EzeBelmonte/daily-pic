@@ -1,18 +1,15 @@
 type Props = {
   error: string | null;
-}
+};
+
 const AlertError = ({ error }: Props) => {
   if (!error) return null;
 
   return (
-    <>
-      {error && (
-        <p className="text-red-500 text-sm">
-          {error}
-        </p>
-      )}
-    </>
+    <p className="text-sm text-red-500">
+      {error}
+    </p>
   );
-}
+};
 
 export default AlertError;

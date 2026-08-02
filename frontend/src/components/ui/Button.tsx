@@ -1,21 +1,19 @@
 import React from 'react';
 
 // Definir las props que recibirá el componente Button
-interface ButtonProps {
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
-  onClick?: () => void;
-  type?: 'button' | 'submit' // Tipo del botón, por defecto 'button'
-  disabled?: boolean; // Para manejar el estado de deshabilitado
-  className?: string; // Clase opcional para personalizar estilos
-}
+};
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, type = 'button', disabled = false, className = '' }) => {
+
+const Button = ({ 
+  children, 
+  className = "",
+  ...props }: Props) => {
   return (
     <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
       className={`cursor-pointer ${className}`} // Puedes agregar clases adicionales si las pasas
+      {...props}
     >
       {children}
     </button>

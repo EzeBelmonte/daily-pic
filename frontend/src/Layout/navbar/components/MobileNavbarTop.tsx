@@ -34,7 +34,7 @@ const Topbar = ({ className }: Props) => {
       />
 
       <Logo 
-        width={100}
+        className="w-[100px]" 
         iconX={-20}
         textScale={1.1}
         textX={20}
