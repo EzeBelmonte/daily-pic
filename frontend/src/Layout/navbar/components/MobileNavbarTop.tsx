@@ -2,7 +2,7 @@ import { useScroll } from "@/hooks/useScroll";
 
 import { cn } from "@/utils/cn";
 
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/branding/Logo";
 
 import ProfileNavButton from "./buttons/ProfileNavButton"
 import NotificationNavButton from "./buttons/NotificationNavButton";

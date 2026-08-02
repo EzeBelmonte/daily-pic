@@ -1,11 +1,13 @@
 import React, { forwardRef} from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+import { cn } from '@/utils/cn';
+
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({
+const Input = forwardRef<HTMLInputElement, Props>(({
   label,
   error,
   className = '',
@@ -15,7 +17,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label htmlFor={id} className="text-sm font-medium">
+        <label 
+          htmlFor={id} 
+          className="text-sm font-medium"
+        >
           {label}
         </label>
       )}
@@ -23,7 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
       <input
         ref={ref}
         id={id}
-        className={`
+        className={cn(`
           rounded-md
           border
           border-gray-300
@@ -34,15 +39,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
           focus:ring-2
           focus:ring-blue-500
           disabled:bg-gray-100
-          disabled:cursor-not-allowed
-          ${error ? 'border-red-500' : ''}
-          ${className}
-        `}
+          disabled:cursor-not-allowed`,
+          error && "border-red-500",
+          className
+        )}
         {...props}
       />
 
       {error && (
-        <span className="text-sm text-red-500">
+        <span 
+          id={`${id}-error`}
+          className="text-sm text-red-500"
+        >
           {error}
         </span>
       )}

@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 
 import { useScroll } from "@/hooks/useScroll";
 
-import { Button, ModalSection } from "@/components";
+import { Button, Modal } from "@/components";
 import { CreatePost } from "@/features";
 
 import { cn } from "@/utils/cn";
@@ -38,12 +38,12 @@ const CreatePostFloatingButton = () => {
   
       </Button>
 
-      <ModalSection
+      <Modal
         open={open}
         onClose={closeModal}
       >
         <CreatePost onClose={closeModal}/>
-      </ModalSection>
+      </Modal>
     </>
   );
 }

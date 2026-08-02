@@ -2,7 +2,7 @@ import { DiamondPlus } from "lucide-react";
 
 import { useModalButton } from "@/hooks/useModalButton";
 
-import { Button, ModalSection } from "@/components";
+import { Button, Modal } from "@/components";
 import { CreatePost } from "@/features";
 
 import { cn } from "@/utils/cn";
@@ -26,12 +26,12 @@ const CreatePostMenuButton = ({ className }: Props) => {
         Publicar
       </Button>
 
-      <ModalSection
+      <Modal
         open={open}
         onClose={closeModal}
       >
         <CreatePost onClose={closeModal} />
-      </ModalSection>
+      </Modal>
     </>
   );
 }

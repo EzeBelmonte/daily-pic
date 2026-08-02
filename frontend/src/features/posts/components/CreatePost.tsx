@@ -8,7 +8,7 @@ const CreatePost = ({ onClose }: Props) => {
 
   return (
     <div className="
-      w-full sm:w-[550px]
+      w-full
       p-4 mt-5
       bg-[rgba(0,65,109,0.5)]
       border border-white/20 rounded

@@ -1,8 +1,8 @@
 import React from 'react';
 
-type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>;
+type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 
-const Image = ({ className = "", ...props }: ImageProps) => {
+const Image = ({ className = "", ...props }: Props) => {
   return (
     <img
       className={className}

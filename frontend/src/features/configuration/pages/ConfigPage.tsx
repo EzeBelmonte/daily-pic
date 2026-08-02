@@ -110,7 +110,7 @@ const ConfigPage = () => {
           ) : (
             <ImagePreview
               file={image}
-              setImage={setImage}
+              onRemove={() => setImage}
               className="w-full h-full"
               imageClassName="w-full h-full object-cover object-top"
               buttonClassName="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

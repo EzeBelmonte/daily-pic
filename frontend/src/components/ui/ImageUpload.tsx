@@ -4,15 +4,17 @@ import { Camera } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button, Input } from "@/components";
 
-type ImageUploadProps = {
+type Props = {
   onSelect: (file: File) => void;
+  onInvalidFile?: (file: File | null) => void;
   className?: string;
 }
 
 export default function ImageUpload({
   onSelect,
+  onInvalidFile,
   className = "",
-}: ImageUploadProps) {
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleOpenExplorer = () => {
@@ -27,7 +29,8 @@ export default function ImageUpload({
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Debes seleccionar una imagen.");
+      onInvalidFile?.(file);
+      e.target.value = "";
       return;
     }
 
@@ -38,14 +41,11 @@ export default function ImageUpload({
   }
 
   return (
-    <div className={cn(
-      "flex justify-center",
-      className
-    )}>
+    <div className={cn("flex justify-center", className )}>
       <Input 
         ref={inputRef}
         type="file"
-        accept="image/"
+        accept="image/*"
         hidden
         onChange={handleFileChange}
       />

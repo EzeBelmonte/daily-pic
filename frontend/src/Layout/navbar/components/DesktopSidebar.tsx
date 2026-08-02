@@ -1,6 +1,6 @@
 import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
 
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/branding/Logo";
 
 import { navItems } from "../constants/navItems";
 import ProfileNavButton from "./buttons/ProfileNavButton";

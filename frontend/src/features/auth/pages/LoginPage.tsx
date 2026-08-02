@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/branding/Logo";
 
 import LoginForm from "../components/LoginForm";
 import { Button } from "@/components";

@@ -5,22 +5,18 @@ import { useAuth } from "@/app/hooks/useAuth";
 
 import { Button } from "@/components";
 
-type Props = {
-  onClose: () => void;
-}
-
-const ProfileItemsList = ({ onClose }: Props) => {
+const ProfileItemsList = () => {
   const navigate = useNavigate();
 
   const { logout } = useAuth();
 
   const handleProfile = () => {
-    onClose();
+
     navigate("/profile")
   }
 
   const handleConfig = () => {
-    onClose();
+
     navigate("/config");
   }
 
@@ -37,7 +33,10 @@ const ProfileItemsList = ({ onClose }: Props) => {
 
   return (
     <div className="
-      flex flex-col gap-4
+      flex flex-col 
+      px-3 py-5 gap-4
+      bg-[#202020] rounded
+      border border-white/10
     ">
       <Button
         onClick={handleProfile}

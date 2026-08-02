@@ -53,12 +53,12 @@ const CreatePostForm = ({ onClose }: Props) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Escribe una descripción..."
-        className="w-[80vw] sm:w-[390px] mx-auto mb-3"
+        className="w-[80vw] sm:w-[510px] mx-auto mb-3"
       />
 
       <ImagePreview 
         file={image} 
-        setImage={setImage}
+        onRemove={() => setImage}
         className="w-40"
         buttonClassName="top-2 right-2"
       />
@@ -77,7 +77,10 @@ const CreatePostForm = ({ onClose }: Props) => {
             : "Publicar"}
         </Button>
 
-        <ImageUpload onSelect={setImage} />
+        <ImageUpload 
+          onSelect={setImage} 
+          onInvalidFile={() => alert("Ingresar UNA imagen")}
+        />
       </div>
     </>
   );

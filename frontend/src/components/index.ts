@@ -5,7 +5,13 @@ export { default as Input } from "./ui/Input";
 export { default as Textarea } from "./ui/Textarea";
 export { default as ImageUpload } from "./ui/ImageUpload";
 export { default as ImagePreview } from "./ui/ImagePreview";
-export { default as ModalSection } from "./ui/ModalSection";
-export { default as ModalList } from "./ui/ModalList";
 export { default as AlertError } from "./ui/AlertError";
 export { default as Message } from "./ui/Message";
+
+// UI -> MODAL
+export { default as Modal } from "./ui/modal/Modal";
+
+// UI -> DropdownMenu
+export { DropdownMenu } from "./ui/dropdown-menu/DropdownMenu";
+export { DropdownMenuTrigger } from "./ui/dropdown-menu/DropdownMenu";
+export { DropdownMenuContent } from "./ui/dropdown-menu/DropdownMenu";

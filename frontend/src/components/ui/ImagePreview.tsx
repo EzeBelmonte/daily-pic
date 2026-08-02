@@ -4,9 +4,9 @@ import { X } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Image, Button } from "@/components";
 
-type ImagePreviewProps = {
+type Props = {
   file: File | null;
-  setImage: React.Dispatch<React.SetStateAction<File | null>>;
+  onRemove?: () => void;
   className?: string;
   imageClassName?: string;
   buttonClassName?: string;
@@ -14,11 +14,11 @@ type ImagePreviewProps = {
 
 export default function ImagePreview({
   file,
-  setImage,
+  onRemove,
   className,
   imageClassName,
   buttonClassName,
-}: ImagePreviewProps) {
+}: Props) {
   const [preview, setPreview] = useState("");
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function ImagePreview({
 
   const handleCancel = () => {
     setPreview("");
-    setImage(null);
+    onRemove?.();
   };
 
   if (!preview) return null;
