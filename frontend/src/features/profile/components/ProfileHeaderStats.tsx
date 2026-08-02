@@ -11,11 +11,13 @@ import { Button } from "@/components";
 type Props = {
   user: CompleteUser;
   isOwner: boolean;
+  className?: string;
 }
 
 const ProfileHeaderStats = ({ 
   user, 
-  isOwner 
+  isOwner,
+  className
 }: Props) => {
   const addContactMutation = useAddContact();
   const rejectContactMutation = useRejectContact();
@@ -45,9 +47,10 @@ const ProfileHeaderStats = ({
     <>
       {/* Botón de seguir y bloquear */}
       {!isOwner &&
-        <div className="
-          flex gap-5 text-white
-        ">
+        <div className={cn(
+          "flex gap-5 text-white",
+          className
+        )}>
           <Button 
             onClick={handleSendContact}
             className={cn(

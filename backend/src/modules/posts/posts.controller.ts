@@ -163,10 +163,13 @@ export async function getUserPosts(
   res: Response
 ) {
   try {
+    // Obtenemos mi ID
+    const myUserId = req.user.userId;
+
     // Obtenemos el ID del usuario
     const username = String(req.params.username);
 
-    const posts = await postsService.getPostsByUsername(username);
+    const posts = await postsService.getPostsByUsername(myUserId, username);
 
     // Retornamos los posts
     return res.status(201).json(posts);

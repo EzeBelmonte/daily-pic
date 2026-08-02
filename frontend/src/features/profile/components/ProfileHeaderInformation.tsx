@@ -4,11 +4,17 @@ import { cn } from "@/utils/cn";
 
 import { Image } from "@/components";
 
+import ProfileHeaderStats from "./ProfileHeaderStats";
+
 type Props = {
   user: CompleteUser;
+  isOwner: boolean;
 }
 
-const ProfileHeaderInformation = ({ user }: Props) => {
+const ProfileHeaderInformation = ({ 
+  user,
+  isOwner
+}: Props) => {
   // Estilo base de la Bio
   const bioStyle = "w-full max-w-[500px] mb-3";
 
@@ -57,7 +63,6 @@ const ProfileHeaderInformation = ({ user }: Props) => {
             </div>
           </div>
 
-
           {/* Bio solamente en md+ */}
           <p className={cn(
               "hidden md:block text-[.9rem]",
@@ -66,6 +71,13 @@ const ProfileHeaderInformation = ({ user }: Props) => {
           >
             {user.bio}
           </p>
+
+          {/* Botones solamente en md+ */}
+          <ProfileHeaderStats 
+            user={user}
+            isOwner={isOwner}
+            className={"hidden md:flex"}
+          />
         </div>
       </div>
 
@@ -77,6 +89,12 @@ const ProfileHeaderInformation = ({ user }: Props) => {
       >
         {user.bio}
       </p>
+
+      <ProfileHeaderStats 
+        user={user}
+        isOwner={isOwner}
+        className={"md:hidden"}
+      />
     </>
   );
 }

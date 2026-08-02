@@ -1,4 +1,6 @@
 import * as postsRepository from "./posts.repository.js";
+import { findRelationship } from "../contacts/contacts.repository.js";
+
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
 import { toCreatePostDTO, toPostDTO } from "../../shared/mappers/post.mapper.js";
@@ -161,18 +163,36 @@ export async function countPost(
 
 
 // ========================================
-// OBTENER POST DE USUARIO
+// OBTENER POSTS DE USUARIO
 // ========================================
 export async function getPostsByUsername(
+  myUserId: number,
   username: string
-): Promise<Post[]> {
+): Promise<PostResponse[]> {
+  console.log("entre");
   const user = await getExistingUserByUsername(username);
 
   if (!user) {
     throw new Error("El usuario no existe");
   }
 
-  if (user.isPrivate) {
+  const relation = await findRelationship(
+    myUserId, 
+    user.id
+  );
+
+  console.log({
+    myUserId,
+    profileUserId: user.id,
+    username,
+    isPrivate: user.isPrivate,
+    relation,
+  });
+
+  if (
+    user.isPrivate &&
+    relation?.status !== "accepted"
+  ) {
     return [];
   }
   

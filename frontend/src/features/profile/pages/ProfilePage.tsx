@@ -51,7 +51,11 @@ const ProfilePage = () => {
       {postsLoading ? (
         <p>Cargando publicaciones...</p>
       ) : posts.length === 0 ? (
-        <p className="text-white">No hay publicaciones</p>
+        isOwner ? (
+          <p className="text-white">No hay publicaciones</p>
+        ) : (
+          <p className="text-white">Perfil privado</p>
+        )
       ) : (
         <ProfileSection posts={posts} />
       )}

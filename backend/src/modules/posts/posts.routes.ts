@@ -14,11 +14,11 @@ router.post("/", authenticate, upload.single("image"), postController.createPost
 router.get("/me", authenticate, postController.getPosts);
 router.patch("/:postId", authenticate, postController.updatePost);
 router.delete("/:postId", authenticate, postController.deletePost);
+router.get("/user/:username", authenticate,postController.getUserPosts);
 
 // ========================================
 // PÚBLICAS
 // ========================================
-router.get("/user/:username", postController.getUserPosts);
 router.get("/:postId", postController.getPost);
 
 export default router;
