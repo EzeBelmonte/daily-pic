@@ -1,6 +1,6 @@
 import { db } from "../../infrastructure/database/db.js";
 import { users } from "../../infrastructure/database/schemas/users.js";
-import type { CreateUserDTO } from "@shared/index.js";
+import type { CreateUserDTO } from "./auth.type.js";
 
 // ========================================
 // BUSCAR SI EXISTE EL EMAIL

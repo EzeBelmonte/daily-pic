@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import * as authRepository from "./auth.repository.js";
-import type { User } from "@shared/index.js";
-import type { CreateUserDTO, LoginRequest, LoginResponse } from "@shared/index.js";
+import type { User,  } from "@shared/index.js";
+import type { CreateUserForm, LoginRequest } from "./auth.type.js";
 import { generateToken } from "../../shared/utils/jwt.js";
 import { toUserDTO } from "../../shared/mappers/user.mapper.js";
 
@@ -9,7 +9,7 @@ import { toUserDTO } from "../../shared/mappers/user.mapper.js";
 // REGISTRO
 // ========================================
 export async function register(
-  data: CreateUserDTO
+  data: CreateUserForm
 ): Promise<User> {
   // Buscamos si existe el email
   const existingEmail = await authRepository.findByEmail(data.email);
@@ -23,6 +23,10 @@ export async function register(
 
   if (existingUsername) {
     throw new Error("El usuario ya existe");
+  }
+
+  if (data.password !== data.repeatPassword) {
+    throw new Error("Las contraseñas no coinciden");
   }
 
   // Hasear la contraseña

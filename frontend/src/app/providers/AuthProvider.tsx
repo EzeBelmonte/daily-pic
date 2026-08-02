@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useMemo, useState, type ReactNod
 
 import { useQueryClient } from "@tanstack/react-query";
 
-import type { AuthContextType } from "../types/app.type";
+import type { AuthContextType } from "../types/auth.type";
 import { registerLogout } from "@/app/services/auth.service";
 
 export const AuthContext =

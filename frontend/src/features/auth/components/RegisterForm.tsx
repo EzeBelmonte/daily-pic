@@ -74,6 +74,14 @@ const RegisterForm = () => {
         {...register("password")}
       />
 
+      <Input 
+        id="repeatPassword"
+        placeholder="Repetir la contraseña"
+        type="password"
+        error={errors.repeatPassword?.message}
+        {...register("repeatPassword")}
+      />
+
       {registerMutation.isError && (
         <AlertError
             error={getErrorMessage(registerMutation.error)}
@@ -88,7 +96,7 @@ const RegisterForm = () => {
           border border-[#125c7a] 
           bg-[#3b8aaf] 
           text-white font-semibold 
-          px-2 rounded
+          px-2 py-1 rounded
         "
       >
         Registrarse

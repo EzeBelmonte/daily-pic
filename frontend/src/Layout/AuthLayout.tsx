@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 const AuthLayout = () => {
 
   return (
-    <main>
+    <main className="min-w-0">
       <Outlet />
     </main>
   );

@@ -63,7 +63,7 @@ const LoginForm = () => {
           border border-[#127a60] 
           bg-[#3baf92] 
           text-white font-semibold 
-          px-2 rounded
+          py-1 rounded
         "
       >
         Ingresar

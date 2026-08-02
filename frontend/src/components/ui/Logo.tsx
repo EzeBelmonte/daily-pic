@@ -1,7 +1,7 @@
 import { useId } from "react";
 
 type Props = {
-  width?: number;
+  className?: string;
 
   iconScale?: number;
   iconX?: number;
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function Logo({
-  width = 715,
+  className,
 
   iconScale = 1,
   iconX = 0,
@@ -30,7 +30,7 @@ export default function Logo({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={width}
+      className={className}
       height={undefined}
       viewBox="0 0 800 256"
       fill="none"

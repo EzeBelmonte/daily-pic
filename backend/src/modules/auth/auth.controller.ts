@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { loginSchema, registerSchema } from "./auth.schema.js";
+import { loginSchema } from "./auth.schema.js";
 
-import type { CreateUserDTO } from "@shared/index.js";
+import type { CreateUserForm } from "./auth.type.js";
 
 import * as authService from "./auth.service.js";
 
@@ -14,10 +14,10 @@ export async function register(
 ) {
   try {
     // Parseamos para inpedir que el apellido sea undefined
-    const parsed = registerSchema.parse(req.body);
+    //const parsed = registerSchema.parse(req.body);
 
     // Guardamos los datos recibido del frontend
-    const data: CreateUserDTO = {
+    /*const data = {
       name: parsed.name,
       email: parsed.email,
       username: parsed.username,
@@ -25,9 +25,12 @@ export async function register(
       ...(parsed.lastname !== undefined
         ? { lastname: parsed.lastname }
         : {}),
-    };
+    };*/
 
-    const user = await authService.register(data);
+    // Parseamos para inpedir que el apellido sea undefined
+    const formData: CreateUserForm = req.body;
+
+    const user = await authService.register(formData);
 
     // Retornamos el usuario registrado
     return res.status(201).json(user);

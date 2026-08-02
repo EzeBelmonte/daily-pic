@@ -7,7 +7,7 @@ import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.s
 import type { UpdateMe } from "@shared/index.js";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
-import { toUserDTO, toCompleteUserDTO } from "../../shared/mappers/user.mapper.js";
+import { toCompleteUserDTO } from "../../shared/mappers/user.mapper.js";
 
 import { 
   getExistingUserByUsername 

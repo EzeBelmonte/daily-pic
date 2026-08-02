@@ -4,14 +4,15 @@
 export interface User {
   id: number;
   name: string;
-  lastname?: string | null;
+  lastname?: string | "";
   username: string;
   profileImageUrl: string;
 }
 
 // ========================================
-// USUARIO
+// DATOS COMPLETOS
 // ========================================
+// Frontend
 export interface CompleteUser extends User {
   isPrivate: boolean;
   bio: string | "";
@@ -27,6 +28,7 @@ export interface CompleteUser extends User {
 // ========================================
 // DATOS EDITABLES
 // ========================================
+// Frontend y Backend
 export interface UpdateMe {
   //email: string;
   name?: string;

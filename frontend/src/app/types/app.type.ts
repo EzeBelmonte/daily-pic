@@ -7,20 +7,6 @@ import type {
 import type { PostSchema } from "@/features/posts/schemas/posts.schema";
 
 // ========================================
-// AUTH
-// ========================================
-export interface AuthContextType {
-  token: string | null;
-  isLoading: boolean;
-
-  isAuthenticated: boolean;
-
-  login: (token: string) => void;
-  logout: () => void;
-
-}
-
-// ========================================
 // USER
 // ========================================
 export interface UsersContextType {

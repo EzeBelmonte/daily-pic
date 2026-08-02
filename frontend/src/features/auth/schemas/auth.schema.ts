@@ -6,12 +6,12 @@ import { z } from "zod";
 export const registerSchema = z.object({
   name: z
     .string()
-    .min(3)
-    .max(100),
+    .min(3, "El nombre debe tener al menos 3 caracteres")
+    .max(100, "El nombre no puede superar los 100 caracteres"),
 
   lastname: z
     .string()
-    .max(100)
+    .max(100, "El nombre no puede superar los 100 caracteres")
     .optional(),
 
   email: z
@@ -25,6 +25,9 @@ export const registerSchema = z.object({
   password: z
     .string()
     .min(8, "La contraseña debe tener al menos 8 caracteres"),
+
+  repeatPassword: z
+    .string()
 });
 
 /* 
