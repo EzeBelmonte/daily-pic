@@ -14,9 +14,9 @@ import {
  } from "../../shared/helpers/getExistingUser.js";
 
 // ========================================
-// CREAR POST
+// CREAR 
 // ========================================
-export async function createPost(
+export async function create(
   userId: number,
   imageBuffer: Buffer | undefined,
   data: PostSchema,
@@ -43,7 +43,7 @@ export async function createPost(
   imageUrl = upload.imageUrl;
   imagePublicId = upload.imagePublicId;
   
-  const post = await postsRepository.createPost({
+  const post = await postsRepository.create({
     userId,
     imageUrl,
     imagePublicId,
@@ -79,7 +79,7 @@ export async function getPost(
 }
 
 // ========================================
-// OBTENER MIS POST
+// OBTENER MIS POSTS
 // ========================================
 export async function getPosts(
   userId: number
@@ -99,72 +99,7 @@ export async function getPosts(
 }
 
 // ========================================
-// ACTUALIZAR POST
-// ========================================
-export async function updatePost(
-  userId: number,
-  postId: number,
-  data: PostSchema
-) {
-  // Obtenemos el post
-  const post = await postsRepository.findById(postId);
-
-  if (!post) {
-    throw new Error("El post no existe");
-  }
-
-  if (post.userId !== userId) {
-    throw new Error("No tienes permiso para editar este post");
-  }
-
-  const updatePost = await postsRepository.updatePost(postId, data);
-
-  return updatePost;
-}
-
-// ========================================
-// ELIMINAR POST
-// ========================================
-export async function deletePost(
-  userId: number,
-  postId: number
-) {
-  // Buscamos el post a eliminar
-  const post = await postsRepository.findById(postId);
-
-  if (!post) {
-    throw new Error("El post no existe");
-  }
-
-  if (post.userId !== userId) {
-    throw new Error("No tienes permiso para eliminar este post");
-  }
-
-  await cloudinaryService.deleteImage(post.imagePublicId);
-  await postsRepository.deletePost(postId);
-}
-
-// ========================================
-// CONTAR POSTS
-// ========================================
-export async function countPost(
-  userId: number
-) {
-  // Obtenemos el usuario
-  const user = await getExistingUserById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
-  
-  const count = await postsRepository.countPost(userId);
-
-  return count;
-}
-
-
-// ========================================
-// OBTENER POSTS DE USUARIO
+// OBTENER DE USUARIO
 // ========================================
 export async function getPostsByUsername(
   myUserId: number,
@@ -203,5 +138,70 @@ export async function getPostsByUsername(
     toPostDTO(post, user)
   );
 }
+
+// ========================================
+// ACTUALIZAR
+// ========================================
+export async function update(
+  userId: number,
+  postId: number,
+  data: PostSchema
+) {
+  // Obtenemos el post
+  const post = await postsRepository.findById(postId);
+
+  if (!post) {
+    throw new Error("El post no existe");
+  }
+
+  if (post.userId !== userId) {
+    throw new Error("No tienes permiso para editar este post");
+  }
+
+  const updatePost = await postsRepository.update(postId, data);
+
+  return updatePost;
+}
+
+// ========================================
+// ELIMINAR
+// ========================================
+export async function deleteById(
+  userId: number,
+  postId: number
+) {
+  // Buscamos el post a eliminar
+  const post = await postsRepository.findById(postId);
+
+  if (!post) {
+    throw new Error("El post no existe");
+  }
+
+  if (post.userId !== userId) {
+    throw new Error("No tienes permiso para eliminar este post");
+  }
+
+  await cloudinaryService.deleteImage(post.imagePublicId);
+  await postsRepository.deleteById(postId);
+}
+
+// ========================================
+// CONTAR
+// ========================================
+export async function countById(
+  userId: number
+) {
+  // Obtenemos el usuario
+  const user = await getExistingUserById(userId);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+  
+  const count = await postsRepository.countById(userId);
+
+  return count;
+}
+
 
 export { toPostDTO };

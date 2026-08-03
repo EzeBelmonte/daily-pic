@@ -6,21 +6,7 @@ import { users } from "../../infrastructure/database/schemas/users.js";
 // ========================================
 // CREAR SOLICITUD
 // ========================================
-/*export async function createContactRequest(
-  requesterId: number,
-  addresseeId: number
-) {
-  const [contact] = await db
-    .insert(contacts)
-    .values({
-      requesterId,
-      addresseeId,
-    })
-    .returning();
-
-  return contact;
-}*/
-export async function createContactRequest(
+export async function create(
   requesterId: number,
   addresseeId: number
 ) {
@@ -74,7 +60,7 @@ export async function findRelationship(
 // ========================================
 // SOLICITUDES PENDIENTES
 // ========================================
-export async function getPendingRequest(userId: number) {
+export async function findPending(userId: number) {
   return db
     .select({
       id: contacts.id,
@@ -103,9 +89,9 @@ export async function getPendingRequest(userId: number) {
 }
 
 // ========================================
-// OBTENER SOLICITUD POR ID
+// OBTENER CONTACTO POR ID
 // ========================================
-export async function getContactRequestById(id: number) {
+export async function findById(id: number) {
   const [contact] = await db
     .select()
     .from(contacts)
@@ -118,7 +104,7 @@ export async function getContactRequestById(id: number) {
 // ========================================
 // ACEPTAR SOLICITUD
 // ========================================
-export async function acceptRequest(id: number) {
+export async function updateAccepted(id: number) {
   const [contact] = await db
     .update(contacts)
     .set({
@@ -134,7 +120,7 @@ export async function acceptRequest(id: number) {
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function rejectRequest(id: number) {
+export async function deleteById(id: number) {
   await db
     .delete(contacts)
     .where(eq(contacts.id, id));
@@ -143,7 +129,7 @@ export async function rejectRequest(id: number) {
 // ========================================
 // LISTA DE AMIGOS
 // ========================================
-export async function getAcceptedContacts(userId: number) {
+export async function findAccepted(userId: number) {
   return db
     .select()
     .from(contacts)
@@ -161,7 +147,7 @@ export async function getAcceptedContacts(userId: number) {
 // ========================================
 // CONTADOR DE PENDIENTES
 // ========================================
-export async function countPendingRequests(userId: number) {
+export async function countPending(userId: number) {
   const [result] = await db
     .select({
       count: count(),
@@ -180,7 +166,7 @@ export async function countPendingRequests(userId: number) {
 // ========================================
 // CONTADOR DE CONTACTOS
 // ========================================
-export async function countContacts(userId: number) {
+export async function countAccepted(userId: number) {
   const [result] = await db
     .select({
       count: count(),

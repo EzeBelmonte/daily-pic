@@ -12,7 +12,7 @@ type NewPost = InferInsertModel<typeof posts>;
 // ========================================
 // CREAR POST
 // ========================================
-export async function createPost(
+export async function create(
   data: NewPost
 ) {
   const [post] = await db
@@ -45,7 +45,7 @@ export async function findByUserId(userId: number) {
 // ========================================
 // EDITAR POST
 // ========================================
-export async function updatePost(
+export async function update(
   postId: number,
   data: PostSchema
 ) {
@@ -64,7 +64,7 @@ export async function updatePost(
 // ========================================
 // ELIMINAR POST
 // ========================================
-export async function deletePost(
+export async function deleteById(
   postId: number
 ) {
   const [post] = await db
@@ -78,7 +78,7 @@ export async function deletePost(
 // ========================================
 // CONTAR POSTS
 // ========================================
-export async function countPost(
+export async function countById(
   userId: number
 ): Promise<number> {
   const [result] = await db

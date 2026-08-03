@@ -5,7 +5,7 @@ import { contacts, posts, users } from "../../infrastructure/database/schemas/in
 
 import type { FeedCursor } from "./feed.cursor.js";
 
-export async function getFeedPosts(
+export async function findPosts(
   userId: number,
   limit: number,
   cursor?: FeedCursor

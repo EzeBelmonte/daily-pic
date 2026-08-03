@@ -14,7 +14,7 @@ import {
 // ========================================
 // CREAR SOLICITUD
 // ========================================
-export async function createContact(
+export async function create(
   requesterId: number,
   addresseeId: number
 ): Promise<Contact> {
@@ -36,7 +36,7 @@ export async function createContact(
   }
 
   const contact = 
-    await contactsRepository.createContactRequest(
+    await contactsRepository.create(
       requesterId,
       addresseeId
     );
@@ -51,7 +51,7 @@ export async function createContact(
 // ========================================
 // OBTENER RELACIÓN ENTRE DOS USUARIOS
 // ========================================
-export async function findRelationship(
+export async function getRelationship(
   userA: number,
   userB: number
 ): Promise<ContactRelationship | null> {
@@ -84,7 +84,7 @@ export async function getPending(
   }
 
   const pending = 
-    await contactsRepository.getPendingRequest(
+    await contactsRepository.findPending(
       userId,
     );
 
@@ -94,13 +94,11 @@ export async function getPending(
 // ========================================
 // OBTENER SOLICITUD POR ID
 // ========================================
-export async function getContactById(
+export async function getContact(
   id: number,
 ): Promise<Contact> {
   const contact = 
-    await contactsRepository.getContactRequestById(
-      id,
-    );
+    await contactsRepository.findById(id);
   
   if (!contact) {
     throw new Error("La solicitud no existe");
@@ -112,25 +110,25 @@ export async function getContactById(
 // ========================================
 // ACEPTAR SOLICITUD
 // ========================================
-export async function acceptRequest(
+export async function updateAccepted(
   id: number,
 ) {
-  await contactsRepository.acceptRequest(id);
+  await contactsRepository.updateAccepted(id);
 }
 
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function rejectRequest(
+export async function deleteById(
   id: number,
 ) {
-  await contactsRepository.rejectRequest(id);
+  await contactsRepository.deleteById(id);
 }
 
 // ========================================
 // LISTA DE AMIGOS
 // ========================================
-export async function getAcceptedContacts(
+export async function getAccepted(
   userId: number,
 ): Promise<Contact[]> {
   const userExisting = await getExistingUserById(userId);
@@ -140,7 +138,7 @@ export async function getAcceptedContacts(
   }
 
   const contacts = 
-    await contactsRepository.getAcceptedContacts(
+    await contactsRepository.findAccepted(
       userId,
     );
   
@@ -150,7 +148,7 @@ export async function getAcceptedContacts(
 // ========================================
 // CONTADOR DE PENDIENTES
 // ========================================
-export async function countPendingRequests(
+export async function countPending(
   userId: number,
 ) {
   const userExisting = await getExistingUserById(userId);
@@ -160,7 +158,7 @@ export async function countPendingRequests(
   }
 
   const count = 
-    await contactsRepository.countPendingRequests(
+    await contactsRepository.countPending(
       userId,
     );
   
@@ -170,7 +168,7 @@ export async function countPendingRequests(
 // ========================================
 // CONTADOR DE CONTACTOS
 // ========================================
-export async function countContacts(
+export async function countAccepted(
   userId: number,
 ) {
   const userExisting = await getExistingUserById(userId);
@@ -180,7 +178,7 @@ export async function countContacts(
   }
 
   const count = 
-    await contactsRepository.countContacts(
+    await contactsRepository.countAccepted(
       userId,
     );
   

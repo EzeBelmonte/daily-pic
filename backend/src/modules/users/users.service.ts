@@ -27,9 +27,9 @@ export async function getMe(userId: number) {
   }
 
   // Obtener cantidad de post
-  const postsCount = await postsServices.countPost(user.id);
+  const postsCount = await postsServices.countById(user.id);
   // Obtener cantidad de contacos
-  const contactsCount = await contactsServices.countContacts(user.id);
+  const contactsCount = await contactsServices.countAccepted(user.id);
 
   return toCompleteUserDTO(
       user,
@@ -92,9 +92,9 @@ export async function getUserByUsername(username: string) {
     }
   
     // Obtener cantidad de post
-    const postsCount = await postsServices.countPost(user.id);
+    const postsCount = await postsServices.countById(user.id);
     // Obtener cantidad de contacos
-    const contactsCount = await contactsServices.countContacts(user.id);
+    const contactsCount = await contactsServices.countAccepted(user.id);
 
   return toCompleteUserDTO(
       user,

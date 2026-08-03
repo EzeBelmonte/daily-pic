@@ -6,7 +6,7 @@ import { postLikes } from "../../infrastructure/database/schemas/postLikes.js";
 // ========================================
 // CONTAR LIKES
 // ========================================
-export async function countLikes(postId: number) {
+export async function countById(postId: number) {
   const [result] = await db
     .select({
       count: count(),
@@ -20,7 +20,7 @@ export async function countLikes(postId: number) {
 // ========================================
 // DAR LIKE
 // ========================================
-export async function addLike(
+export async function create(
   userId: number,
   postId: number
 ) {
@@ -33,7 +33,7 @@ export async function addLike(
 // ========================================
 // QUITAR LIKE
 // ========================================
-export async function removeLike(
+export async function deleteByUserAndPost(
   userId: number,
   postId: number
 ) {
@@ -50,7 +50,7 @@ export async function removeLike(
 // ========================================
 // YA DIO LIKE
 // ========================================
-export async function hasLiked(
+export async function exists(
   userId: number,
   postId: number
 ) {

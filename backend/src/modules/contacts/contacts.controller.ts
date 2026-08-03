@@ -7,7 +7,7 @@ import * as contactsService from "./contacts.service.js";
 // ========================================
 // CREAR SOLICITUD
 // ========================================
-export async function createContact(
+export async function create(
   req: Request,
   res: Response
 ) {
@@ -19,7 +19,7 @@ export async function createContact(
     const addresseeId = Number(req.params.userId);
 
     const contact =
-      await contactsService.createContact(
+      await contactsService.create(
         requesterId,
         addresseeId
       );
@@ -46,7 +46,7 @@ export async function createContact(
 // ========================================
 // OBTENER RELACIÓN ENTRE DOS USUARIOS
 // ========================================
-export async function findRelationship(
+export async function getRelationship(
   req: Request,
   res: Response
 ) {
@@ -58,7 +58,7 @@ export async function findRelationship(
     const userB = Number(req.params.userId);
 
     const relation = 
-      await contactsService.findRelationship(
+      await contactsService.getRelationship(
         userA,
         userB
       );
@@ -100,9 +100,9 @@ export async function getPending(
 }
 
 // ========================================
-// OBTENER SOLICITUD POR ID
+// OBTENER SOLICITUD
 // ========================================
-export async function getContactById(
+export async function getContact(
   req: Request,
   res: Response
 ) {
@@ -111,7 +111,7 @@ export async function getContactById(
     const id = Number(req.params.contactId);
 
     const contact = 
-      await contactsService.getContactById(
+      await contactsService.getContact(
         id
       );
     
@@ -136,7 +136,7 @@ export async function acceptRequest(
     // Id de la relación
     const id = Number(req.params.requestId);
 
-    await contactsService.acceptRequest(id);
+    await contactsService.updateAccepted(id);
     
     // Devolvemos mensaje de exito
     return res.status(200).send();
@@ -152,7 +152,7 @@ export async function acceptRequest(
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function rejectRequest(
+export async function deleteRequest(
   req: Request,
   res: Response
 ) {
@@ -160,7 +160,7 @@ export async function rejectRequest(
     // Id de la relación
     const id = Number(req.params.requestId);
 
-    await contactsService.rejectRequest(id);
+    await contactsService.deleteById(id);
     
     // Devolvemos mensaje de exito
     return res.status(200).send();
@@ -176,7 +176,7 @@ export async function rejectRequest(
 // ========================================
 // LISTA DE AMIGOS
 // ========================================
-export async function getAcceptedContacts(
+export async function getAccepted(
   req: Request,
   res: Response
 ) {
@@ -185,7 +185,7 @@ export async function getAcceptedContacts(
     const userId = req.user.userId;
 
     const contacts = 
-      await contactsService.getAcceptedContacts(
+      await contactsService.getAccepted(
         userId
       );
     
@@ -202,7 +202,7 @@ export async function getAcceptedContacts(
 // ========================================
 // CONTADOR DE PENDIENTES
 // ========================================
-export async function countPendingRequests(
+export async function countPending(
   req: Request,
   res: Response
 ) {
@@ -211,7 +211,7 @@ export async function countPendingRequests(
     const userId = req.user.userId;
 
     const count = 
-      await contactsService.countPendingRequests(
+      await contactsService.countPending(
         userId
       );
     
@@ -228,7 +228,7 @@ export async function countPendingRequests(
 // ========================================
 // CONTADOR DE CONTACTOS
 // ========================================
-export async function countContacts(
+export async function countAccepted(
   req: Request,
   res: Response
 ) {
@@ -237,7 +237,7 @@ export async function countContacts(
     const userId = req.user.userId;
 
     const count = 
-      await contactsService.countContacts(
+      await contactsService.countAccepted(
         userId
       );
     

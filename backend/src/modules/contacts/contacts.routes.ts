@@ -9,14 +9,14 @@ const router: Router = Router();
 // ========================================
 // PRIVADAS
 // ========================================
-router.post("/contacts/:userId", authenticate, contactsController.createContact);
-router.get("/contacts/relation/:userId", authenticate, contactsController.findRelationship);
+router.post("/contacts/:userId", authenticate, contactsController.create);
+router.get("/contacts/relation/:userId", authenticate, contactsController.getRelationship);
 router.get("/contacts/pending-list", authenticate, contactsController.getPending);
-router.get("/contacts/:contactId", authenticate, contactsController.getContactById);
+router.get("/contacts/:contactId", authenticate, contactsController.getContact);
 router.patch("/contacts/requests/:requestId/accept", authenticate, contactsController.acceptRequest);
-router.delete("/contacts/requests/:requestId/reject", authenticate, contactsController.rejectRequest);
-router.get("/contacts", authenticate, contactsController.getAcceptedContacts);
-router.get("/contacts/count-pending", authenticate, contactsController.countPendingRequests);
-router.get("/contacts/count-contacts", authenticate, contactsController.countContacts);
+router.delete("/contacts/requests/:requestId/reject", authenticate, contactsController.deleteRequest);
+router.get("/contacts", authenticate, contactsController.getAccepted);
+router.get("/contacts/count-pending", authenticate, contactsController.countPending);
+router.get("/contacts/count-contacts", authenticate, contactsController.countAccepted);
 
 export default router;

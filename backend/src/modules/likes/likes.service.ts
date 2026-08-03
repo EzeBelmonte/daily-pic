@@ -8,7 +8,7 @@ import {
 // ========================================
 // CONTAR LIKES
 // ========================================
-export async function countLikes(
+export async function count(
   postId: number
 ) {
   const post = await postRepository.findById(postId);
@@ -17,7 +17,7 @@ export async function countLikes(
     throw new Error("Error al obtener la publicación");
   }
 
-  const response = await likesRepository.countLikes(postId);
+  const response = await likesRepository.countById(postId);
 
   return response;
 }
@@ -25,7 +25,7 @@ export async function countLikes(
 // ========================================
 // DAR LIKE
 // ========================================
-export async function addLike(
+export async function like(
   userId: number,
   postId: number
 ) {
@@ -41,13 +41,13 @@ export async function addLike(
     throw new Error("Error al obtener la publicación");
   }
 
-  await likesRepository.addLike(userId, postId);
+  await likesRepository.create(userId, postId);
 }
 
 // ========================================
 // QUITAR LIKE
 // ========================================
-export async function removeLike(
+export async function dislike(
   userId: number,
   postId: number
 ) {
@@ -63,7 +63,7 @@ export async function removeLike(
     throw new Error("Error al obtener la publicación");
   }
 
-  await likesRepository.removeLike(userId, postId);
+  await likesRepository.deleteByUserAndPost(userId, postId);
 }
 
 // ========================================
@@ -85,7 +85,7 @@ export async function hasLiked(
     throw new Error("Error al obtener la publicación");
   }
 
-  const response = await likesRepository.hasLiked(userId, postId);
+  const response = await likesRepository.exists(userId, postId);
 
   return response;
 }

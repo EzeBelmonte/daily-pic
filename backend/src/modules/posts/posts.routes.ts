@@ -10,10 +10,10 @@ const router: Router = Router();
 // ========================================
 // PRIVADAS
 // ========================================
-router.post("/", authenticate, upload.single("image"), postController.createPost);
-router.get("/me", authenticate, postController.getPosts);
-router.patch("/:postId", authenticate, postController.updatePost);
-router.delete("/:postId", authenticate, postController.deletePost);
+router.post("/", authenticate, upload.single("image"), postController.create);
+router.get("/me", authenticate, postController.getMyPosts);
+router.patch("/:postId", authenticate, postController.update);
+router.delete("/:postId", authenticate, postController.deleteRequest);
 router.get("/user/:username", authenticate,postController.getUserPosts);
 
 // ========================================

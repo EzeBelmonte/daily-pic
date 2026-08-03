@@ -5,14 +5,14 @@ import * as likesService from "./likes.service.js";
 // ========================================
 // CONTAR LIKES
 // ========================================
-export async function getLikes(
+export async function count(
   req: Request,
   res: Response
 ) {
   try {
     const postId = Number(req.params.postId);
 
-    const likes = await likesService.countLikes(postId);
+    const likes = await likesService.count(postId);
 
     return res.status(200).json(likes);
   } catch (error) {
@@ -27,7 +27,7 @@ export async function getLikes(
 // ========================================
 // DAR LIKE
 // ========================================
-export async function addLike(
+export async function like(
   req: Request,
   res: Response
 ) {
@@ -38,7 +38,7 @@ export async function addLike(
     // Obtenemos el ID del post
     const postId = Number(req.params.postId);
 
-    await likesService.addLike(userId, postId);
+    await likesService.like(userId, postId);
 
     return res.sendStatus(204);
   } catch (error) {
@@ -53,7 +53,7 @@ export async function addLike(
 // ========================================
 // QUITAR LIKE
 // ========================================
-export async function removeLike(
+export async function dislike(
   req: Request,
   res: Response
 ) {
@@ -64,7 +64,7 @@ export async function removeLike(
     // Obtenemos el ID del post
     const postId = Number(req.params.postId);
 
-    await likesService.removeLike(userId, postId);
+    await likesService.dislike(userId, postId);
 
     return res.sendStatus(204);
   } catch (error) {

@@ -71,7 +71,7 @@ export async function updateMe(
 // ========================================
 // OBTENER PERFIL DE USUARIO 
 // ========================================
-export async function getUserByUsername(
+export async function getUser(
   req: Request,
   res: Response
 ) {

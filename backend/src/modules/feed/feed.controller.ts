@@ -6,7 +6,7 @@ import { decodeCursor } from "./feed.cursor.js";
 // ========================================
 // FEED DE CONTACTOS
 // ========================================
-export async function getContactsFeed(
+export async function getAccepted(
   req: Request,
   res: Response
 ) {
@@ -32,7 +32,7 @@ export async function getContactsFeed(
 
     // Obtenemos el feed
     const feed =
-      await feedService.getContactsFeed(
+      await feedService.getAccepted(
         userId,
         limit,
         cursor

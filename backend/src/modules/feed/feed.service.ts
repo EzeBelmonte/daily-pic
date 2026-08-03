@@ -7,13 +7,13 @@ import {
 
 import { toPostDTO } from "../posts/posts.service.js";
 
-export async function getContactsFeed(
+export async function getAccepted(
   userId: number,
   limit: number,
   cursor?: FeedCursor
 ) {
   const result =
-    await feedRepository.getFeedPosts(
+    await feedRepository.findPosts(
       userId,
       limit,
       cursor

@@ -9,6 +9,6 @@ const router: Router = Router();
 // ========================================
 // PRIVADAS
 // ========================================
-router.get("/contacts", authenticate, feedController.getContactsFeed);
+router.get("/contacts", authenticate, feedController.getAccepted);
 
 export default router;

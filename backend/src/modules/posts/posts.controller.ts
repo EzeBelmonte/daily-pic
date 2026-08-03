@@ -7,7 +7,7 @@ import { postSchema } from "@daily-pic/shared/schemas";
 // ========================================
 // CREAR POST
 // ========================================
-export async function createPost(
+export async function create(
   req: Request,
   res: Response
 ) {
@@ -19,7 +19,7 @@ export async function createPost(
     const data = postSchema.parse(req.body);
 
     // Creamos el post
-    const post = await postsService.createPost(
+    const post = await postsService.create(
       userId,
       req.file?.buffer,
       data,
@@ -66,7 +66,7 @@ export async function getPost(
 // ========================================
 // OBTENER MIS POST
 // ========================================
-export async function getPosts(
+export async function getMyPosts(
   req: Request,
   res: Response
 ) {
@@ -88,9 +88,36 @@ export async function getPosts(
 }
 
 // ========================================
-// ACTUALIZAR POST
+// OBTENER DE USUARIO
 // ========================================
-export async function updatePost(
+export async function getUserPosts(
+  req: Request,
+  res: Response
+) {
+  try {
+    // Obtenemos mi ID
+    const myUserId = req.user.userId;
+
+    // Obtenemos el ID del usuario
+    const username = String(req.params.username);
+
+    const posts = await postsService.getPostsByUsername(myUserId, username);
+
+    // Retornamos los posts
+    return res.status(201).json(posts);
+  } catch (error) {
+    return res.status(400).json({
+      message: error instanceof Error 
+        ? error.message 
+        : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// ACTUALIZAR
+// ========================================
+export async function update(
   req: Request,
   res: Response
 ) {
@@ -105,7 +132,7 @@ export async function updatePost(
     const data = postSchema.parse(req.body);
 
     // Obtenemos el post actualizado
-    const post = await postsService.updatePost(
+    const post = await postsService.update(
       userId,
       postId,
       data
@@ -124,9 +151,9 @@ export async function updatePost(
 }
 
 // ========================================
-// ELIMINAR POST
+// ELIMINAR
 // ========================================
-export async function deletePost(
+export async function deleteRequest(
   req: Request,
   res: Response
 ) {
@@ -138,7 +165,7 @@ export async function deletePost(
     const postId = Number(req.params.postId);
 
     // Eliminamos el post
-    await postsService.deletePost(
+    await postsService.deleteById(
       userId,
       postId
     );
@@ -146,33 +173,6 @@ export async function deletePost(
     // Devolvemos mensaje de exito
     return res.status(200).send();
 
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// OBTENER POSTS DE USUARIO
-// ========================================
-export async function getUserPosts(
-  req: Request,
-  res: Response
-) {
-  try {
-    // Obtenemos mi ID
-    const myUserId = req.user.userId;
-
-    // Obtenemos el ID del usuario
-    const username = String(req.params.username);
-
-    const posts = await postsService.getPostsByUsername(myUserId, username);
-
-    // Retornamos los posts
-    return res.status(201).json(posts);
   } catch (error) {
     return res.status(400).json({
       message: error instanceof Error 

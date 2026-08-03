@@ -16,6 +16,6 @@ router.patch("/me", authenticate, upload.single("image"), userController.updateM
 // ========================================
 // PÚBLICAS
 // ========================================
-router.get("/:username", userController.getUserByUsername);
+router.get("/:username", userController.getUser);
 
 export default router;
