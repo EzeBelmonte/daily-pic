@@ -9,7 +9,7 @@ import {
   Textarea 
 } from "@/components";
 
-import type { CreatePost } from "@shared/src/index";
+import type { PostSchema } from "@daily-pic/shared/schemas";
 
 type Props = {
   onClose: () => void;
@@ -27,7 +27,7 @@ const CreatePostForm = ({ onClose }: Props) => {
       return
     }
 
-    const data: CreatePost = {
+    const data: PostSchema = {
       description,
     };
 

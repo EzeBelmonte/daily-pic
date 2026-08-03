@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as usersApi from "@/api/users.api";
 import { meQueryOptions } from "../queries/me.query";
 
-import type { UpdateMe } from "@daily-pic/shared/types";
+import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 
 export function useUpdateMe() {
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ export function useUpdateMe() {
       data,
     }: {
       image: File | null;
-      data: UpdateMe;
+      data: UserUpdateSchema;
     }) => usersApi.updateMe(image, data),
 
     onSuccess: () => {

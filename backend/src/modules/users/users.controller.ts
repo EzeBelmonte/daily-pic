@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import * as userService from "./users.service.js";
 
-import type { UpdateMe } from "@daily-pic/shared/types";
+import { userUpdateSchema } from "@daily-pic/shared/schemas"
 
 // ========================================
 // OBTENER MI USUARIO
@@ -39,11 +39,16 @@ export async function updateMe(
     // Obtenemos el ID usuario logueado
     const userId = req.user.userId;
 
-    // Obtenemos los datos actualizados
-    const data: UpdateMe = {
+    // Como el boolean viene en string, aca lo volvemos boolean
+    const body = {
       ...req.body,
-      isPrivate: req.body.isPrivate === "true",
+      ...(req.body.isPrivate !== undefined && {
+        isPrivate: req.body.isPrivate === "true",
+      }),
     };
+
+    // Obtenemos los datos actualizados
+    const data = userUpdateSchema.parse(body);
 
     // Obtener perfil del usuario
     const profile = await userService.updateMe(

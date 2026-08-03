@@ -14,6 +14,7 @@ export type ContactStatus =
 // ========================================
 // RESPUESTA DEL ESTADOS DE LA SOLICITUD
 // ========================================
+//Backend
 export interface ContactRelationship {
   id: number;
   status: ContactStatus;
@@ -22,6 +23,7 @@ export interface ContactRelationship {
 // ========================================
 // DATOS DEL CONTACTO
 // ========================================
+//Backend
 export interface Contact {
   id: number;
   createdAt: Date;
@@ -33,6 +35,7 @@ export interface Contact {
 // ========================================
 // ESTRUCTURA DE LOS PENDIENTES
 // ========================================
+//Backend y Frontend
 export interface PendingContact {
   id: number;
   status: ContactStatus;

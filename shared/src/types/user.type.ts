@@ -24,15 +24,3 @@ export interface CompleteUser extends User {
 
   createdAt: string;
 }
-
-// ========================================
-// DATOS EDITABLES
-// ========================================
-// Frontend y Backend
-export interface UpdateMe {
-  //email: string;
-  name?: string;
-  lastname?: string | "";
-  bio?: string | null;
-  isPrivate?: boolean;
-}

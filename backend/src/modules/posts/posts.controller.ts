@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import * as postsService from "./posts.service.js";
 
-import type { UpdatePost } from "@daily-pic/shared/types";
+import { postSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
 // CREAR POST
@@ -12,11 +12,11 @@ export async function createPost(
   res: Response
 ) {
   try {
-    // Obtenemos el ID del usuario
+    // ID del usuario autenticado
     const userId = req.user.userId;
     
-    // Datos del post, en este caso el único que tenemos que es la descripción
-    const data = req.body;
+    // Validamos los datos del body
+    const data = postSchema.parse(req.body);
 
     // Creamos el post
     const post = await postsService.createPost(
@@ -102,7 +102,7 @@ export async function updatePost(
     const postId = Number(req.params.postId);
 
     // Obtenmos los datos actualizados
-    const data: UpdatePost = req.body;
+    const data = postSchema.parse(req.body);
 
     // Obtenemos el post actualizado
     const post = await postsService.updatePost(

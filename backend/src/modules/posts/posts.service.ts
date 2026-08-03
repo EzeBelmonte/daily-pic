@@ -5,7 +5,8 @@ import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.s
 
 import { toCreatePostDTO, toPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { CreatePost, Post, PostResponse, UpdatePost } from "@daily-pic/shared/types";
+import type { Post, PostResponse } from "@daily-pic/shared/types";
+import type { PostSchema } from "@daily-pic/shared/schemas";
 
 import { 
   getExistingUserByUsername,
@@ -18,7 +19,7 @@ import {
 export async function createPost(
   userId: number,
   imageBuffer: Buffer | undefined,
-  data: CreatePost,
+  data: PostSchema,
 ): Promise<Post> {
   const user = getExistingUserById(userId);
 
@@ -103,7 +104,7 @@ export async function getPosts(
 export async function updatePost(
   userId: number,
   postId: number,
-  data: UpdatePost
+  data: PostSchema
 ) {
   // Obtenemos el post
   const post = await postsRepository.findById(postId);

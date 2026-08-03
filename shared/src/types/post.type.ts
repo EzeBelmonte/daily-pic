@@ -1,14 +1,7 @@
-export interface PostBase {
-  description?: string;
-}
+import type { PostSchema } from "../schemas/post.schema.js";
 
 // Frontend y Backend
-export interface CreatePost extends PostBase {}
-// Frontend y Backend
-export interface UpdatePost extends PostBase {}
-
-// Frontend y Backend
-export interface Post extends PostBase { // b
+export interface Post extends PostSchema { // b
   id: number;
   imageUrl: string;
   imagePublicId: string;

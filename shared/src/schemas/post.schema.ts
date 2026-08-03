@@ -6,7 +6,7 @@ import { z } from "zod";
 export const postSchema = z.object({
   description: z
     .string()
-    .max(1000)
+    .max(1000, "La descripción no puede superar los 1000 caracteres")
     .optional(),
 });
 

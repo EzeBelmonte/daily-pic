@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { UpdateMe } from "@daily-pic/shared/types";
+import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
 // ========================================
@@ -33,7 +33,7 @@ export async function findUserByUsername(username: string) {
 // ========================================
 export async function update(
   userId: number,
-  data: UpdateMe,
+  data: UserUpdateSchema,
   image?: ImageItem,
 ) {
   const values = {

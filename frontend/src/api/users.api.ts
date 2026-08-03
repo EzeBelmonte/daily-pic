@@ -2,8 +2,9 @@ import api from "./axios";
 
 import type {  
   CompleteUser,
-  UpdateMe
 } from "@daily-pic/shared/types";
+
+import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
 // MI USUARIO
@@ -20,7 +21,7 @@ export async function getMe() {
 // ========================================
 export async function updateMe(
   image: File | null,
-  data: UpdateMe
+  data: UserUpdateSchema
 ) {
   const formData = new FormData();
 

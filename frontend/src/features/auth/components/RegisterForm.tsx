@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 
 import { useRegister } from "../hooks/useRegister";
-import { registerFormSchema, type RegisterFormSchema } from "../schemas/register.schema";
+import { registerFormSchema, type RegisterFormSchema } from "@daily-pic/shared/schemas";
 import { Input, Button, AlertError } from "@/components";
 
 import { getErrorMessage } from "@/utils/getErrorMessage";

@@ -27,21 +27,29 @@ export const registerSchema = z.object({
     .min(8, "La contraseña debe tener al menos 8 caracteres"),
 });
 
-/* 
-Esto genera automáticamente algo como:
-{
-  email: string;
-  username: string;
-  password: string;
-}
-*/
 export type RegisterSchema = z.infer<typeof registerSchema>;
 
+// ========================================
+// REGISTRO PARA FORMULARIO
+// ========================================
+export const registerFormSchema = registerSchema
+  .extend({
+    repeatPassword: z.string(),
+  })
+  .refine(
+    (data) => data.password === data.repeatPassword,
+    {
+      message: "Las contraseñas no coinciden",
+      path: ["repeatPassword"],
+    }
+  );
+
+export type RegisterFormSchema = z.infer<typeof registerFormSchema>;
 
 // ========================================
 // INICIO SESIÓN
 // ========================================
-export const loginSchama = z.object({
+export const loginSchema = z.object({
   identifier: z
     .string()
     .trim()
@@ -52,4 +60,4 @@ export const loginSchama = z.object({
     .min(8, "ingrese su contraseña"),
 });
 
-export type LoginSchema = z.infer<typeof loginSchama>;
+export type LoginSchema = z.infer<typeof loginSchema>;

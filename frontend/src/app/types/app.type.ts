@@ -1,8 +1,9 @@
 import type { 
   CompleteUser,
-  UpdateMe,
   Post,
 } from "@daily-pic/shared/types";
+
+import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
@@ -18,7 +19,7 @@ export interface UsersContextType {
   getUser: (force?: boolean) => Promise<void>;
   updateUser: (
     image: File | null,
-    data: UpdateMe
+    data: UserUpdateSchema
   ) => Promise<void>;
    clearUser: () => void;
 }

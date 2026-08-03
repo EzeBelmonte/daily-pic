@@ -1,13 +1,14 @@
 import api from "./axios";
 
-import type { CreatePost, PostResponse, UpdatePost } from "@daily-pic/shared/types";
+import type { PostResponse } from "@daily-pic/shared/types";
+import type { PostSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
 // CREAR POST
 // ========================================
 export async function createPost(
   image: File,
-  data: CreatePost
+  data: PostSchema
 ) {
   const formData = new FormData();
 
@@ -41,10 +42,10 @@ export async function getPosts() {
 // ========================================
 export async function editPost(
   postId: number,
-  data: UpdatePost
+  data: PostSchema
 ) {
   const response =
-    await api.patch<UpdatePost>(
+    await api.patch<PostSchema>(
         `/posts/${postId}`,
       data
     );

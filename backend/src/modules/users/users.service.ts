@@ -4,7 +4,8 @@ import * as contactsServices from "../contacts/contacts.service.js";
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
-import type { UpdateMe } from "@daily-pic/shared/types";
+import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
+
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
 import { toCompleteUserDTO } from "../../shared/mappers/user.mapper.js";
@@ -44,7 +45,7 @@ export async function getMe(userId: number) {
 export async function updateMe(
   userId: number,
   imageBuffer: Buffer | undefined,
-  data: UpdateMe
+  data: UserUpdateSchema
 ) {
 
   // Obtenemos el usuario

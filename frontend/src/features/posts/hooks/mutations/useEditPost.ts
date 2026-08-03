@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import * as postsApi from "@/api/posts.api";
 
-import type { UpdatePost } from "@daily-pic/shared/types";
+import type { PostSchema } from "@daily-pic/shared/schemas";
 
 export function useEditPost() {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ export function useEditPost() {
       data,
     }: {
       postId: number;
-      data: UpdatePost;
+      data: PostSchema;
     }) => postsApi.editPost(postId, data),
 
     onSuccess: (_, variables) => {

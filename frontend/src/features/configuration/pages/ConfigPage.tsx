@@ -6,10 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMe } from "@/app/hooks/queries/useMe";
 import { useUpdateMe } from "@/app/hooks/mutations/useUpdateMe";
 
-import {
-  configSchema,
-  type ConfigSchema,
-} from "../schemas/config.schema";
+import { userUpdateSchema, type UserUpdateSchema } from "@daily-pic/shared/schemas";
 
 import { cn } from "@/utils/cn";
 import { getErrorMessage } from "@/utils/getErrorMessage";
@@ -33,8 +30,8 @@ const ConfigPage = () => {
       errors,
       isSubmitting,
     },
-  } = useForm<ConfigSchema>({
-    resolver: zodResolver(configSchema),
+  } = useForm<UserUpdateSchema>({
+    resolver: zodResolver(userUpdateSchema),
   });
 
   const {
@@ -65,7 +62,7 @@ const ConfigPage = () => {
   }, [me, reset]);
 
   // Enviar formulario
-  async function onSubmit(data: ConfigSchema) {
+  async function onSubmit(data: UserUpdateSchema) {
     try {
       await updateMeMutation.mutateAsync({
         image, 

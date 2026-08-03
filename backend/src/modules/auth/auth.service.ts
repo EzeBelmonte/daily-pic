@@ -1,15 +1,19 @@
 import bcrypt from "bcryptjs";
-import * as authRepository from "./auth.repository.js";
-import type { User } from "@daily-pic/shared/types";
-import type { CreateUserForm, LoginRequest } from "./auth.type.js";
+
 import { generateToken } from "../../shared/utils/jwt.js";
 import { toUserDTO } from "../../shared/mappers/user.mapper.js";
+
+import * as authRepository from "./auth.repository.js";
+
+import type { User } from "@daily-pic/shared/types";
+
+import type { RegisterFormSchema, LoginSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
 // REGISTRO
 // ========================================
 export async function register(
-  data: CreateUserForm
+  data: RegisterFormSchema
 ): Promise<User> {
   // Buscamos si existe el email
   const existingEmail = await authRepository.findByEmail(data.email);
@@ -34,7 +38,7 @@ export async function register(
 
   const user = await authRepository.create({
     name: data.name,
-    lastname: data.lastname || "",
+    lastname: data.lastname ?? "",
     email: data.email,
     username: data.username,
     password: hashedPassword,
@@ -50,7 +54,7 @@ export async function register(
 // ========================================
 // INICIO SESIÓN
 // ========================================
-export async function login(data: LoginRequest) {
+export async function login(data: LoginSchema) {
   const user = 
     (await authRepository.findByEmail(data.identifier)) ||
     (await authRepository.findByUsername(data.identifier));

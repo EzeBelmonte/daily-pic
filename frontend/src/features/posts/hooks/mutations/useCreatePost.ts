@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import * as postsApi from "@/api/posts.api";
 
-import type { CreatePost } from "@daily-pic/shared/types";
+import type { PostSchema } from "@daily-pic/shared/schemas"; 
 
 export function useCreatePost() {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ export function useCreatePost() {
       data,
     }: {
       image: File;
-      data: CreatePost;
+      data: PostSchema;
     }) => postsApi.createPost(image, data),
 
     onSuccess: () => {
