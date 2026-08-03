@@ -7,7 +7,7 @@ import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
 // ========================================
-// OBTENER DATOS DEL USUARIO
+// OBTENER USUARIO MEDIANTE ID
 // ========================================
 export async function findById(userId: number) {
   return await db.query.users.findFirst({

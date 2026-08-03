@@ -40,7 +40,7 @@ export async function getMe(userId: number) {
 }
 
 // ========================================
-// ACTUALIZAR PERFIL
+// ACTUALIZAR USUARIO
 // ========================================
 export async function updateMe(
   userId: number,

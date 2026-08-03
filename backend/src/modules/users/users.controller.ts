@@ -28,7 +28,7 @@ export async function getMe(
 }
 
 // ========================================
-// ACTUALIZAR MIS DATOS
+// ACTUALIZAR USUARIO
 // ========================================
 export async function updateMe(
   req: Request,
