@@ -30,7 +30,6 @@ const PostPage = () => {
       max-w-[800px]
       flex flex-col 
       justify-center items-center 
-      bg-[rgba(44,44,44,0.2)] rounded
       mx-auto p-10
     ">
       <PostCard post={post} />

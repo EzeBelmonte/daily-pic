@@ -1,47 +1,74 @@
-import FeedLoader from "../components/FeedLoader";
+import { useSearchParams } from "react-router-dom";
+import { useScroll } from "@/hooks/useScroll";
 
-import { useContactsFeed } from "../hooks/queries/useContactsFeed";
+import type { FeedType } from "../types/feed.type";
 
-import PostCard from "@/features/posts/components/PostCard";
+import { cn } from "@/utils/cn";
+
+import { Button } from "@/components";
+import ContactsFeed from "../components/ContactsFeed";
+import DiscoverFeed from "../components/DiscoverFeed";
+
 
 const FeedPage = () => {
-  const {
-    data,
-    isLoading,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
-  } = useContactsFeed();
+  const { scrollingUp } = useScroll();
 
-  // Obtenemos los posts
-  const posts =
-    data?.pages.flatMap(
-      (page) => page.posts
-    ) ?? [];
-
-  if (isLoading) {
-    return (
-      <p className="text-white">
-        Cargando publicaciones...
-      </p>
-    );
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const typeParam  = searchParams.get("type") as FeedType;
+  const feedType: FeedType =
+    typeParam === "discover"
+      ? "discover"
+      : "contacts";
+  
+  // Función para cambiar el tipo de feed
+  const changeFeed = (type: FeedType) => {
+    setSearchParams({ type });
   }
 
-  return (
-    <div>
-      {posts.map((post) => (
-        <PostCard
-          key={post.id}
-          post={post}
-        />
-      ))}
+  const buttonDefaultStyle = "mx-auto w-[150px]";
+  const buttonSelectStyle = "text-blue-500 transition-colors duration-200";
 
-      <FeedLoader 
-        onLoadMore={fetchNextPage}
-        enabled={hasNextPage}
-        loading={isFetchingNextPage}
-      />
-    </div>
+  return (
+    <section className="
+      w-full min-h-screen
+      mt-10 sm:mt-0
+    ">
+      {/* Botónes */}
+      <div className={cn(`
+        grid grid-cols-2
+        py-1
+        font-semibold
+        text-white
+        bg-[rgba(31,31,31,0.5)]
+        border-b border-white/20
+
+        transform transition-all duration-300 ease-in`,
+        scrollingUp
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-10 opacity-0"
+      )}>
+        <Button 
+          onClick={() => changeFeed("contacts")}
+          className={cn(feedType === "contacts" ? buttonSelectStyle : buttonDefaultStyle )}
+        >
+          Contactos
+        </Button>
+
+        <Button 
+          onClick={() => changeFeed("discover")}
+          className={cn(feedType === "discover" ? buttonSelectStyle : buttonDefaultStyle )}
+        >
+          Descubrir
+        </Button>
+      </div>
+
+      {feedType === "contacts" ? (
+        <ContactsFeed />
+      ) : (
+        <DiscoverFeed />
+      )}
+    </section>
   );
 }
 

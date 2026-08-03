@@ -8,7 +8,7 @@ import {
   AppLayout, 
   LayoutWithSidebar,
   AuthLayout, 
-  FeedPage, 
+  FeedPage,
   LoginPage, 
   RegisterPage, 
   ProfilePage,
