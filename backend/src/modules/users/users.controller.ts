@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import * as userService from "./users.service.js";
 
-import type { UpdateMe } from "@shared/index.js";
+import type { UpdateMe } from "@daily-pic/shared/types";
 
 // ========================================
 // OBTENER MI USUARIO

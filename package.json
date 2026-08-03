@@ -1,0 +1,15 @@
+{
+  "name": "Daily_pic",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.4.0",
+      "onFail": "download"
+    }
+  },
+  "type": "module"
+}

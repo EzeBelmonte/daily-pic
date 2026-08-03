@@ -1,4 +1,4 @@
-import type { CompleteUser } from "@shared/index";
+import type { CompleteUser } from "@daily-pic/shared/types";
 
 import { cn } from "@/utils/cn";
 

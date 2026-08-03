@@ -4,7 +4,7 @@ import type {
   ContactRelationship,
   Contact,
   PendingContact
-} from "@shared/index.js";
+} from "@daily-pic/shared/types";
 
 
 import { 

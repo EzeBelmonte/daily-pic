@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import * as authRepository from "./auth.repository.js";
-import type { User,  } from "@shared/index.js";
+import type { User } from "@daily-pic/shared/types";
 import type { CreateUserForm, LoginRequest } from "./auth.type.js";
 import { generateToken } from "../../shared/utils/jwt.js";
 import { toUserDTO } from "../../shared/mappers/user.mapper.js";

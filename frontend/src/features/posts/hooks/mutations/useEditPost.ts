@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import * as postsApi from "@/api/posts.api";
 
-import type { UpdatePost } from "@shared/index";
+import type { UpdatePost } from "@daily-pic/shared/types";
 
 export function useEditPost() {
   const queryClient = useQueryClient();

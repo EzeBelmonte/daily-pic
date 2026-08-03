@@ -4,7 +4,7 @@ import * as contactsServices from "../contacts/contacts.service.js";
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
-import type { UpdateMe } from "@shared/index.js";
+import type { UpdateMe } from "@daily-pic/shared/types";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
 import { toCompleteUserDTO } from "../../shared/mappers/user.mapper.js";

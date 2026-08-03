@@ -1,6 +1,6 @@
 import api from "./axios";
 
-import type { PendingContact } from "@shared/index";
+import type { PendingContact } from "@daily-pic/shared/types";
 
 // ========================================
 // OBTENER RELACIÓN

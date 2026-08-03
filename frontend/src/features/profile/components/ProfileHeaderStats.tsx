@@ -2,7 +2,7 @@ import { useRelationContacts } from "@/features/contacts/hooks/queries/useRelati
 import { useAddContact } from "@/features/contacts/hooks/mutations/useAddContact";
 import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectContact";
 
-import type { CompleteUser } from "@shared/index";
+import type { CompleteUser } from "@daily-pic/shared/types";
 
 import { cn } from "@/utils/cn";
 

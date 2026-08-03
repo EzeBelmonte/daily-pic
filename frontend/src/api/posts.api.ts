@@ -1,6 +1,6 @@
 import api from "./axios";
 
-import type { CreatePost, PostResponse, UpdatePost } from "@shared/index";
+import type { CreatePost, PostResponse, UpdatePost } from "@daily-pic/shared/types";
 
 // ========================================
 // CREAR POST

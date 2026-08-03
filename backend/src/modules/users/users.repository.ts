@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { UpdateMe } from "@shared/index.js";
+import type { UpdateMe } from "@daily-pic/shared/types";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
 // ========================================

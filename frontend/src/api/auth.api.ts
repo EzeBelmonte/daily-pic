@@ -2,7 +2,7 @@ import api from "@/api/axios";
 
 import type { LoginResponse } from "../app/types/auth.type";
 
-import type { RegisterSchema, LoginSchema } from "@/features/auth/schemas/auth.schema";
+import type { RegisterSchema, LoginSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
 // REGISTRO

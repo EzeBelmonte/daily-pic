@@ -25,9 +25,6 @@ export const registerSchema = z.object({
   password: z
     .string()
     .min(8, "La contraseña debe tener al menos 8 caracteres"),
-
-  repeatPassword: z
-    .string()
 });
 
 /* 
@@ -47,6 +44,7 @@ export type RegisterSchema = z.infer<typeof registerSchema>;
 export const loginSchama = z.object({
   identifier: z
     .string()
+    .trim()
     .min(3, "Ingrese un usuario o email"),
   
   password: z

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as usersApi from "@/api/users.api";
 import { meQueryOptions } from "../queries/me.query";
 
-import type { UpdateMe } from "@shared/index";
+import type { UpdateMe } from "@daily-pic/shared/types";
 
 export function useUpdateMe() {
   const queryClient = useQueryClient();

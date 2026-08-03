@@ -1,7 +1,7 @@
 import type { InferSelectModel } from "drizzle-orm";
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { User, CompleteUser } from "@shared/index.js";
+import type { User, CompleteUser } from "@daily-pic/shared/types";
 
 type Users = InferSelectModel<typeof users>;
 

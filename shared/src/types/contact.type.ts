@@ -1,4 +1,4 @@
-import type { User } from "./user.type";
+import type { User } from "../types/user.type.js";
 
 // ========================================
 // ESTADOS DE LA SOLICITUD

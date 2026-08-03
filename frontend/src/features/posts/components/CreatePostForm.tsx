@@ -9,7 +9,7 @@ import {
   Textarea 
 } from "@/components";
 
-import type { CreatePost } from "@shared/index";
+import type { CreatePost } from "@shared/src/index";
 
 type Props = {
   onClose: () => void;

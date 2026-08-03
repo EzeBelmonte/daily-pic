@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import type { Post } from "@shared/index";
+import type { Post } from "@daily-pic/shared/types";
 
 import { Image } from "@/components";
 

@@ -3,7 +3,7 @@ import type { InferSelectModel } from "drizzle-orm";
 import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { Post, PostResponse } from "@shared/index.js";
+import type { Post, PostResponse } from "@daily-pic/shared/types";
 
 type PostType = InferSelectModel<typeof posts>;
 type UserType = InferSelectModel<typeof users>;

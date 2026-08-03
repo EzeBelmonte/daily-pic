@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useLogin } from "@/app/hooks/mutations/useLogin";
 
-import { loginSchama, type LoginSchema } from "../schemas/auth.schema";
+import { loginSchama, type LoginSchema } from "@daily-pic/shared/schemas";
 import { Input, Button, AlertError } from "@/components";
 
 import { getErrorMessage } from "@/utils/getErrorMessage";

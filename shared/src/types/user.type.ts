@@ -12,7 +12,7 @@ export interface User {
 // ========================================
 // DATOS COMPLETOS
 // ========================================
-// Frontend
+// Frontend y Backend
 export interface CompleteUser extends User {
   isPrivate: boolean;
   bio: string | "";

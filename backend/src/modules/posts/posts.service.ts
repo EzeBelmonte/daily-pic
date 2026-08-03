@@ -5,7 +5,7 @@ import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.s
 
 import { toCreatePostDTO, toPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { CreatePost, Post, PostResponse, UpdatePost } from "@shared/index.js";
+import type { CreatePost, Post, PostResponse, UpdatePost } from "@daily-pic/shared/types";
 
 import { 
   getExistingUserByUsername,

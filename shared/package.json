@@ -1,0 +1,27 @@
+{
+  "name": "@daily-pic/shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+
+  "author": "",
+
+  "exports": {
+    "./types": {
+      "types": "./src/types/index.ts",
+      "import": "./src/types/index.ts",
+      "default": "./src/types/index.ts"
+    },
+    "./schemas": {
+      "types": "./src/schemas/index.ts",
+      "import": "./src/schemas/index.ts",
+      "default": "./src/schemas/index.ts"
+    }
+  },
+
+
+  "type": "module",
+  "dependencies": {
+    "zod": "^4.4.3"
+  }
+}

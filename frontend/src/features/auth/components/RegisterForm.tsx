@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 
 import { useRegister } from "../hooks/useRegister";
-import { registerSchema, type RegisterSchema } from "../schemas/auth.schema";
+import { registerFormSchema, type RegisterFormSchema } from "../schemas/register.schema";
 import { Input, Button, AlertError } from "@/components";
 
 import { getErrorMessage } from "@/utils/getErrorMessage";
@@ -16,15 +16,15 @@ const RegisterForm = () => {
       errors,
       isSubmitting, // Mientras el formulario está enviándose al backend: isSubmitting === true
     },
-  } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<RegisterFormSchema>({
+    resolver: zodResolver(registerFormSchema),
   });
 
   const registerMutation = useRegister();
 
   const navigate = useNavigate();
 
-  async function onSubmit(data: RegisterSchema) {
+  async function onSubmit(data: RegisterFormSchema) {
     try {
       await registerMutation.mutateAsync(data);
 

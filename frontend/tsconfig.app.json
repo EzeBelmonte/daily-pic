@@ -9,8 +9,7 @@
     "skipLibCheck": true,
 
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["../shared/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
@@ -27,5 +26,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "../shared/src/schemas/auth.schema.ts"]
 }

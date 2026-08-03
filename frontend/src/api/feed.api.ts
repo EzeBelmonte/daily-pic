@@ -1,6 +1,6 @@
 import api from "./axios";
 
-import type { PostResponse } from "@shared/index";
+import type { PostResponse } from "@daily-pic/shared/types";
 
 export type FeedResponse = {
   posts: PostResponse[];

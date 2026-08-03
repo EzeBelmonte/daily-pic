@@ -1,7 +1,7 @@
 import { useAcceptContact } from "@/features/contacts/hooks/mutations/useAcceptContact";
 import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectContact";
 
-import type { PendingContact } from "@shared/index";
+import type { PendingContact } from "@daily-pic/shared/types";
 
 import { Image, Button } from "@/components";
 

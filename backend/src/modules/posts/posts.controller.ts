@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import * as postsService from "./posts.service.js";
 
-import type { UpdatePost } from "@shared/index.js";
+import type { UpdatePost } from "@daily-pic/shared/types";
 
 // ========================================
 // CREAR POST

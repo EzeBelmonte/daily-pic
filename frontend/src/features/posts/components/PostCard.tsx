@@ -1,7 +1,7 @@
 import { Trash, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import type { PostResponse } from "@shared/index";
+import type { PostResponse } from "@daily-pic/shared/types"
 
 import { formatNormalDate } from "@/helpers/formatterDate.helper";
 import { Image, Button } from "@/components";

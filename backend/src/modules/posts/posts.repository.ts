@@ -4,7 +4,7 @@ import type { InferInsertModel } from "drizzle-orm";
 import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { db } from "../../infrastructure/database/db.js";
 
-import type { UpdatePost } from "@shared/index.js";
+import type { UpdatePost } from "@daily-pic/shared/types";
 
 type NewPost = InferInsertModel<typeof posts>;
 

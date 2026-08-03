@@ -2,9 +2,9 @@ import type {
   CompleteUser,
   UpdateMe,
   Post,
-} from "@shared/index";
+} from "@daily-pic/shared/types";
 
-import type { PostSchema } from "@/features/posts/schemas/posts.schema";
+import type { PostSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
 // USER

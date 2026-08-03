@@ -3,7 +3,7 @@ import api from "./axios";
 import type {  
   CompleteUser,
   UpdateMe
-} from "@shared/index";
+} from "@daily-pic/shared/types";
 
 // ========================================
 // MI USUARIO
