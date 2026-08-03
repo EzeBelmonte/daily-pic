@@ -7,6 +7,9 @@ import {
 
 import { toPostDTO } from "../posts/posts.service.js";
 
+// ========================================
+// FEED DE CONTACTOS
+// ========================================
 export async function getAccepted(
   userId: number,
   limit: number,

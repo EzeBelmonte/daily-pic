@@ -18,7 +18,7 @@ export async function getRelationship(
 // ========================================
 // ENVIAR SOLICITUD
 // ========================================
-export async function addContact(
+export async function create(
   userId: number
 ) {
   const response = await api.post(
@@ -31,7 +31,7 @@ export async function addContact(
 // ========================================
 // ACEPTAR SOLICITUD
 // ========================================
-export async function acceptReqiest(
+export async function acceptRequest(
   requestId: number
 ) {
   await api.patch(
@@ -42,7 +42,7 @@ export async function acceptReqiest(
 // ========================================
 // EIMINAR SOLICITUD
 // ========================================
-export async function rejectRequest(
+export async function deleteRequest(
   requestId: number
 ) {
   await api.delete(

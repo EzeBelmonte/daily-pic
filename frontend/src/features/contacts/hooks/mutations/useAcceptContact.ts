@@ -7,7 +7,7 @@ export function useAcceptContact() {
 
   return useMutation({
     mutationFn: (requestId: number) => 
-      contactsApi.acceptReqiest(requestId),
+      contactsApi.acceptRequest(requestId),
 
     onSuccess: () => {
       queryClient.invalidateQueries({

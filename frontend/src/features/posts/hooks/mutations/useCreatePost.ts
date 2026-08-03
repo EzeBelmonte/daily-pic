@@ -14,7 +14,7 @@ export function useCreatePost() {
     }: {
       image: File;
       data: PostSchema;
-    }) => postsApi.createPost(image, data),
+    }) => postsApi.create(image, data),
 
     onSuccess: () => {
       queryClient.invalidateQueries({

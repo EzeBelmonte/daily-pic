@@ -115,7 +115,7 @@ export async function getUserPosts(
 }
 
 // ========================================
-// ACTUALIZAR
+// ACTUALIZAR POSTS
 // ========================================
 export async function update(
   req: Request,
@@ -151,7 +151,7 @@ export async function update(
 }
 
 // ========================================
-// ELIMINAR
+// ELIMINAR POSTS
 // ========================================
 export async function deleteRequest(
   req: Request,

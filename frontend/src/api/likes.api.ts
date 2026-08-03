@@ -3,7 +3,7 @@ import api from "./axios";
 // ========================================
 // CONTAR LIKES
 // ========================================
-export async function getLikes(
+export async function count(
   postId: number
 ) {
   const response =
@@ -15,7 +15,7 @@ export async function getLikes(
 // ========================================
 // DAR LIKE
 // ========================================
-export async function addLike(
+export async function like(
   postId: number
 ) {
 
@@ -26,7 +26,7 @@ export async function addLike(
 // ========================================
 // QUITAR LIKE
 // ========================================
-export async function removeLike(
+export async function dislike(
   postId: number
 ) {
 

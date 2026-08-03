@@ -7,7 +7,7 @@ export function useAddLike() {
 
   return useMutation({
     mutationFn: (postId: number) => 
-      likesApi.addLike(postId),
+      likesApi.like(postId),
     
     onSuccess: (_, postId) => {
       queryClient.invalidateQueries({

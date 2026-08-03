@@ -12,7 +12,7 @@ import {
 } from "../../shared/helpers/getExistingUser.js";
 
 // ========================================
-// CREAR SOLICITUD
+// CREAR RELACIÓN
 // ========================================
 export async function create(
   requesterId: number,
@@ -92,7 +92,7 @@ export async function getPending(
 }
 
 // ========================================
-// OBTENER SOLICITUD POR ID
+// OBTENER CONTACTO
 // ========================================
 export async function getContact(
   id: number,
@@ -108,7 +108,7 @@ export async function getContact(
 }
 
 // ========================================
-// ACEPTAR SOLICITUD
+// ACEPTAR RELACIÓN
 // ========================================
 export async function updateAccepted(
   id: number,

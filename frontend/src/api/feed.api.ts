@@ -7,7 +7,7 @@ export type FeedResponse = {
   nextCursor: string | null;
 }
 
-export async function getcontactsFeed(
+export async function getAccepted(
   cursor?: string
 ): Promise<FeedResponse> {
   const response = await api.get<FeedResponse>(

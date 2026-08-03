@@ -14,7 +14,7 @@ export function useEditPost() {
     }: {
       postId: number;
       data: PostSchema;
-    }) => postsApi.editPost(postId, data),
+    }) => postsApi.update(postId, data),
 
     onSuccess: (_, variables) => {
       // Actualiza el post individual

@@ -5,7 +5,7 @@ import * as likesApi from "@/api/likes.api";
 export function useCountLikes(postId: number) {
   return useQuery({
     queryKey: ["likes", postId, "count"],
-    queryFn: () => likesApi.getLikes(postId),
+    queryFn: () => likesApi.count(postId),
     enabled: !!postId,
   });
 }

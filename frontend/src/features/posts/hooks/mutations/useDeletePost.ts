@@ -7,7 +7,7 @@ export function useDeletePost() {
 
   return useMutation({
     mutationFn: (postId: number) =>
-      postsApi.deletePost(postId),
+      postsApi.deleteRequest(postId),
 
     onSuccess: (_, postId) => {
       // Eliminamos/actualizamos el post individual

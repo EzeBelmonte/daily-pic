@@ -1,4 +1,4 @@
-import { useListPosts } from "@/features/posts/hooks/queries/useListPosts";
+import { useMyPosts } from "@/features/posts/hooks/queries/useMyPosts";
 import { useUserPosts } from "@/features/posts/hooks/queries/useUserPosts";
 
 export function useProfilePosts(username?: string) {
@@ -6,7 +6,7 @@ export function useProfilePosts(username?: string) {
   const isVisitor = !!username;
   
   // Mis posts
-  const myPosts = useListPosts(!isVisitor);
+  const myPosts = useMyPosts(!isVisitor);
 
   // Post de usuario
   const userPosts = useUserPosts(username);

@@ -89,7 +89,7 @@ export async function findPending(userId: number) {
 }
 
 // ========================================
-// OBTENER CONTACTO POR ID
+// OBTENER RELACIÓN POR ID
 // ========================================
 export async function findById(id: number) {
   const [contact] = await db
@@ -102,7 +102,7 @@ export async function findById(id: number) {
 }
 
 // ========================================
-// ACEPTAR SOLICITUD
+// ACEPTAR RELACIÓN
 // ========================================
 export async function updateAccepted(id: number) {
   const [contact] = await db

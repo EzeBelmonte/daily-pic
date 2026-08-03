@@ -14,7 +14,7 @@ import {
  } from "../../shared/helpers/getExistingUser.js";
 
 // ========================================
-// CREAR 
+// CREAR POSTS
 // ========================================
 export async function create(
   userId: number,
@@ -58,7 +58,7 @@ export async function create(
 }
 
 // ========================================
-// OBTENER POST
+// OBTENER UN POST
 // ========================================
 export async function getPost(
   postId: number
@@ -99,7 +99,7 @@ export async function getPosts(
 }
 
 // ========================================
-// OBTENER DE USUARIO
+// OBTENER POSTS DE USUARIO
 // ========================================
 export async function getPostsByUsername(
   myUserId: number,
@@ -140,7 +140,7 @@ export async function getPostsByUsername(
 }
 
 // ========================================
-// ACTUALIZAR
+// ACTUALIZAR POSTS
 // ========================================
 export async function update(
   userId: number,
@@ -164,7 +164,7 @@ export async function update(
 }
 
 // ========================================
-// ELIMINAR
+// ELIMINAR POSTS
 // ========================================
 export async function deleteById(
   userId: number,
@@ -186,7 +186,7 @@ export async function deleteById(
 }
 
 // ========================================
-// CONTAR
+// CONTAR POSTS
 // ========================================
 export async function countById(
   userId: number

@@ -7,7 +7,7 @@ export function useAddContact() {
 
   return useMutation({
     mutationFn: (userId: number) =>
-      contactsApi.addContact(userId),
+      contactsApi.create(userId),
 
     onSuccess: (_, userId) => {
       queryClient.invalidateQueries({

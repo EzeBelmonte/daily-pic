@@ -12,7 +12,7 @@ export function useRejectContact() {
     }: {
       requestId: number;
       userId: number;
-    }) => contactsApi.rejectRequest(requestId),
+    }) => contactsApi.deleteRequest(requestId),
 
     onSuccess: (_, { userId }) => {
       queryClient.invalidateQueries({

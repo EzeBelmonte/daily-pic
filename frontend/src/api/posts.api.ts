@@ -6,7 +6,7 @@ import type { PostSchema } from "@daily-pic/shared/schemas";
 // ========================================
 // CREAR POST
 // ========================================
-export async function createPost(
+export async function create(
   image: File,
   data: PostSchema
 ) {
@@ -30,7 +30,7 @@ export async function createPost(
 // ========================================
 // OBTENER MIS POSTS
 // ========================================
-export async function getPosts() {
+export async function getMyPosts() {
   const response =
     await api.get<PostResponse[]>("/posts/me");
 
@@ -40,7 +40,7 @@ export async function getPosts() {
 // ========================================
 // EDITAR POST
 // ========================================
-export async function editPost(
+export async function update(
   postId: number,
   data: PostSchema
 ) {
@@ -56,7 +56,7 @@ export async function editPost(
 // ========================================
 // ELIMINAR POST
 // ========================================
-export async function deletePost(
+export async function deleteRequest(
   postId: number
 ) {
   const response = 

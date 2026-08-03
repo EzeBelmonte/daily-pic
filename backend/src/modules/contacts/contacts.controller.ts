@@ -5,7 +5,7 @@ import { getIO } from "../../socket.js";
 import * as contactsService from "./contacts.service.js";
 
 // ========================================
-// CREAR SOLICITUD
+// CREAR RELACIÓN
 // ========================================
 export async function create(
   req: Request,
@@ -100,7 +100,7 @@ export async function getPending(
 }
 
 // ========================================
-// OBTENER SOLICITUD
+// OBTENER RELACIÓN
 // ========================================
 export async function getContact(
   req: Request,
@@ -126,7 +126,7 @@ export async function getContact(
 }
 
 // ========================================
-// ACEPTAR SOLICITUD
+// ACEPTAR RELACIÓN
 // ========================================
 export async function acceptRequest(
   req: Request,

@@ -7,7 +7,7 @@ export function useRemoveLike() {
 
   return useMutation({
     mutationFn: (postId: number) =>
-      likesApi.removeLike(postId),
+      likesApi.dislike(postId),
 
     onSuccess: (_, postId) => {
       queryClient.invalidateQueries({
