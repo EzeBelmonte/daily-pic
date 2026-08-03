@@ -25,6 +25,17 @@ export function decodeCursor(
 
   const data = JSON.parse(decoded);
 
+  const createdAt = new Date(data.createdAt);
+  const id = Number(data.id);
+
+  if (
+    Number.isNaN(createdAt.getTime()) ||
+    !Number.isInteger(id) ||
+    id <= 0
+  ) {
+    throw new Error("Cursor inválido")
+  }
+
   return {
     createdAt: new Date(data.createdAt),
     id: Number(data.id),

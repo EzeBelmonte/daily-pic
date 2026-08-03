@@ -11,18 +11,26 @@ export async function getContactsFeed(
   res: Response
 ) {
   try {
+    // Usuario autenticado
     const userId = req.user.userId;
 
+    // Cantidad solicitada
+    const requestedLimit = Number(req.query.limit);
+
     const limit = Math.min(
-      Number(req.query.limit) || 20,
-      50
+      Number.isInteger(requestedLimit) && requestedLimit > 0
+        ? requestedLimit
+        : 20,
+      30
     );
 
+    // Cursor
     const cursor =
       typeof req.query.cursor === "string"
         ? decodeCursor(req.query.cursor)
         : undefined;
 
+    // Obtenemos el feed
     const feed =
       await feedService.getContactsFeed(
         userId,
@@ -33,7 +41,6 @@ export async function getContactsFeed(
     return res.status(200).json(feed);
 
   } catch (error) {
-    console.error("❌ ERROR FEED:", error);
     return res.status(400).json({
       message:
         error instanceof Error

@@ -3,10 +3,7 @@ import { and, eq, or, lt, desc } from "drizzle-orm";
 import { db } from "../../infrastructure/database/db.js";
 import { contacts, posts, users } from "../../infrastructure/database/schemas/index.js";
 
-type FeedCursor = {
-  createdAt: Date;
-  id: number;
-};
+import type { FeedCursor } from "./feed.cursor.js";
 
 export async function getFeedPosts(
   userId: number,
@@ -15,11 +12,20 @@ export async function getFeedPosts(
 ) {
   const cursorCondition = cursor
     ? or(
-      lt(posts.createdAt, cursor.createdAt),
+      lt(
+        posts.createdAt, 
+        cursor.createdAt
+      ),
 
       and(
-        eq(posts.createdAt, cursor.createdAt),
-        lt(posts.id, cursor.id)
+        eq(
+          posts.createdAt, 
+          cursor.createdAt
+        ),
+        lt(
+          posts.id, 
+          cursor.id
+        )
       )
     )
     : undefined;
@@ -30,29 +36,50 @@ export async function getFeedPosts(
       user: users,
     })
     .from(posts)
+
+    // Usuario dueño del post
     .innerJoin(
       users,
       eq(posts.userId, users.id)
     )
+
+    // Relación entre el usuario actual
+    // y el dueño del post
     .innerJoin(
       contacts,
-      and(
-        eq(contacts.status, "accepted"),
-
-        or(
-          and(
-            eq(contacts.requesterId, userId),
-            eq(contacts.addresseeId, posts.userId)
+      or(
+        and(
+          eq(
+            contacts.requesterId,
+            userId
           ),
+          eq(
+            contacts.addresseeId, 
+            users.id
+          )
+        ),
 
-          and(
-            eq(contacts.addresseeId, userId),
-            eq(contacts.requesterId, posts.userId)
+        and(
+          eq(
+            contacts.addresseeId,
+            userId
+          ),
+          eq(
+            contacts.requesterId,
+            users.id
           )
         )
       )
     )
-    .where(cursorCondition)
+    .where(
+      and(
+        eq(
+          contacts.status,
+          "accepted"
+        ),
+        cursorCondition
+      )
+    )
     .orderBy(
       desc(posts.createdAt),
       desc(posts.id)
