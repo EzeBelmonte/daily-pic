@@ -1,6 +1,6 @@
 import api from "./api";
 
-import type { PostResponse } from "@daily-pic/shared/types";
+import type { Post, PostResponse } from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
 export interface PublicationStatus {
@@ -37,7 +37,7 @@ export async function create(
 // ========================================
 export async function getMyPosts() {
   const response =
-    await api.get<PostResponse[]>("/posts/me");
+    await api.get<Post[]>("/posts/me");
 
   return response.data;
 }

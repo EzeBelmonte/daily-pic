@@ -61,11 +61,10 @@ const PostActions = ({ post }: Props) => {
 
   return (
     <>
-      <div className="
-        w-full max-w-[500px] 
-        flex justify-between
-        mb-3 px-2 mx-auto
-      ">
+      <div 
+        style={{ maxWidth: post.imageWidth }}
+        className="w-full flex justify-between p-2 mx-auto"
+      >
         {/* Me gusta y listado de gente que dio "me gustas" */}
         <div className="flex gap-1.5">
           <Button

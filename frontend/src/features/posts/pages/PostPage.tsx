@@ -26,14 +26,12 @@ const PostPage = () => {
   }
 
   return (
-    <div className="
-      max-w-[800px]
-      flex flex-col 
-      justify-center items-center 
-      mx-auto p-10
+    <main className="
+      w-full 
+      px-4 py-10
     ">
       <PostCard post={post} />
-    </div>
+    </main>
   );
 }
 

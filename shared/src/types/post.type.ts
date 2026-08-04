@@ -5,6 +5,10 @@ export interface Post extends PostSchema { // b
   id: number;
   imageUrl: string;
   imagePublicId: string;
+
+  imageWidth: number;
+  imageHeight: number;
+
   createdAt: string;
 }
 

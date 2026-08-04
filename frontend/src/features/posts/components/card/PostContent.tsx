@@ -21,7 +21,8 @@ const PostContent = ({ post }: Props) => {
           src={post.imageUrl}
           alt="Imagen publicada"
           className="
-            max-w-full max-h-[600px]
+            block
+            max-w-full max-h-[800px]
             w-auto h-auto
             object-contain
             rounded

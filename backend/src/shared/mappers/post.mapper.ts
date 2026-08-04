@@ -18,6 +18,8 @@ export function toCreatePostDTO(
     id: post.id,
     imageUrl: post.imageUrl,
     imagePublicId: post.imagePublicId,
+    imageWidth: post.imageWidth,
+    imageHeight: post.imageHeight,
     description: post.description ?? "",
 
     createdAt: post.createdAt.toISOString(),
@@ -25,9 +27,27 @@ export function toCreatePostDTO(
 }
 
 // ========================================
-// OBTENER POST
+// OBTENER MIS POSTS
 // ========================================
 export function toPostDTO(
+  post: PostType,
+): Post {
+  return {
+    id: post.id,
+    imageUrl: post.imageUrl,
+    imagePublicId: post.imagePublicId,
+    imageWidth: post.imageWidth,
+    imageHeight: post.imageHeight,
+    description: post.description ?? "",
+
+    createdAt: post.createdAt.toString(),
+  };
+}
+
+// ========================================
+// OBTENER POSTS DE USUARIOS
+// ========================================
+export function toUserPostDTO(
   post: PostType,
   user: UserType
 ): PostResponse {
@@ -35,6 +55,8 @@ export function toPostDTO(
     id: post.id,
     imageUrl: post.imageUrl,
     imagePublicId: post.imagePublicId,
+    imageWidth: post.imageWidth,
+    imageHeight: post.imageHeight,
     description: post.description ?? "",
 
     user: {

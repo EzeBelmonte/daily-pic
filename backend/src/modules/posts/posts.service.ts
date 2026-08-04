@@ -8,7 +8,7 @@ import {
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
-import { toCreatePostDTO, toPostDTO } from "../../shared/mappers/post.mapper.js";
+import { toCreatePostDTO, toPostDTO, toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 
 import type { Post, PostResponse } from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
@@ -18,13 +18,12 @@ import {
   getExistingUserById,
  } from "../../shared/helpers/getExistingUser.js";
 
-import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
-
 import { 
   getExistingPostsById 
 } from "../../shared/helpers/getExistingPost.js";
 
 import { NotFoundError } from "../../shared/errors/errors.js";
+import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
 
 export { toPostDTO };
 
@@ -37,6 +36,7 @@ export async function create(
   data: PostSchema,
 ): Promise<Post> {
   const allowed = await canPublish(userId);
+  
   if (!allowed) {
     throw new PublicationLimitError();
   }
@@ -47,9 +47,6 @@ export async function create(
     );
   }
 
-  let imageUrl: string;
-  let imagePublicId: string;
-
   if (imageBuffer === undefined || imageBuffer === null) {
     throw new NotFoundError(
       "La imagen es obligatoria"
@@ -58,13 +55,13 @@ export async function create(
 
   // Subimos la imagen y obtenemos los datos que necesitamos
   const upload = await cloudinaryService.uploadImage(imageBuffer);
-  imageUrl = upload.imageUrl;
-  imagePublicId = upload.imagePublicId;
-  
+
   const post = await postsRepository.create({
     userId,
-    imageUrl,
-    imagePublicId,
+    imageUrl:  upload.imageUrl,
+    imagePublicId: upload.imagePublicId,
+    imageWidth: upload.imageWidth,
+    imageHeight: upload.imageHeight,
     ...data,
   });
 
@@ -87,7 +84,7 @@ export async function getPost(
 
   const user = await getExistingUserById(post.userId);
 
-  return toPostDTO(post, user);
+  return toUserPostDTO(post, user);
 }
 
 // ========================================
@@ -98,10 +95,8 @@ export async function getPosts(
 ): Promise<Post[]> {  
   const posts = await postsRepository.findByUserId(userId);
   
-  const user = await getExistingUserById(userId);
-
   return posts.map((post) => 
-    toPostDTO(post, user)
+    toPostDTO(post)
   );
 }
 
@@ -129,7 +124,7 @@ export async function getPostsByUsername(
   const posts = await postsRepository.findByUserId(user.id);
 
   return posts.map((post) => 
-    toPostDTO(post, user)
+    toUserPostDTO(post, user)
   );
 }
 
@@ -211,6 +206,7 @@ export async function canPublish(
 // OBTENER ESTADO SI PUEDE PUBLICAR
 // ========================================
 export async function getPublicationStatus(userId: number) {
+
   const lastPost = await postsRepository.findLastByUserId(userId);
 
   const currentPeriodStart =
@@ -222,6 +218,7 @@ export async function getPublicationStatus(userId: number) {
   const canPublish =
     !lastPost ||
     lastPost.createdAt < currentPeriodStart;
+
 
   return {
     canPublish,

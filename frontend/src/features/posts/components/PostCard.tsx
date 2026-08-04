@@ -10,7 +10,7 @@ type Props = {
 const PostCard = ({ post }: Props) => {
 
   return (
-    <article className="w-full max-w-[600px] mx-auto">
+    <article className="w-full max-w-[900px] mx-auto">
       {/* Imagen y descripción */}
       <PostContent post={post} />
 

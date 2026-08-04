@@ -4,8 +4,6 @@ import * as postsService from "./posts.service.js";
 
 import { postSchema } from "@daily-pic/shared/schemas";
 
-import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
-
 // ========================================
 // CREAR POST
 // ========================================

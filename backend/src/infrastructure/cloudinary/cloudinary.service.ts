@@ -10,6 +10,8 @@ export async function uploadImage(
 ): Promise<{
   imageUrl: string;
   imagePublicId: string;
+  imageWidth: number;
+  imageHeight: number;
 }> {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
@@ -24,6 +26,8 @@ export async function uploadImage(
         resolve({
           imageUrl: result.secure_url,
           imagePublicId: result.public_id,
+          imageWidth: result.width,
+          imageHeight: result.height
         });
       }
     );
