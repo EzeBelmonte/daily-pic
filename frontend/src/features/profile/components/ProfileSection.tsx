@@ -21,14 +21,12 @@ const ProfileSection = ({ posts }: Props) => {
       mx-auto
     ">
       <div className="
-        grid grid-cols-3
+        grid grid-cols-2
       ">
         {posts.map((post) => (
           <div
             key={post.id}
             className="
-              aspect-[4/5]
-              bg-black
               overflow-hidden
               flex items-center justify-center
             "
@@ -36,7 +34,6 @@ const ProfileSection = ({ posts }: Props) => {
             <Image 
               src={post.imageUrl}
               alt="Publicación"
-              className="w-full h-full object-cover"
               onClick={() => handleGoPost(post.id)}
             />
           </div>

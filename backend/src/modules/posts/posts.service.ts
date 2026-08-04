@@ -24,6 +24,8 @@ import {
   getExistingPostsById 
 } from "../../shared/helpers/getExistingPost.js";
 
+import { NotFoundError } from "../../shared/errors/errors.js";
+
 export { toPostDTO };
 
 // ========================================
@@ -40,14 +42,18 @@ export async function create(
   }
 
   if (!data) {
-    throw new Error("La imagen es obligatoria");
+    throw new NotFoundError(
+      "La imagen es obligatoria"
+    );
   }
 
   let imageUrl: string;
   let imagePublicId: string;
 
   if (imageBuffer === undefined || imageBuffer === null) {
-    throw new Error ("La imagen es obligatoria");
+    throw new NotFoundError(
+      "La imagen es obligatoria"
+    );
   }
 
   // Subimos la imagen y obtenemos los datos que necesitamos
@@ -63,7 +69,9 @@ export async function create(
   });
 
   if (!post) {
-    throw new Error("Error al crear la publicación");
+    throw new NotFoundError(
+      "Error al crear la publicación"
+    );
   }
 
   return toCreatePostDTO(post);
@@ -137,7 +145,9 @@ export async function update(
   const post = await getExistingPostsById(postId);
 
   if (post.userId !== userId) {
-    throw new Error("No tienes permiso para editar este post");
+    throw new NotFoundError(
+      "No tienes permiso para editar este post"
+    );
   }
 
   const updatePost = await postsRepository.update(postId, data);
@@ -156,7 +166,9 @@ export async function deleteById(
   const post = await getExistingPostsById(postId);
 
   if (post.userId !== userId) {
-    throw new Error("No tienes permiso para eliminar este post");
+    throw new NotFoundError(
+      "No tienes permiso para editar este post"
+    );
   }
 
   await cloudinaryService.deleteImage(post.imagePublicId);

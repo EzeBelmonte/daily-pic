@@ -68,7 +68,7 @@ export async function login(data: LoginSchema) {
 
   // Si no existe el email o usuario
   if (!user) {
-        throw new NotFoundError(
+    throw new NotFoundError(
       "Usuario no encontrado"
     );
   }
@@ -81,7 +81,7 @@ export async function login(data: LoginSchema) {
 
   // Si la contraseña es incorrecta
   if (!isValidPassword) {
-        throw new NotFoundError(
+    throw new NotFoundError(
       "Contraseña incorrecta"
     );
   }

@@ -19,14 +19,8 @@ export async function create(
   requesterId: number,
   addresseeId: number
 ): Promise<Contact> {
-  const userAExisting = await getExistingUserById(requesterId);
-  const userBExisting = await getExistingUserById(addresseeId);
-
-  if (!userAExisting || !userBExisting) {
-    throw new NotFoundError(
-      "Uno de los usuarios no existe"
-    );
-  }
+  await getExistingUserById(requesterId);
+  await getExistingUserById(addresseeId);
 
   const existingRelation =
     await contactsRepository.findRelationship(
@@ -62,14 +56,8 @@ export async function getRelationship(
   userA: number,
   userB: number
 ): Promise<ContactRelationship | null> {
-  const userAExisting = await getExistingUserById(userA);
-  const userBExisting = await getExistingUserById(userB);
-
-  if (!userAExisting || !userBExisting) {
-    throw new NotFoundError(
-      "Uno de los usuarios no existe"
-    );
-  }
+  await getExistingUserById(userA);
+  await getExistingUserById(userB);
 
   const relation = 
     await contactsRepository.findRelationship(
