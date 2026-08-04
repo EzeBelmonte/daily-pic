@@ -41,6 +41,9 @@ const PostActions = ({ post }: Props) => {
     return <p>Error al cargar mi usuario</p>;
   }
 
+  console.log(user);
+  console.log(post)
+
   // Función para eliminar la publicación
   const handleDelete = async() => {
     try {

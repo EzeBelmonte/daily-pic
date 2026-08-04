@@ -1,7 +1,13 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { 
+  ComponentPropsWithoutRef, 
+  ReactNode 
+} from "react";
+
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
-type RootProps = {
+type RootProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuPrimitive.Root
+> & {
   children: ReactNode;
 };
 

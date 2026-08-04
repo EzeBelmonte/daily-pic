@@ -94,7 +94,7 @@ export async function getPosts(
   userId: number
 ): Promise<Post[]> {  
   const posts = await postsRepository.findByUserId(userId);
-  
+
   return posts.map((post) => 
     toPostDTO(post)
   );

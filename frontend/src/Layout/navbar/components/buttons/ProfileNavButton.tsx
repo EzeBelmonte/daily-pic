@@ -1,4 +1,5 @@
 import { useMe } from "@/app/hooks/queries/useMe";
+import { useModalButton } from "@/hooks/useModalButton";
 
 import { cn } from "@/utils/cn";
 
@@ -20,6 +21,12 @@ const ProfileNavButton = ({
   variant,
   className,
 }: Props) => {
+  const {
+    open,
+    openModal,
+    closeModal
+  } = useModalButton();
+
   const {
     data: user,
     isLoading,
@@ -46,7 +53,10 @@ const ProfileNavButton = ({
         <div className="bg-gray-600 w-7 h-7 rounded-full" />
       ) : (
         <div className={divStyle}>
-          <DropdownMenu>
+          <DropdownMenu
+            open={open}
+            onOpenChange={openModal}
+          >
             <DropdownMenuTrigger>
               <Image
                 src={user?.profileImageUrl ?? ""}
@@ -64,7 +74,9 @@ const ProfileNavButton = ({
               sideOffset={compact ? 4 : 5}
               alignOffset={compact ? -20 : -1}
             >
-              <ProfileItemsList />
+              <ProfileItemsList
+                 onClose={closeModal}
+              />
             </DropdownMenuContent>
           </DropdownMenu>
 

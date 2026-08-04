@@ -5,18 +5,22 @@ import { useAuth } from "@/app/hooks/useAuth";
 
 import { Button } from "@/components";
 
-const ProfileItemsList = () => {
+type Props = {
+  onClose: () => void;
+}
+
+const ProfileItemsList = ({ onClose }: Props) => {
   const navigate = useNavigate();
 
   const { logout } = useAuth();
 
   const handleProfile = () => {
-
-    navigate("/profile")
+    onClose();
+    navigate("/profile");
   }
 
   const handleConfig = () => {
-
+    onClose();
     navigate("/config");
   }
 

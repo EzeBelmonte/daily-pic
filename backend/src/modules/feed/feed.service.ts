@@ -5,7 +5,7 @@ import {
   type FeedCursor,
 } from "./feed.cursor.js";
 
-import { toPostDTO } from "../posts/posts.service.js";
+import { toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 
 // ========================================
 // FEED DE CONTACTOS
@@ -24,7 +24,7 @@ export async function getAccepted(
 
   const posts = result.map(
     ({ post, user }) =>
-      toPostDTO(post, user)
+      toUserPostDTO(post, user)
   );
 
   const lastPost =

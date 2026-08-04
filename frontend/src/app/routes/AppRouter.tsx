@@ -80,6 +80,11 @@ export function AppRouter() {
               <ProfilePage />
             }
           />
+
+          <Route 
+            path="/notifications"
+            element={<Notifications />}
+          />
         </Route>
 
         <Route 
@@ -92,11 +97,6 @@ export function AppRouter() {
           <Route 
             path="/profile/:username"
             element={<ProfilePage />}
-          />
-
-          <Route 
-            path="/notifications"
-            element={<Notifications />}
           />
 
           <Route 

@@ -28,7 +28,12 @@ const PendingList = () => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="
+      w-full 
+      flex flex-col 
+      justify-center items-center
+      gap-5
+    ">
       {pending?.length === 0 || pending === undefined ? (
         <p className="text-white">Sin notificaciones</p>
       ) : (
