@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { usePost } from "../hooks/queries/usePost";
 
-import  PostCard  from "../components/PostCard";
+import  PostCard  from "../components/card/PostCard";
 
 const PostPage = () => {
   const { postId } = useParams();

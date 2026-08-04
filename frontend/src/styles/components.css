@@ -1,0 +1,15 @@
+@layer components {
+  .reveal-image {
+    @apply w-full h-auto rounded;
+
+    margin-bottom: 0.5rem; /* 32px*/
+
+    animation: reveal linear both;
+    animation-timeline: view();
+    /* 
+      entry 20% → la animación comienza cuando el elemento ya ha entrado un 20% en el viewport.
+      cover 30% → la animación termina cuando el elemento cubre un 30% del viewport.
+    */
+    animation-range: entry 10% cover 20%;
+  }
+}

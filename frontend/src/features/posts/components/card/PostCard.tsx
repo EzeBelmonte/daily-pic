@@ -1,7 +1,7 @@
 import type { PostResponse } from "@daily-pic/shared/types"
 
-import PostContent from "./card/PostContent";
-import PostActions from "./card/PostActions";
+import PostContent from "./PostContent";
+import PostActions from "./PostActions";
 
 type Props = {
   post: PostResponse;

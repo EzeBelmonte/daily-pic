@@ -1,0 +1,24 @@
+@keyframes reveal {
+  /* el traslate provoca que a medida que se muestren los elementos, se mueven de 0 a 100px
+  sobre el eje Y */
+  from {
+    opacity: 0;
+    translate: 0 100px;
+    scale: .5;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes enhance-header {
+  to {
+    background: rgba(255, 255, 255, .4);
+    backdrop-filter: blur(5px);
+    font-size: 18px;
+    color: black;
+  }
+}

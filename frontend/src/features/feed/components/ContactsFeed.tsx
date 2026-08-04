@@ -2,7 +2,7 @@ import FeedLoader from "./FeedLoader";
 
 import { useContactsFeed } from "../hooks/queries/useContactsFeed";
 
-import PostCard from "@/features/posts/components/PostCard";
+import PostCard from "@/features/posts/components/card/PostCard";
 
 const ContactsFeed = () => {
 

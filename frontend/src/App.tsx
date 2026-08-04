@@ -1,4 +1,4 @@
-import './App.css'
+import "./styles/App.css"
 import { AppRouter } from "@/app/routes/AppRouter";
 
 function App() {

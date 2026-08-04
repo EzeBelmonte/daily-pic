@@ -1,20 +1,29 @@
 @import "tailwindcss";
+@import "./animations.css";
+@import "./components.css";
 
-/* Temas personalizados */
+/* ==========================
+  Tema
+========================== */
 @theme {
   --font-outfit: "Outfit", sans-serif; /* Fuente */
 
   --breakpoint-tablet: 56.25rem; /* Responsive. 900px ÷ 16 = 56.25rem */
 }
 
+/* ==========================
+   Base
+========================== */
 @layer base {
   body {
     @apply bg-fixed bg-linear-[-10deg] from-[#111111] to-[#010b13]; /* 0f0f0f */
   }
 }
 
-@layer components {}
 
+/* ==========================
+   Otros
+========================== */
 /* Esto le quita el remarco negro que se le hace al grafico al hacerle clic */
 .recharts-wrapper *:focus {
   outline: none !important;
