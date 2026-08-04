@@ -18,7 +18,11 @@ import {
   getExistingUserById,
  } from "../../shared/helpers/getExistingUser.js";
 
-import {  PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
+import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
+
+import { 
+  getExistingPostsById 
+} from "../../shared/helpers/getExistingPost.js";
 
 export { toPostDTO };
 
@@ -30,12 +34,6 @@ export async function create(
   imageBuffer: Buffer | undefined,
   data: PostSchema,
 ): Promise<Post> {
-  const user = getExistingUserById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
-
   const allowed = await canPublish(userId);
   if (!allowed) {
     throw new PublicationLimitError();
@@ -77,17 +75,9 @@ export async function create(
 export async function getPost(
   postId: number
 ): Promise<PostResponse> {
-  const post = await postsRepository.findById(postId);
-
-  if (!post) {
-    throw new Error("Error al obtener la publicación");
-  }
+  const post = await getExistingPostsById(postId);
 
   const user = await getExistingUserById(post.userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
 
   return toPostDTO(post, user);
 }
@@ -98,14 +88,9 @@ export async function getPost(
 export async function getPosts(
   userId: number
 ): Promise<Post[]> {  
-
   const posts = await postsRepository.findByUserId(userId);
   
   const user = await getExistingUserById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
 
   return posts.map((post) => 
     toPostDTO(post, user)
@@ -119,25 +104,12 @@ export async function getPostsByUsername(
   myUserId: number,
   username: string
 ): Promise<PostResponse[]> {
-  console.log("entre");
   const user = await getExistingUserByUsername(username);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
 
   const relation = await findRelationship(
     myUserId, 
     user.id
   );
-
-  console.log({
-    myUserId,
-    profileUserId: user.id,
-    username,
-    isPrivate: user.isPrivate,
-    relation,
-  });
 
   if (
     user.isPrivate &&
@@ -162,11 +134,7 @@ export async function update(
   data: PostSchema
 ) {
   // Obtenemos el post
-  const post = await postsRepository.findById(postId);
-
-  if (!post) {
-    throw new Error("El post no existe");
-  }
+  const post = await getExistingPostsById(postId);
 
   if (post.userId !== userId) {
     throw new Error("No tienes permiso para editar este post");
@@ -185,11 +153,7 @@ export async function deleteById(
   postId: number
 ) {
   // Buscamos el post a eliminar
-  const post = await postsRepository.findById(postId);
-
-  if (!post) {
-    throw new Error("El post no existe");
-  }
+  const post = await getExistingPostsById(postId);
 
   if (post.userId !== userId) {
     throw new Error("No tienes permiso para eliminar este post");
@@ -205,13 +169,6 @@ export async function deleteById(
 export async function countById(
   userId: number
 ) {
-  // Obtenemos el usuario
-  const user = await getExistingUserById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
-  
   const count = await postsRepository.countById(userId);
 
   return count;

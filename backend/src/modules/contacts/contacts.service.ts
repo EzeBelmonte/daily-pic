@@ -6,10 +6,11 @@ import type {
   PendingContact
 } from "@daily-pic/shared/types";
 
-
 import { 
   getExistingUserById
 } from "../../shared/helpers/getExistingUser.js";
+
+import { NotFoundError } from "../../shared/errors/errors.js";
 
 // ========================================
 // CREAR RELACIÓN
@@ -22,7 +23,9 @@ export async function create(
   const userBExisting = await getExistingUserById(addresseeId);
 
   if (!userAExisting || !userBExisting) {
-    throw new Error("Uno de los usuarios no existe");
+    throw new NotFoundError(
+      "Uno de los usuarios no existe"
+    );
   }
 
   const existingRelation =
@@ -32,7 +35,9 @@ export async function create(
     );
 
   if (existingRelation) {
-    throw new Error("Ya existe una solicitud o relación entre estos usuarios");
+    throw new NotFoundError(
+      "Ya existe una solicitud o relación entre estos usuarios"
+    );
   }
 
   const contact = 
@@ -42,7 +47,9 @@ export async function create(
     );
 
   if (!contact) {
-    throw new Error("No se pudo crear el contacto")
+    throw new NotFoundError(
+      "Error al seguir al usuario"
+    );
   }
 
   return contact;
@@ -59,7 +66,9 @@ export async function getRelationship(
   const userBExisting = await getExistingUserById(userB);
 
   if (!userAExisting || !userBExisting) {
-    throw new Error("Uno de los usuarios no existe");
+    throw new NotFoundError(
+      "Uno de los usuarios no existe"
+    );
   }
 
   const relation = 
@@ -77,12 +86,6 @@ export async function getRelationship(
 export async function getPending(
   userId: number,
 ): Promise<PendingContact[]> {
-  const userExisting = await getExistingUserById(userId);
-
-  if (!userExisting) {
-    throw new Error("El usuario no existe");
-  }
-
   const pending = 
     await contactsRepository.findPending(
       userId,
@@ -101,7 +104,9 @@ export async function getContact(
     await contactsRepository.findById(id);
   
   if (!contact) {
-    throw new Error("La solicitud no existe");
+    throw new NotFoundError(
+      "El contacto no existe"
+    );
   }
 
   return contact;
@@ -131,12 +136,6 @@ export async function deleteById(
 export async function getAccepted(
   userId: number,
 ): Promise<Contact[]> {
-  const userExisting = await getExistingUserById(userId);
-
-  if (!userExisting) {
-    throw new Error("El usuario no existe");
-  }
-
   const contacts = 
     await contactsRepository.findAccepted(
       userId,
@@ -151,12 +150,6 @@ export async function getAccepted(
 export async function countPending(
   userId: number,
 ) {
-  const userExisting = await getExistingUserById(userId);
-
-  if (!userExisting) {
-    throw new Error("El usuario no existe");
-  }
-
   const count = 
     await contactsRepository.countPending(
       userId,
@@ -171,12 +164,6 @@ export async function countPending(
 export async function countAccepted(
   userId: number,
 ) {
-  const userExisting = await getExistingUserById(userId);
-
-  if (!userExisting) {
-    throw new Error("El usuario no existe");
-  }
-
   const count = 
     await contactsRepository.countAccepted(
       userId,

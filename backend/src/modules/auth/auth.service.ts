@@ -1,13 +1,14 @@
 import bcrypt from "bcryptjs";
 
+import * as authRepository from "./auth.repository.js";
+
 import { generateToken } from "../../shared/utils/jwt.js";
 import { toUserDTO } from "../../shared/mappers/user.mapper.js";
 
-import * as authRepository from "./auth.repository.js";
-
 import type { User } from "@daily-pic/shared/types";
-
 import type { RegisterFormSchema, LoginSchema } from "@daily-pic/shared/schemas";
+
+import { NotFoundError } from "../../shared/errors/errors.js";
 
 // ========================================
 // REGISTRO
@@ -26,11 +27,15 @@ export async function register(
   const existingUsername = await authRepository.findByUsername(data.username);
 
   if (existingUsername) {
-    throw new Error("El usuario ya existe");
+    throw new NotFoundError(
+      "El usuario ya existe"
+    );
   }
 
   if (data.password !== data.repeatPassword) {
-    throw new Error("Las contraseñas no coinciden");
+    throw new NotFoundError(
+      "Las contraseñas no coinciden"
+    );
   }
 
   // Hasear la contraseña
@@ -45,7 +50,9 @@ export async function register(
   });
 
   if (!user) {
-    throw new Error("Error al crear el usuario");
+    throw new NotFoundError(
+      "Error al crear el usuario"
+    );
   }
 
   return toUserDTO(user);
@@ -61,7 +68,9 @@ export async function login(data: LoginSchema) {
 
   // Si no existe el email o usuario
   if (!user) {
-    throw new Error("Usuario no encontrado");
+        throw new NotFoundError(
+      "Usuario no encontrado"
+    );
   }
 
   // Validamos la contraseña
@@ -72,7 +81,9 @@ export async function login(data: LoginSchema) {
 
   // Si la contraseña es incorrecta
   if (!isValidPassword) {
-    throw new Error("Contraseña incorrecta");
+        throw new NotFoundError(
+      "Contraseña incorrecta"
+    );
   }
 
   const token = generateToken({

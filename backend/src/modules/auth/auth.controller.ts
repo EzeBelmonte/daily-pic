@@ -11,19 +11,13 @@ export async function register(
   req: Request, 
   res: Response
 ) {
-  try {
-    // Parseamos para inpedir que el apellido sea undefined
-    const data = registerFormSchema.parse(req.body);
+  // Parseamos para inpedir que el apellido sea undefined
+  const data = registerFormSchema.parse(req.body);
 
-    const user = await authService.register(data);
+  const user = await authService.register(data);
 
-    // Retornamos el usuario registrado
-    return res.status(201).json(user);
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
+  // Retornamos el usuario registrado
+  return res.status(201).json(user);
 }
 
 // ========================================
@@ -33,17 +27,11 @@ export async function login(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos los datos del inicio de sesión
-    const data = loginSchema.parse(req.body);
+  // Obtenemos los datos del inicio de sesión
+  const data = loginSchema.parse(req.body);
 
-    const token = await authService.login(data);
+  const token = await authService.login(data);
 
-    // Retornamos el token
-    return res.status(201).json(token);
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
+  // Retornamos el token
+  return res.status(201).json(token);
 }

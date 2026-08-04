@@ -11,20 +11,18 @@ import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 import { toCompleteUserDTO } from "../../shared/mappers/user.mapper.js";
 
 import { 
-  getExistingUserByUsername 
+  getExistingUserById,
+  getExistingUserByUsername
 } from "../../shared/helpers/getExistingUser.js";
 
 // ========================================
 // OBTENER MIS DATOS
 // ========================================
-export async function getMe(userId: number) {
-
+export async function getMe(
+  userId: number
+) {
   // Obtenemos el usuario
-  const user = await userRepository.findById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
+  const user = await getExistingUserById(userId);
 
   // Obtener cantidad de post
   const postsCount = await postsServices.countById(user.id);
@@ -36,7 +34,6 @@ export async function getMe(userId: number) {
       contactsCount ?? 0,
       postsCount ?? 0,
   );
-  
 }
 
 // ========================================
@@ -47,13 +44,8 @@ export async function updateMe(
   imageBuffer: Buffer | undefined,
   data: UserUpdateSchema
 ) {
-
   // Obtenemos el usuario
-  const user = await userRepository.findById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
+  const user = await getExistingUserById(userId);
 
   let image: ImageItem | undefined;
 
@@ -73,33 +65,25 @@ export async function updateMe(
   return updateProfile;
 }
 
-
 // ========================================
 // OBTENER PERFIL DE USUARIO
 // ========================================
-export async function getUserByUsername(username: string) {
+export async function getUserByUsername(
+  username: string
+) {
   // Obtenemos el usuario
-  const user = await userRepository.findUserByUsername(username);
+  const user = await getExistingUserByUsername(username);
 
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
-
-  const targetUser = await getExistingUserByUsername(username);
+  await getExistingUserByUsername(username);
   
-    if (!targetUser) {
-      throw new Error("El usuario no existe");
-    }
-  
-    // Obtener cantidad de post
-    const postsCount = await postsServices.countById(user.id);
-    // Obtener cantidad de contacos
-    const contactsCount = await contactsServices.countAccepted(user.id);
+  // Obtener cantidad de post
+  const postsCount = await postsServices.countById(user.id);
+  // Obtener cantidad de contacos
+  const contactsCount = await contactsServices.countAccepted(user.id);
 
   return toCompleteUserDTO(
       user,
       contactsCount ?? 0,
       postsCount ?? 0,
   );
-  
 }

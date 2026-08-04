@@ -13,44 +13,21 @@ export async function create(
   req: Request,
   res: Response
 ) {
-  try {
-    // ID del usuario autenticado
-    const userId = req.user.userId;
-    
-    // Validamos los datos del body
-    const data = postSchema.parse(req.body);
+  // ID del usuario autenticado
+  const userId = req.user.userId;
+  
+  // Validamos los datos del body
+  const data = postSchema.parse(req.body);
 
-    // Creamos el post
-    const post = await postsService.create(
-      userId,
-      req.file?.buffer,
-      data,
-    );
+  // Creamos el post
+  const post = await postsService.create(
+    userId,
+    req.file?.buffer,
+    data,
+  );
 
-    // Retornamos el post
-    return res.status(201).json(post);
-
-  } catch (error) {
-    console.log("ERROR CREATE POST:", error);
-    console.log(
-      "INSTANCE OF:",
-      error instanceof PublicationLimitError
-    );
-
-    if (error instanceof PublicationLimitError) {
-      console.log("🚨 DEVOLVIENDO 409");
-
-      return res.status(409).json({
-        message: error.message,
-      });
-    }
-
-    return res.status(400).json({
-      message: error instanceof Error
-        ? error.message
-        : "Error desconocido",
-    });
-  }
+  // Retornamos el post
+  return res.status(201).json(post);
 }
 
 // ========================================
@@ -60,23 +37,14 @@ export async function getPost(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos el ID del post
-    const postId = Number(req.params.postId);
+  // Obtenemos el ID del post
+  const postId = Number(req.params.postId);
 
-    // Obtenemos el post
-    const post = await postsService.getPost(postId);
+  // Obtenemos el post
+  const post = await postsService.getPost(postId);
 
-    // Retornamos el post
-    return res.status(201).json(post);
-
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
+  // Retornamos el post
+  return res.status(201).json(post);
 }
 
 // ========================================
@@ -86,21 +54,13 @@ export async function getMyPosts(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos el ID del usuario
-    const userId = req.user.userId;
+  // Obtenemos el ID del usuario
+  const userId = req.user.userId;
 
-    const posts = await postsService.getPosts(userId);
+  const posts = await postsService.getPosts(userId);
 
-    // Retornamos los posts
-    return res.status(201).json(posts);
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
+  // Retornamos los posts
+  return res.status(201).json(posts);
 }
 
 // ========================================
@@ -110,24 +70,16 @@ export async function getUserPosts(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos mi ID
-    const myUserId = req.user.userId;
+  // Obtenemos mi ID
+  const myUserId = req.user.userId;
 
-    // Obtenemos el ID del usuario
-    const username = String(req.params.username);
+  // Obtenemos el ID del usuario
+  const username = String(req.params.username);
 
-    const posts = await postsService.getPostsByUsername(myUserId, username);
+  const posts = await postsService.getPostsByUsername(myUserId, username);
 
-    // Retornamos los posts
-    return res.status(201).json(posts);
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
+  // Retornamos los posts
+  return res.status(201).json(posts);
 }
 
 // ========================================
@@ -137,33 +89,24 @@ export async function update(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos el ID del usuario
-    const userId = req.user.userId;
+  // Obtenemos el ID del usuario
+  const userId = req.user.userId;
 
-    // Obtenemos el ID del post
-    const postId = Number(req.params.postId);
+  // Obtenemos el ID del post
+  const postId = Number(req.params.postId);
 
-    // Obtenmos los datos actualizados
-    const data = postSchema.parse(req.body);
+  // Obtenmos los datos actualizados
+  const data = postSchema.parse(req.body);
 
-    // Obtenemos el post actualizado
-    const post = await postsService.update(
-      userId,
-      postId,
-      data
-    );
+  // Obtenemos el post actualizado
+  const post = await postsService.update(
+    userId,
+    postId,
+    data
+  );
 
-    // Retornamos el post
-    return res.status(200).json(post);
-
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
+  // Retornamos el post
+  return res.status(200).json(post);
 }
 
 // ========================================
@@ -173,29 +116,20 @@ export async function deleteRequest(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos el ID del usuario
-    const userId = req.user.userId;
+  // Obtenemos el ID del usuario
+  const userId = req.user.userId;
 
-    // Obtenemos el ID del post
-    const postId = Number(req.params.postId);
+  // Obtenemos el ID del post
+  const postId = Number(req.params.postId);
 
-    // Eliminamos el post
-    await postsService.deleteById(
-      userId,
-      postId
-    );
+  // Eliminamos el post
+  await postsService.deleteById(
+    userId,
+    postId
+  );
 
-    // Devolvemos mensaje de exito
-    return res.status(200).send();
-
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
+  // Devolvemos mensaje de exito
+  return res.status(200).send();
 }
 
 // ========================================
@@ -205,19 +139,11 @@ export async function getPublicationStatus(
   req: Request,
   res: Response
 ) {
-  try {
-    const userId = req.user.userId;
+  const userId = req.user.userId;
 
-    const status = await postsService.getPublicationStatus(
-      userId
-    );
+  const status = await postsService.getPublicationStatus(
+    userId
+  );
 
-    return res.status(200).json(status);
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error
-        ? error.message
-        : "Error desconocido",
-    });
-  }
+  return res.status(200).json(status);
 }

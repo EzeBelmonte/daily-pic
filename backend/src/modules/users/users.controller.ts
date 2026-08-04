@@ -11,20 +11,14 @@ export async function getMe(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos el ID usuario logueado
-    const userId = req.user.userId;
+  // Obtenemos el ID usuario logueado
+  const userId = req.user.userId;
 
-    // Obtenemos el perfil propio
-    const profile = await userService.getMe(userId);
+  // Obtenemos el perfil propio
+  const profile = await userService.getMe(userId);
 
-    // Retornamos el perfil
-    return res.status(200).json(profile);
-  } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
+  // Retornamos el perfil
+  return res.status(200).json(profile);
 }
 
 // ========================================
@@ -34,37 +28,29 @@ export async function updateMe(
   req: Request,
   res: Response
 ) {
-  try {
-  
-    // Obtenemos el ID usuario logueado
-    const userId = req.user.userId;
+  // Obtenemos el ID usuario logueado
+  const userId = req.user.userId;
 
-    // Como el boolean viene en string, aca lo volvemos boolean
-    const body = {
-      ...req.body,
-      ...(req.body.isPrivate !== undefined && {
-        isPrivate: req.body.isPrivate === "true",
-      }),
-    };
+  // Como el boolean viene en string, aca lo volvemos boolean
+  const body = {
+    ...req.body,
+    ...(req.body.isPrivate !== undefined && {
+      isPrivate: req.body.isPrivate === "true",
+    }),
+  };
 
-    // Obtenemos los datos actualizados
-    const data = userUpdateSchema.parse(body);
+  // Obtenemos los datos actualizados
+  const data = userUpdateSchema.parse(body);
 
-    // Obtener perfil del usuario
-    const profile = await userService.updateMe(
-      userId,
-      req.file?.buffer,
-      data
-    );
+  // Obtener perfil del usuario
+  const profile = await userService.updateMe(
+    userId,
+    req.file?.buffer,
+    data
+  );
 
-    // Retornamos el perfil
-    return res.status(200).json(profile);
-    
-  } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
+  // Retornamos el perfil
+  return res.status(200).json(profile);
 }
 
 
@@ -75,18 +61,12 @@ export async function getUser(
   req: Request,
   res: Response
 ) {
-  try {
-    // Obtenemos el usuario buscado
-    const username = String(req.params.username);
+  // Obtenemos el usuario buscado
+  const username = String(req.params.username);
 
-    // Obtenemos el perfil propio
-    const profile = await userService.getUserByUsername(username);
+  // Obtenemos el perfil propio
+  const profile = await userService.getUserByUsername(username);
 
-    // Retornamos el perfil
-    return res.status(200).json(profile);
-  } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
+  // Retornamos el perfil
+  return res.status(200).json(profile);
 }
