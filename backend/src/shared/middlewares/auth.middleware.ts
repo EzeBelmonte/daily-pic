@@ -34,7 +34,7 @@ export function authenticate(
     req.user = payload;
 
     return next();
-  } catch {
+  } catch(error) {
     return next(
       new UnauthorizedError("Token inválido")
     );

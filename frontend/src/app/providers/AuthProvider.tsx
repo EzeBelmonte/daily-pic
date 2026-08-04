@@ -23,12 +23,19 @@ export function AuthProvider({ children }: Props) {
 
   const isAuthenticated = !!token;
 
+  // ========================================
+  // LOGIN
+  // ========================================
   // El useCallback recuerda la función y no la está creando por cada render
   const login = useCallback((token: string) => {
     localStorage.setItem("token", token);
     setToken(token);
   }, []);
 
+
+  // ========================================
+  // LOGOUT
+  // ========================================
   const logout = useCallback(() => {
     localStorage.removeItem("token");
 
@@ -37,11 +44,17 @@ export function AuthProvider({ children }: Props) {
     queryClient.clear();
   }, [queryClient]);
 
+  // ========================================
+  // REGISTRAR LOGOUT GLOBAL
+  // ========================================
   // Cuando alguien pide de manera global un logout, se ejecuta
   useEffect(() => {
     registerLogout(logout);
   }, [logout]);
 
+  // ========================================
+  // CARGA INICIAL
+  // ========================================
   useEffect(() => {
     setIsLoading(false);
   }, []);

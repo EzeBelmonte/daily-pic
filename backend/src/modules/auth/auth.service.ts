@@ -143,43 +143,52 @@ export async function login(data: LoginSchema) {
 // ========================================
 // REFRESH SESSION
 // ========================================
-export async function refresh(
-  refreshToken: string
-) {
-  const payload = verifyRefreshToken(refreshToken);
+export async function refresh(refreshToken: string) {
+  let payload;
 
-  const sessions = await sessionsRepository.findActiveByUserId(
-    payload.userId
-  );
-
-  let session = undefined;
-
-  for (const currentSession of sessions) {
-    const matches = await bcrypt.compare(
-      refreshToken,
-      currentSession.refreshTokenHash
-    );
-
-    if (matches) {
-      session = currentSession;
-      break;
-    }
-  }
-
-  if (!session) {
+  try {
+    payload = verifyRefreshToken(refreshToken);
+  } catch {
     throw new UnauthorizedError(
       "Refresh token inválido"
     );
   }
 
-  const accessToken = generateAccessToken({
-    userId: payload.userId,
-    sessionId: session.id,
-  });
+  const sessions = await sessionsRepository.findActiveByUserId(
+    payload.userId
+  );
 
-  return {
-    accessToken,
-  };
+  for (const session of sessions) {
+
+    const isValid = await bcrypt.compare(
+      refreshToken,
+      session.refreshTokenHash
+    );
+
+
+    if (!isValid) {
+      continue;
+    }
+
+    if (session.expiresAt < new Date()) {
+      throw new UnauthorizedError(
+        "Refresh token expirado"
+      );
+    }
+
+    const accessToken = generateAccessToken({
+      userId: payload.userId,
+      sessionId: session.id,
+    });
+
+    return {
+      accessToken,
+    };
+  }
+
+  throw new UnauthorizedError(
+    "Refresh token inválido"
+  );
 }
 
 // ========================================

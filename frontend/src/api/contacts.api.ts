@@ -1,4 +1,4 @@
-import api from "./axios";
+import api from "./api";
 
 import type { PendingContact } from "@daily-pic/shared/types";
 
@@ -56,6 +56,6 @@ export async function deleteRequest(
 export async function getPending() {
   const response =
     await api.get<PendingContact[]>("/users/contacts/pending-list");
-  console.log(response.data)
+
   return response.data;
 }

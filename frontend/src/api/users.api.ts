@@ -1,4 +1,4 @@
-import api from "./axios";
+import api from "./api";
 
 import type {  
   CompleteUser,
@@ -40,7 +40,6 @@ export async function updateMe(
 
   return response.data;
 }
-
 
 // ========================================
 // OBTENER USUARIO

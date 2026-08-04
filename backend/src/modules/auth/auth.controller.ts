@@ -59,6 +59,7 @@ export async function refresh(
   req: Request,
   res: Response
 ) {
+
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {

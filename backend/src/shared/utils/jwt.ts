@@ -23,7 +23,7 @@ export function generateAccessToken(
   payload: AccessTokenPayload
 ) {
   const options: SignOptions = {
-    expiresIn: "15m",
+    expiresIn: 60 * 15,
   }
 
   return jwt.sign(
