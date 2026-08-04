@@ -1,7 +1,5 @@
 import api from "@/api/axios";
 
-import type { LoginResponse } from "../app/types/auth.type";
-
 import type { RegisterSchema, LoginSchema } from "@daily-pic/shared/schemas";
 
 // ========================================
@@ -19,14 +17,8 @@ export async function register(
 // ========================================
 // INICIO SESIÓN
 // ========================================
-export async function login(
-  data: LoginSchema
-) {
-  const response =
-    await api.post<LoginResponse>(
-      "/auth/login",
-      data
-    );
+export async function login(data: LoginSchema) {
+  const response = await api.post("/auth/login", data);
 
   return response.data;
 }

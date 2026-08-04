@@ -10,12 +10,14 @@ export function useLogin() {
   const { login } = useAuth();
 
   return useMutation({
-    mutationFn: authApi.login,
+  mutationFn: authApi.login,
 
-    onSuccess: async ({ token }) => {
-      login(token);
+  onSuccess: async (data) => {
+    const { accessToken } = data;
 
-      await queryClient.fetchQuery(meQueryOptions);
-    },
-  });
+    login(accessToken);
+
+    await queryClient.fetchQuery(meQueryOptions);
+  },
+});
 }

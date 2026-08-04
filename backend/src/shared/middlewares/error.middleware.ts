@@ -12,7 +12,7 @@ export function errorMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  console.error(error);
+  console.error("ERROR:", error);
 
   if (res.headersSent) {
     return next(error);

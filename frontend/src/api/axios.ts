@@ -4,6 +4,7 @@ import { triggerLogout } from "@/app/services/auth.service";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
@@ -21,14 +22,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  
-  (error) => { 
-    if (error.response?.status === 401) {
-      triggerLogout();
-    }  
-
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default api;

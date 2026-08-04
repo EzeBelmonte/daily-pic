@@ -4,12 +4,15 @@ import { users } from "./users.js";
 import { posts } from "./posts.js";
 import { contacts } from "./contacts.js";
 import { blocks } from "./blocks.js";
+import { sessions } from "./sessions.js";
 
 // ========================================
 // USERS
 // ========================================
 export const usersRelations = relations(users, ({ many }) => ({
   posts: many(posts),
+
+  sessions: many(sessions),
 
   // Solicitudes enviadas
   sentContactRequests: many(contacts, {
@@ -76,3 +79,16 @@ export const blocksRelations = relations(blocks, ({ one }) => ({
     relationName: "blocked",
   }),
 }));
+
+// ========================================
+// SESSIONS
+// ========================================
+export const sessionsRelations = relations(
+  sessions,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [sessions.userId],
+      references: [users.id],
+    }),
+  })
+);
