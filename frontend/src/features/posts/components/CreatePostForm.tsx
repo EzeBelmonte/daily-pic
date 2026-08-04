@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 import { useCreatePost } from "../hooks/mutations/useCreatePost";
+import { usePublicationStatus } from "../hooks/queries/usePublicationStatus";
+
+import { cn } from "@/utils/cn";
 
 import { 
   ImagePreview, 
@@ -20,6 +23,11 @@ const CreatePostForm = ({ onClose }: Props) => {
   const [description, setDescription] = useState("");
 
   const createPostMutation = useCreatePost();
+  
+  const {
+    data: publicationStatus,
+    isLoading
+  } = usePublicationStatus();
 
   const handleSubmit = async () => {
     if (!image) {
@@ -47,6 +55,8 @@ const CreatePostForm = ({ onClose }: Props) => {
     }
   }
 
+  const canPublicate = !isLoading && publicationStatus && publicationStatus.canPublish
+
   return (
     <>
       <Textarea 
@@ -67,14 +77,22 @@ const CreatePostForm = ({ onClose }: Props) => {
         <Button
           onClick={handleSubmit}
           disabled={createPostMutation.isPending}
-          className="
-            bg-[rgba(26,144,212,0.6)] rounded
+          className={cn(`
+            rounded
             px-2 cursor-pointer
-            text-white
-        ">
-          {createPostMutation.isPending
-            ? "Publicando..."
-            : "Publicar"}
+            text-white`,
+            createPostMutation.isPending || !canPublicate 
+              ? "bg-gray-500"
+              : "bg-[rgba(26,144,212,0.6)]"
+          )}
+            
+        >
+          {!canPublicate 
+            ? "Ya publicaste hoy"
+            : createPostMutation.isPending 
+              ? "Publicando..."
+              : "Publicar"
+          }
         </Button>
 
         <ImageUpload 

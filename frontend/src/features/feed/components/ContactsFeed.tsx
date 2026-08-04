@@ -32,7 +32,7 @@ const ContactsFeed = () => {
     <div className=" 
       flex flex-col
       justify-center
-      mt-5 px-2
+      mt-5 px-2 gap-4
     ">
       {posts.map((post) => (
         <div 
@@ -40,7 +40,7 @@ const ContactsFeed = () => {
           className="
             w-full max-w-[600px] 
             mx-auto p-2
-            border border-white/20
+            border-b border-t border-white/20
             rounded-2xl
           "
         >

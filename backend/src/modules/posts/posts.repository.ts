@@ -90,3 +90,17 @@ export async function countById(
 
   return result?.count ?? 0;
 }
+
+// ========================================
+// ÚLTIMO POST
+// ========================================
+export async function findLastByUserId(userId: number) {
+  const [post] = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.userId, userId))
+    .orderBy(desc(posts.createdAt))
+    .limit(1);
+
+  return post;
+}

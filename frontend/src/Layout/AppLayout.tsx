@@ -16,7 +16,7 @@ const AppLayout = ({ children }: Props) => {
     <div className={cn(`
       min-h-screen 
       grid grid-cols-1 sm:grid-cols-[220px_minmax(0,1fr)]`,
-      hasChildren && "tablet:grid-cols-[220px_minmax(0,1fr)_230px]"
+      hasChildren && "tablet:grid-cols-[220px_minmax(0,1fr)_300px]"
     )}>
       <Navbar />
 

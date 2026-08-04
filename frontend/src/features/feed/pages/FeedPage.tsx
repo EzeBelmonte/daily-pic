@@ -37,7 +37,7 @@ const FeedPage = () => {
       {/* Botónes */}
       <div className={cn(`
         grid grid-cols-2
-        py-1
+        py-1 sm:py-2 md:py-3
         font-semibold
         text-white
         bg-[rgba(31,31,31,0.5)]

@@ -3,6 +3,11 @@ import api from "./axios";
 import type { PostResponse } from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
+export interface PublicationStatus {
+  canPublish: boolean;
+  nextPublicationAt: string | null;
+}
+
 // ========================================
 // CREAR POST
 // ========================================
@@ -85,6 +90,16 @@ export async function getUserPosts(
 ) {
   const response =
     await api.get<PostResponse[]>(`/posts/user/${username}`);
+
+  return response.data;
+}
+
+// ========================================
+// OBTENER ESTADO SI PUEDE PUBLICAR
+// ========================================
+export async function getPublicationStatus(): Promise<PublicationStatus> {
+  const response =
+    await api.get("/posts/publication-status");
 
   return response.data;
 }

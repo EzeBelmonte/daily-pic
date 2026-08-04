@@ -1,6 +1,11 @@
 import * as postsRepository from "./posts.repository.js";
 import { findRelationship } from "../contacts/contacts.repository.js";
 
+import {
+  getCurrentPublicationPeriodStart,
+  getNextPublicationPeriodStart
+} from "../../shared/utils/publicationPeriod.js";
+
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
 import { toCreatePostDTO, toPostDTO } from "../../shared/mappers/post.mapper.js";
@@ -12,6 +17,10 @@ import {
   getExistingUserByUsername,
   getExistingUserById,
  } from "../../shared/helpers/getExistingUser.js";
+
+import {  PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
+
+export { toPostDTO };
 
 // ========================================
 // CREAR POSTS
@@ -25,6 +34,11 @@ export async function create(
 
   if (!user) {
     throw new Error("El usuario no existe");
+  }
+
+  const allowed = await canPublish(userId);
+  if (!allowed) {
+    throw new PublicationLimitError();
   }
 
   if (!data) {
@@ -203,5 +217,47 @@ export async function countById(
   return count;
 }
 
+// ========================================
+// VERIFICAR SI PUEDE PUBLICAR
+// ========================================
+export async function canPublish(
+  userId: number
+) {
+  const lastPost = await postsRepository.findLastByUserId(userId);
 
-export { toPostDTO };
+  // Nunca publicó
+  if (!lastPost) { 
+    return true;
+  }
+
+  const currentPeriodStart =
+    getCurrentPublicationPeriodStart();
+
+  // Si publicó antes de que comenzara
+  // el período actual, puede publicar
+  return lastPost.createdAt < currentPeriodStart;
+}
+
+// ========================================
+// OBTENER ESTADO SI PUEDE PUBLICAR
+// ========================================
+export async function getPublicationStatus(userId: number) {
+  const lastPost = await postsRepository.findLastByUserId(userId);
+
+  const currentPeriodStart =
+    getCurrentPublicationPeriodStart();
+
+  const nextPublicationAt =
+    getNextPublicationPeriodStart();
+
+  const canPublish =
+    !lastPost ||
+    lastPost.createdAt < currentPeriodStart;
+
+  return {
+    canPublish,
+    nextPublicationAt: canPublish
+      ? null
+      : nextPublicationAt.toISOString(),
+  };
+}

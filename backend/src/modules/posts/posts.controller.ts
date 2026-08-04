@@ -4,6 +4,8 @@ import * as postsService from "./posts.service.js";
 
 import { postSchema } from "@daily-pic/shared/schemas";
 
+import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
+
 // ========================================
 // CREAR POST
 // ========================================
@@ -29,9 +31,23 @@ export async function create(
     return res.status(201).json(post);
 
   } catch (error) {
+    console.log("ERROR CREATE POST:", error);
+    console.log(
+      "INSTANCE OF:",
+      error instanceof PublicationLimitError
+    );
+
+    if (error instanceof PublicationLimitError) {
+      console.log("🚨 DEVOLVIENDO 409");
+
+      return res.status(409).json({
+        message: error.message,
+      });
+    }
+
     return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
+      message: error instanceof Error
+        ? error.message
         : "Error desconocido",
     });
   }
@@ -177,6 +193,30 @@ export async function deleteRequest(
     return res.status(400).json({
       message: error instanceof Error 
         ? error.message 
+        : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// OBTENER ESTADO SI PUEDE PUBLICAR
+// ========================================
+export async function getPublicationStatus(
+  req: Request,
+  res: Response
+) {
+  try {
+    const userId = req.user.userId;
+
+    const status = await postsService.getPublicationStatus(
+      userId
+    );
+
+    return res.status(200).json(status);
+  } catch (error) {
+    return res.status(400).json({
+      message: error instanceof Error
+        ? error.message
         : "Error desconocido",
     });
   }
