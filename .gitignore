@@ -32,4 +32,4 @@ backend/.env
 backend/src/infrastructure/database/migrations/
 
 start.bat
-- BACKUP
+_BACKUP
