@@ -19,9 +19,12 @@ type ContentProps = ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.Content
 >;
 
-export const DropdownMenu = ({ children }: RootProps) => {
+export const DropdownMenu = ({ 
+  children,
+  ...props 
+}: RootProps) => {
   return (
-    <DropdownMenuPrimitive.Root>
+    <DropdownMenuPrimitive.Root {...props}>
       {children}
     </DropdownMenuPrimitive.Root>
   );

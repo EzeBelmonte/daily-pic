@@ -2,7 +2,7 @@ import type { PostResponse } from "@daily-pic/shared/types"
 
 import PostDescription from "./PostDescription";
 import PostImage from "./PostImage";
-import PostActions from "./PostActions";
+import PostActionsMenu from "../menu/PostActionsMenu";
 
 type Props = {
   post: PostResponse;
@@ -16,7 +16,7 @@ const PostCard = ({ post }: Props) => {
       <PostImage imageUrl={post.imageUrl} />
 
       {/* Botones */}
-      <PostActions post={post} />
+      <PostActionsMenu post={post} />
 
       {/* Descripción */}
       <PostDescription description={post.description}/>

@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useState } from "react";
 
-export function useModalButton () {
-  const [open, setOpen] = useState(false);
+export function useModalButton(defaultOpen = false) {
+  const [open, setOpen] = useState(defaultOpen);
 
   return {
     open,
-    openModal: () => setOpen(true),
-    closeModal: () => setOpen(false),
-  }
+    setOpen,
+  };
 }

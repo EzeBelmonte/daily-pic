@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import type { PostResponse } from "@daily-pic/shared/types"
 
 import FeedPostHeader from "../FeedPostHeader";
-import PostDescription from "@/features/posts/components/card/PostDescription";
-import PostImage from "@/features/posts/components/card/PostImage";
-import PostActions from "@/features/posts/components/card/PostActions";
+import PostDescription from "@/features/posts/components/post/PostDescription";
+import PostImage from "@/features/posts/components/post/PostImage";
+import PostActions from "@/features/posts/components/menu/PostActionsMenu";
 
 type Props = {
   post: PostResponse;

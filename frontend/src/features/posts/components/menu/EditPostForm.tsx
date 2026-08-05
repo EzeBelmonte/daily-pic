@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { usePost } from "../hooks/queries/usePost";
-import { useEditPost } from "../hooks/mutations/useEditPost";
+import { usePost } from "../../hooks/queries/usePost";
+import { useEditPost } from "../../hooks/mutations/useEditPost";
 
 import type{ PostSchema } from "@daily-pic/shared/schemas";
 

@@ -10,14 +10,25 @@ import { cn } from "@/utils/cn";
 import { useModalButton } from "@/hooks/useModalButton";
 
 const CreatePostFloatingButton = () => {
-  const { open, openModal, closeModal } = useModalButton()
+  const { 
+    open, 
+    setOpen 
+  } = useModalButton()
 
   const { scrollingUp } = useScroll();
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <>
       <Button
-        onClick={openModal}
+        onClick={handleOpen}
         className={cn(
           "fixed bottom-0 right-0 z-50 transition-all duration-300 ease-in-out rounded sm:hidden",
           scrollingUp 
@@ -40,9 +51,9 @@ const CreatePostFloatingButton = () => {
 
       <Modal
         open={open}
-        onClose={closeModal}
+        onClose={handleClose}
       >
-        <CreatePost onClose={closeModal}/>
+        <CreatePost onClose={handleClose}/>
       </Modal>
     </>
   );

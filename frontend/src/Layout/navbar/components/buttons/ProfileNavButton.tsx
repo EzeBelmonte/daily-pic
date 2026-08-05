@@ -23,8 +23,7 @@ const ProfileNavButton = ({
 }: Props) => {
   const {
     open,
-    openModal,
-    closeModal
+    setOpen,
   } = useModalButton();
 
   const {
@@ -47,6 +46,15 @@ const ProfileNavButton = ({
     ? "flex items-center gap-2 text-white"
     : ""
 
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+    
   return (
     <div className={className}>
       {isLoading ? (
@@ -55,7 +63,7 @@ const ProfileNavButton = ({
         <div className={divStyle}>
           <DropdownMenu
             open={open}
-            onOpenChange={openModal}
+            onOpenChange={handleOpen}
           >
             <DropdownMenuTrigger>
               <Image
@@ -75,7 +83,7 @@ const ProfileNavButton = ({
               alignOffset={compact ? -20 : -1}
             >
               <ProfileItemsList
-                 onClose={closeModal}
+                 onClose={handleClose}
               />
             </DropdownMenuContent>
           </DropdownMenu>

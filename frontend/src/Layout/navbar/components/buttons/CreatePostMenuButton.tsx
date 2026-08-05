@@ -11,12 +11,23 @@ type Props = {
   className?: string;
 }
 const CreatePostMenuButton = ({ className }: Props) => {
-  const { open, openModal, closeModal } = useModalButton();
+  const { 
+    open, 
+    setOpen 
+  } = useModalButton()
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <>
       <Button
-        onClick={openModal}
+        onClick={handleOpen}
         className={cn(
           "flex gap-2 text-white",
           className
@@ -28,9 +39,9 @@ const CreatePostMenuButton = ({ className }: Props) => {
 
       <Modal
         open={open}
-        onClose={closeModal}
+        onClose={handleClose}
       >
-        <CreatePost onClose={closeModal} />
+        <CreatePost onClose={handleClose} />
       </Modal>
     </>
   );
