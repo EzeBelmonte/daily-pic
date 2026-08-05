@@ -25,6 +25,7 @@ import {
 import { NotFoundError } from "../../shared/errors/errors.js";
 import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
 
+
 export { toPostDTO };
 
 // ========================================
@@ -205,25 +206,38 @@ export async function canPublish(
 // ========================================
 // OBTENER ESTADO SI PUEDE PUBLICAR
 // ========================================
-export async function getPublicationStatus(userId: number) {
-
-  const lastPost = await postsRepository.findLastByUserId(userId);
-
-  const currentPeriodStart =
+export async function getPublicationStatus(
+  userId: number
+) {
+  const lastPost = 
+    await postsRepository.findLastByUserId(userId); 
+    
+  const currentPeriodStart = 
     getCurrentPublicationPeriodStart();
 
-  const nextPublicationAt =
+  // Si nunca publicó, solamente debe esperar
+  // hasta la apertura de las 20:00.
+  if (!lastPost) {
+    return {
+      canPublish: true,
+      nextPublicationAt: null,
+    }
+  }
+
+  // 24 horas después de la última publicación.
+  if (lastPost.createdAt < currentPeriodStart) { 
+    return { 
+      canPublish: true, 
+      nextPublicationAt: null, 
+    }; 
+  }
+
+  // Próxima apertura de las 20:00.
+  const nextPublicationAt = 
     getNextPublicationPeriodStart();
 
-  const canPublish =
-    !lastPost ||
-    lastPost.createdAt < currentPeriodStart;
-
-
-  return {
-    canPublish,
-    nextPublicationAt: canPublish
-      ? null
-      : nextPublicationAt.toISOString(),
+  return { 
+    canPublish: false, 
+    nextPublicationAt: nextPublicationAt.toISOString(), 
   };
 }
