@@ -1,6 +1,9 @@
 import api from "./api";
 
-import type { PendingContact } from "@daily-pic/shared/types";
+import type { 
+  PendingContact,
+  AcceptedContact, 
+} from "@daily-pic/shared/types";
 
 // ========================================
 // OBTENER RELACIÓN
@@ -57,5 +60,17 @@ export async function getPending() {
   const response =
     await api.get<PendingContact[]>("/users/contacts/pending-list");
 
+  return response.data;
+}
+
+// ========================================
+// LISTADO DE ACEPTADOS
+// ========================================
+export async function getAccepted() {
+  console.log("entre")
+  const response =
+    await api.get<AcceptedContact[]>("/contacts");
+
+  console.log(response.data)
   return response.data;
 }

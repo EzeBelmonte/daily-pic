@@ -13,6 +13,10 @@ export function useAcceptContact() {
       queryClient.invalidateQueries({
         queryKey: ["contacts", "pending"],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["contacts", "accepted"],
+      });
     },
   });
 }

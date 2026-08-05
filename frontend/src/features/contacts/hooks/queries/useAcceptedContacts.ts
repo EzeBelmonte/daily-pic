@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import * as contactsApi from "@/api/contacts.api";
 
-export function usePendingContacts() {
+export function useAcceptedContacts() {
   return useQuery({
-    queryKey: ["contacts", "pending"],
-    queryFn: contactsApi.getPending,
+    queryKey: ["contacts", "accepted"],
+    queryFn: contactsApi.getAccepted,
   });
 }

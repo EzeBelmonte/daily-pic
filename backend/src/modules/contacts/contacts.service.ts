@@ -3,14 +3,14 @@ import * as contactsRepository from "./contacts.repository.js";
 import type { 
   ContactRelationship,
   Contact,
-  PendingContact
+  PendingContact,
+  AcceptedContact,
 } from "@daily-pic/shared/types";
 
-import { 
-  getExistingUserById
-} from "../../shared/helpers/getExistingUser.js";
-
+import { getExistingUserById } from "../../shared/helpers/getExistingUser.js";
 import { NotFoundError } from "../../shared/errors/errors.js";
+
+import { toContactDTO } from "../../shared/mappers/contact.mapper.js";
 
 // ========================================
 // CREAR RELACIÓN
@@ -123,13 +123,17 @@ export async function deleteById(
 // ========================================
 export async function getAccepted(
   userId: number,
-): Promise<Contact[]> {
+): Promise<AcceptedContact[]> {
+  const user = await getExistingUserById(userId);
+
   const contacts = 
     await contactsRepository.findAccepted(
       userId,
     );
-  
-  return contacts;
+
+  return contacts.map((contact) =>
+    toContactDTO(contact, user)
+  );
 }
 
 // ========================================

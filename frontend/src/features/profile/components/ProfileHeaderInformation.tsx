@@ -1,10 +1,16 @@
 import type { CompleteUser } from "@daily-pic/shared/types";
 
+import { useModalButton } from "@/hooks/useModalButton";
+
 import { cn } from "@/utils/cn";
 
-import { Image } from "@/components";
-
+import { 
+  Image,
+  Button,
+  Modal,
+} from "@/components";
 import ProfileHeaderStats from "./ProfileHeaderStats";
+import ContactsList from "@/features/contacts/components/ContactsList";
 
 type Props = {
   user: CompleteUser;
@@ -15,6 +21,11 @@ const ProfileHeaderInformation = ({
   user,
   isOwner
 }: Props) => {
+  const {
+    open,
+    setOpen,
+  } = useModalButton();
+
   // Estilo base de la Bio
   const bioStyle = "w-full max-w-[500px] mb-3";
 
@@ -46,6 +57,7 @@ const ProfileHeaderInformation = ({
           </div>
           
           {/* Stats */}
+          {/* Fotos */}
           <div className="
             flex gap-7 
             text-[.8rem] 
@@ -57,10 +69,17 @@ const ProfileHeaderInformation = ({
               <p>{user.stats.postsCount}</p>
             </div>
 
-            <div className="sm:flex sm:gap-1">
-              <p>Contactos: </p>
-              <p>{user.stats.contactsCount}</p>
-            </div>
+            {/* Botón de contactos */}
+            <Button 
+              onClick={() => setOpen(true)}
+              className="
+                flex flex-col 
+                items-start sm:gap-1
+              "
+            >
+              <span>Contactos:</span>
+              {user.stats.contactsCount}
+            </Button>
           </div>
 
           {/* Bio solamente en md+ */}
@@ -95,6 +114,13 @@ const ProfileHeaderInformation = ({
         isOwner={isOwner}
         className={"md:hidden"}
       />
+
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <ContactsList onClose={() => setOpen(false)} />
+      </Modal>
     </>
   );
 }

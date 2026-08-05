@@ -28,7 +28,7 @@ app.use(cookieParser());
 // Rutas
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
-app.use("/users", contactsRouter);
+app.use("/contacts", contactsRouter);
 app.use("/posts", postsRouter);
 app.use("/posts", likesRouter);
 app.use("/feed", feedRouter);

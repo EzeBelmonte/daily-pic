@@ -43,3 +43,13 @@ export interface PendingContact {
 
   requester: User;
 }
+
+// ========================================
+// ESTRUCTURA DE LOS ACEPTADOS
+// ========================================
+//Backend y Frontend
+export interface AcceptedContact {
+  id: number;
+  createdAt: string;
+  user: User;
+}

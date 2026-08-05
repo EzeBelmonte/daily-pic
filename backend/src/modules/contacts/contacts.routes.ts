@@ -17,7 +17,7 @@ router.get("/contacts/pending-list", authenticate,  asyncHandler(contactsControl
 router.get("/contacts/:contactId", authenticate,  asyncHandler(contactsController.getContact));
 router.patch("/contacts/requests/:requestId/accept", authenticate,  asyncHandler(contactsController.acceptRequest));
 router.delete("/contacts/requests/:requestId/reject", authenticate,  asyncHandler(contactsController.deleteRequest));
-router.get("/contacts", authenticate,  asyncHandler(contactsController.getAccepted));
+router.get("/", authenticate,  asyncHandler(contactsController.getAccepted));
 router.get("/contacts/count-pending", authenticate,  asyncHandler(contactsController.countPending));
 router.get("/contacts/count-contacts", authenticate,  asyncHandler(contactsController.countAccepted));
 
