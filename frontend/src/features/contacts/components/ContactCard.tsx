@@ -1,5 +1,7 @@
 import type { User } from "@daily-pic/shared/types";
 
+import { useRejectContact } from "../hooks/mutations/useRejectContact";
+
 import { 
   Image,
   Button,
@@ -11,6 +13,14 @@ type Props = {
 }
 
 const ContactCard = ({ user, contactId }: Props) => {
+  const rejectContactMutation = useRejectContact();
+
+  const handleDeleteContact = () => {
+    rejectContactMutation.mutate({
+      requestId: contactId,
+      userId: user.id,
+    });
+  }
 
   return (
     <div className="
@@ -24,10 +34,7 @@ const ContactCard = ({ user, contactId }: Props) => {
       border border-white/20
       rounded
     ">
-      <div className="
-        flex
-        gap-2
-      ">
+      <div className="flex gap-2">
         <Image 
           src={user.profileImageUrl}
           alt="Foto de perfil"
@@ -57,9 +64,10 @@ const ContactCard = ({ user, contactId }: Props) => {
         sm:justify-normal
         sm:gap-6
       ">
-        <Button className="
-          text-green-300
-        ">
+        <Button 
+          onClick={handleDeleteContact}
+          className="text-white"
+        >
           Eliminar contacto
         </Button>
 

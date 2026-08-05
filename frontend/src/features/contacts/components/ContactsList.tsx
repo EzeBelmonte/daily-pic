@@ -1,5 +1,7 @@
 import { useAcceptedContacts } from "../hooks/queries/useAcceptedContacts";
 
+import type { AcceptedContact } from "@daily-pic/shared/types";
+
 import { 
   LoaderSection, 
   AlertError,
@@ -7,13 +9,10 @@ import {
 
 import ContactCard from "./ContactCard";
 
-type Props = {
-  onClose: () => void;
-}
+const ContactsList = () => {
 
-const ContactsList = ({ onClose }: Props) => {
   const {
-    data: contacts,
+    data: contacts = [],
     isLoading,
     error,
   } = useAcceptedContacts();

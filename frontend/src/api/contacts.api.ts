@@ -12,7 +12,7 @@ export async function getRelationship(
   userId: number
 ) {
   const response = await api.get(
-    `/users/contacts/relation/${userId}`
+    `/contacts/relation/${userId}`
   );
 
   return response.data;
@@ -25,7 +25,7 @@ export async function create(
   userId: number
 ) {
   const response = await api.post(
-    `/users/contacts/${userId}`
+    `/contacts/add/${userId}`
   );
 
   return response.data;
@@ -38,7 +38,7 @@ export async function acceptRequest(
   requestId: number
 ) {
   await api.patch(
-    `/users/contacts/requests/${requestId}/accept`
+    `/contacts/requests/${requestId}/accept`
   );
 }
 
@@ -49,7 +49,7 @@ export async function deleteRequest(
   requestId: number
 ) {
   await api.delete(
-    `/users/contacts/requests/${requestId}/reject`
+    `/contacts/requests/${requestId}/reject`
   );
 }
 
@@ -58,7 +58,7 @@ export async function deleteRequest(
 // ========================================
 export async function getPending() {
   const response =
-    await api.get<PendingContact[]>("/users/contacts/pending-list");
+    await api.get<PendingContact[]>("/contacts/pending-list");
 
   return response.data;
 }

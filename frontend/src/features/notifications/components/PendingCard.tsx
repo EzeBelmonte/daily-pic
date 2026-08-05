@@ -15,33 +15,51 @@ const PendingCard = ({ contact }: Props) => {
 
   return (
     <div className="
-      w-full max-w-[350px]
-      bg-[rgba(0,0,0,0.3)] rounded
-      p-2 
-      border border-white/10
+      w-full max-w-[450px]
+      flex flex-col
+      sm:flex-row
+      sm:items-center
+      sm:justify-between
+      p-2 mt-10
+      bg-[#222222]
+      border border-white/20
+      rounded
     ">
       {/* Información */}
       <div className="flex gap-2">
         {/* Foto de perfil */}
         <Image 
           src={contact.requester.profileImageUrl}
-          alt="Foto perfil"
-          className="w-13 h-13 rounded"
+          alt="Foto de perfil"
+          className="w-[50px] h-[50px] rounded-[7px]"
         />
-
         <div>
-          {/* Nombre y apellido */}
-          <p className="text-[.85rem] text-white">{contact.requester.name} {contact.requester.lastname ?? ""}</p>
-          {/* Usuario */}
-          <p className="text-[.75rem] text-gray-400">@{contact.requester.username}</p>
+          <p className="text-white">
+            <span>{contact.requester.name} </span>
+            <span>{contact.requester.lastname ?? ""}</span>
+          </p>
+
+          <p className="text-gray-500 text-[.8rem]">
+            @{contact.requester.username}
+          </p>
         </div>
       </div>
 
       {/* Botones */}
-      <div className="flex justify-between mt-1 text-[.9rem]">
+      <div className="
+        flex
+        justify-between
+        mt-3
+        px-1
+        text-white text-[.8rem]
+
+        sm:mt-0
+        sm:justify-normal
+        sm:gap-6
+      ">
         <Button 
           onClick={() => acceptContactMutation.mutate(contact.id)}
-          className="text-[#6ed691]"
+          className="text-green-300"
         >
           Aceptar
         </Button>
@@ -52,7 +70,7 @@ const PendingCard = ({ contact }: Props) => {
               requestId: contact.id,
               userId: contact.requester.id }
           )}
-          className="text-[#d66e6e]"
+          className="text-red-300"
         >
           Rechazar
         </Button>

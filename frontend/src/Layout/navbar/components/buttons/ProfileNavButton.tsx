@@ -46,14 +46,9 @@ const ProfileNavButton = ({
     ? "flex items-center gap-2 text-white"
     : ""
 
-  const handleOpen = () => {
-    setOpen(true);
-  }
-
   const handleClose = () => {
     setOpen(false);
   }
-
     
   return (
     <div className={className}>
@@ -63,7 +58,7 @@ const ProfileNavButton = ({
         <div className={divStyle}>
           <DropdownMenu
             open={open}
-            onOpenChange={handleOpen}
+            onOpenChange={setOpen}
           >
             <DropdownMenuTrigger>
               <Image

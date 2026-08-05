@@ -28,6 +28,7 @@ const ProfileHeaderInformation = ({
 
   // Estilo base de la Bio
   const bioStyle = "w-full max-w-[500px] mb-3";
+  const countContactStyle = "flex flex-col  items-start sm:gap-1 sm:flex-row";
 
   return (
     <>
@@ -70,17 +71,20 @@ const ProfileHeaderInformation = ({
             </div>
 
             {/* Botón de contactos */}
-            <Button 
-              onClick={() => setOpen(true)}
-              className="
-                flex flex-col 
-                items-start sm:gap-1
-                sm:flex-row
-              "
-            >
-              <span>Contactos:</span>
-              {user.stats.contactsCount}
-            </Button>
+            {isOwner ? (
+              <Button 
+                onClick={() => setOpen(true)}
+                className={countContactStyle}
+              >
+                <span>Contactos:</span>
+                {user.stats.contactsCount}
+              </Button>
+            ) : (
+              <div className={countContactStyle}>
+                <span>Contactos:</span>
+                {user.stats.contactsCount}
+              </div>
+            )}
           </div>
 
           {/* Bio solamente en md+ */}
@@ -120,7 +124,7 @@ const ProfileHeaderInformation = ({
         open={open}
         onClose={() => setOpen(false)}
       >
-        <ContactsList onClose={() => setOpen(false)} />
+        <ContactsList />
       </Modal>
     </>
   );

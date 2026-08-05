@@ -22,6 +22,18 @@ export function useRejectContact() {
       queryClient.invalidateQueries({
         queryKey: ["contacts", "pending"],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["contacts", "accepted"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["me"]
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["user"]
+      });
     },
   });
 }
