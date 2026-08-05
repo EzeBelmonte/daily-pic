@@ -1,3 +1,5 @@
+import { cn } from "@/utils/cn";
+
 type Props = {
   description?: string;
   className?: string;
@@ -9,8 +11,11 @@ const PostDescription = ({
 }: Props) => {
 
   return (
-    <div className={className}>
-      <p className="text-white text-[.95rem]">
+    <div className={cn(
+      "w-full max-w-[450px] mx-auto",
+      className
+    )}>
+      <p className="text-white text-[.95rem] ">
         {description}
       </p>
     </div>

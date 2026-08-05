@@ -19,7 +19,7 @@ const PostCard = ({ post }: Props) => {
       <PostActions post={post} />
 
       {/* Descripción */}
-      <PostDescription description={post.description} />
+      <PostDescription description={post.description}/>
     </article>
   );
 }

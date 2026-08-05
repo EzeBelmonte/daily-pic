@@ -7,7 +7,9 @@ import { useMe } from "@/app/hooks/queries/useMe";
 import type { PostResponse } from "@daily-pic/shared/types";
 
 import LikeButton from "../buttons/LikeButton";
-import ActionList from "../lists/ActionList";
+import DeleteButton from "../buttons/DeleteButton";
+import EditButton from "../buttons/EditButton";
+
 import { 
   Button,
   DropdownMenu,
@@ -66,10 +68,16 @@ const PostActions = ({ post }: Props) => {
                   sideOffset={5}
                   alignOffset={-1}
                 >
-                  <ActionList
-                    postId={post.id}
-                    onClose={closeModal}
-                  />
+                  <div className="      
+                    flex flex-col 
+                    px-3 py-2 gap-4
+                    bg-[#202020] rounded
+                    border border-white/10
+                  ">
+                    <EditButton onClose={closeModal} />
+
+                    <DeleteButton onClose={closeModal} />
+                  </div>
                 </DropdownMenuContent>
             </DropdownMenu>
           </>

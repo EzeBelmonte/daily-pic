@@ -1,20 +1,25 @@
+import { useState } from "react";
 import { Edit } from "lucide-react";
-
-import { useModalButton } from "@/hooks/useModalButton";
 
 import EditPost from "../EditPost";
 import { Button, Modal } from "@/components";
 
-const EditButton = () => {
-  const {
-    open,
-    openModal,
-    closeModal,
-  } = useModalButton();
+type Props = {
+  onClose: () => void;
+}
+
+const EditButton = ({ onClose }: Props) => {
+  const [openLocalModal, setOpenLocalModal] = useState(false);
+
+  const handleCancel = () => {
+    onClose();
+    setOpenLocalModal(false);
+  }
+
   return (
     <>
       <Button
-        onClick={openModal}
+        onClick={() => setOpenLocalModal(true)}
         className="
           text-[.85rem] flex items-center gap-2
           text-white
@@ -25,10 +30,10 @@ const EditButton = () => {
       </Button>
 
       <Modal
-        open={open}
-        onClose={closeModal}
+        open={openLocalModal}
+        onClose={handleCancel}
       >
-        <EditPost onClose={closeModal}/>
+        <EditPost onClose={handleCancel}/>
       </Modal>
     </>
   );
