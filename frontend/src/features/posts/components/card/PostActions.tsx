@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Trash, Heart } from "lucide-react";
 
 import { useMe } from "@/app/hooks/queries/useMe";
@@ -19,6 +20,8 @@ type Props = {
 
 const PostActions = ({ post }: Props) => {
   const navigate = useNavigate();
+
+  const { postId } = useParams();
 
   const deletePostMutation = useDeletePost();
 
@@ -64,7 +67,11 @@ const PostActions = ({ post }: Props) => {
   return (
     <>
       <div 
-        style={{ maxWidth: post.imageWidth }}
+        style={
+          post.id === Number(postId)
+            ? { maxWidth: post.imageWidth }
+            : {}
+        }
         className="w-full flex justify-between p-2 mx-auto"
       >
         {/* Me gusta y listado de gente que dio "me gustas" */}

@@ -1,12 +1,10 @@
-import type { PostResponse } from "@daily-pic/shared/types";
-
 import { Image } from "@/components";
 
 type Props = {
-  post: PostResponse
+  imageUrl: string;
 }
 
-const PostContent = ({ post }: Props) => {
+const PostImage = ({ imageUrl }: Props) => {
 
   return (
     <>
@@ -18,7 +16,7 @@ const PostContent = ({ post }: Props) => {
         rounded 
       ">
         <Image
-          src={post.imageUrl}
+          src={imageUrl}
           alt="Imagen publicada"
           className="
             block
@@ -29,14 +27,8 @@ const PostContent = ({ post }: Props) => {
           "
         />
       </div>
-
-      {post.description !== "" && (
-        <p className="text-white mt-3 mb-5">
-          {post.description}
-        </p>
-      )}
     </>
   );
 }
 
-export default PostContent;
+export default PostImage;

@@ -61,7 +61,10 @@ export function toUserPostDTO(
 
     user: {
       id: user.id,
+      name: user.name,
+      lastname: user.lastname,
       username: user.username,
+      profileImageUrl: user.profileImageUrl,
     },
 
     createdAt: post.createdAt.toString(),

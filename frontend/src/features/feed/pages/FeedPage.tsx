@@ -6,7 +6,7 @@ import type { FeedType } from "../types/feed.type";
 import { cn } from "@/utils/cn";
 
 import { Button } from "@/components";
-import ContactsFeed from "../components/ContactsFeed";
+import ContactsFeed from "../components/contacts/ContactsFeed";
 import DiscoverFeed from "../components/DiscoverFeed";
 
 

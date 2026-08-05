@@ -1,4 +1,5 @@
 import type { PostSchema } from "../schemas/post.schema.js";
+import type { User } from "./user.type.js";
 
 // Frontend y Backend
 export interface Post extends PostSchema { // b
@@ -14,8 +15,5 @@ export interface Post extends PostSchema { // b
 
 // Frontend y Backend
 export interface PostResponse extends Post {
-  user: {
-    id: number;
-    username: string;
-  };
+  user: User;
 }
