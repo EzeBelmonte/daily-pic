@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useMe } from "@/app/hooks/queries/useMe";
 import { useUpdateMe } from "@/app/hooks/mutations/useUpdateMe";
-
 import { userUpdateSchema, type UserUpdateSchema } from "@daily-pic/shared/schemas";
 
 import { cn } from "@/utils/cn";
@@ -19,6 +16,7 @@ import {
   Image,
   ImageUpload,
   ImagePreview,
+  LoaderSection,
 } from "@/components";
 
 const ConfigPage = () => {
@@ -83,11 +81,16 @@ const ConfigPage = () => {
 
   // Recién ahora hacemos los return condicional
   if (isLoading) {
-    return <p className="text-white">Cargando...</p>;
+    return <LoaderSection />
   }
 
   if (!me) {
-    return <p className="text-white">No existe el perfil</p>;
+    return (
+      <AlertError 
+        error={"Error al cargar el perfil"}
+        className="w-[200px]"
+      />
+    );
   }
 
   return (
@@ -163,6 +166,7 @@ const ConfigPage = () => {
 
         <AlertError
           error={getErrorMessage(updateMeMutation.error ?? error)}
+          className="w-[300px]"
         />
 
         <Button

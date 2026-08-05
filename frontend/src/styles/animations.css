@@ -1,3 +1,7 @@
+
+/* =======================================
+ANIMACIÓN SCROLL CONTENIDO
+======================================= */
 @keyframes reveal {
   /* el traslate provoca que a medida que se muestren los elementos, se mueven de 0 a 100px
   sobre el eje Y */

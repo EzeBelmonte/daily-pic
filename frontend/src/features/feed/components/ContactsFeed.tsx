@@ -4,6 +4,10 @@ import { useContactsFeed } from "../hooks/queries/useContactsFeed";
 
 import PostCard from "@/features/posts/components/card/PostCard";
 
+import { 
+  LoaderSection,
+} from "@/components";
+
 const ContactsFeed = () => {
 
   const {
@@ -21,11 +25,7 @@ const ContactsFeed = () => {
     ) ?? [];
 
   if (isLoading) {
-    return (
-      <p className="text-white">
-        Cargando publicaciones...
-      </p>
-    );
+    return <LoaderSection fullScreen />
   }
 
   return (
@@ -41,7 +41,7 @@ const ContactsFeed = () => {
             w-full max-w-[600px] 
             mx-auto p-2
             border-b border-t border-white/20
-            rounded-2xl
+            rounded-2xl cursor-pointer
           "
         >
           <PostCard

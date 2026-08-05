@@ -23,7 +23,7 @@ const ProfileSection = ({ posts }: Props) => {
       {posts.map((post) => (
         <div 
           onClick={() => handleGoPost(post.id)}
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           <Image
             src={post.imageUrl}

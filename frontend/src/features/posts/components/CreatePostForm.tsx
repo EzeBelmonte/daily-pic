@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useCreatePost } from "../hooks/mutations/useCreatePost";
 import { usePublicationStatus } from "../hooks/queries/usePublicationStatus";
 
@@ -13,6 +12,8 @@ import {
 } from "@/components";
 
 import type { PostSchema } from "@daily-pic/shared/schemas";
+
+import showToast from "@/helpers/toast";
 
 type Props = {
   onClose: () => void;
@@ -31,7 +32,7 @@ const CreatePostForm = ({ onClose }: Props) => {
 
   const handleSubmit = async () => {
     if (!image) {
-      alert("Debes seleccionar una imagen.");
+      showToast("Debes seleccionar una imagen", "error");
       return
     }
 

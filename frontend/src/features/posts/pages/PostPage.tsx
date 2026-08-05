@@ -4,6 +4,12 @@ import { usePost } from "../hooks/queries/usePost";
 
 import  PostCard  from "../components/card/PostCard";
 
+import { 
+  LoaderSection,
+  Alert,
+  AlertError,
+} from "@/components";
+
 const PostPage = () => {
   const { postId } = useParams();
 
@@ -14,15 +20,24 @@ const PostPage = () => {
    } = usePost(Number(postId));
 
   if (isLoading) {
-    return <p className="text-white">Cargando...</p>;
+    return (
+      <LoaderSection />
+    );
   }
 
   if (error) {
-    return <p className="text-white">Error al cargar el post.</p>;
+    return (
+      <AlertError 
+        error={"Error al obtener la publicación"} 
+        className="w-[250px]"
+      />
+    );
   }
 
   if (!post) {
-    return <p className="text-white">Post no encontrado.</p>;
+    return (
+      <Alert message={"Publicación no encontrada"} />
+    );
   }
 
   return (

@@ -11,7 +11,7 @@ import { useHasLiked } from "../../hooks/queries/useHasLiked";
 import type { PostResponse } from "@daily-pic/shared/types";
 
 import { cn } from "@/utils/cn";
-import { Button } from "@/components";
+import { Button, AlertError } from "@/components";
 
 type Props = {
   post: PostResponse
@@ -38,11 +38,10 @@ const PostActions = ({ post }: Props) => {
   } = useMe();
 
   if (!user) {
-    return <p>Error al cargar mi usuario</p>;
+    return (
+      <AlertError error={"Error al cargar mi usuario"} />
+    );
   }
-
-  console.log(user);
-  console.log(post)
 
   // Función para eliminar la publicación
   const handleDelete = async() => {

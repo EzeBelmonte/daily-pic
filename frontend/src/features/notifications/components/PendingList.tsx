@@ -2,6 +2,12 @@ import { usePendingContacts } from "@/features/contacts/hooks/queries/usePending
 
 import PendingCard from "./PendingCard";
 
+import { 
+  LoaderSection,
+  Alert,
+  AlertError,
+} from "@/components";
+
 const PendingList = () => {
   const {
     data: pending,
@@ -9,21 +15,16 @@ const PendingList = () => {
     error,
   } = usePendingContacts();
 
-  const listStyle = "flex flex-col bg-[#222222] px-2 py-4 gap-3";
-
   if (isLoading) {
-    return (
-      <div className={listStyle}>
-        <p className="text-white">Cargando...</p>
-      </div>
-    );
+    return <LoaderSection />
   }
 
   if (error) {
     return (
-      <div className={listStyle}>
-        <p className="text-white">Error: {error.message}</p>
-      </div>
+      <AlertError 
+        error={"Error al obtener las solicitudes pendientes"}
+        className="w-[300px]"
+      />
     );
   }
 
@@ -35,7 +36,7 @@ const PendingList = () => {
       gap-5
     ">
       {pending?.length === 0 || pending === undefined ? (
-        <p className="text-white">Sin notificaciones</p>
+        <Alert message={"Sin notificaciones"}/>
       ) : (
         pending.map((contact) => (
           <PendingCard 

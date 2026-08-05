@@ -1,13 +1,17 @@
 import { useParams } from "react-router-dom";
-
 import { useProfileUser } from "../hooks/useProfileUser";
+import { useProfilePosts } from "../hooks/useProfilePosts";
 
 import { 
   ProfileHeader, 
-  ProfileSection 
+  ProfileSection,
 } from "../components";
 
-import { useProfilePosts } from "../hooks/useProfilePosts";
+import { 
+  LoaderSection,
+  Alert,
+  AlertError
+} from "@/components";
 
 const ProfilePage = () => {
   // Obtenemos el usuario de la url si es que visitamos un perfil
@@ -28,15 +32,22 @@ const ProfilePage = () => {
   } = useProfilePosts(username);
 
   if (userLoading) {
-    return <p>Cargando...</p>;
+    return <LoaderSection fullScreen />
   }
 
   if (error) {
-    return <p>Error al cargar el perfil.</p>;
+    return (
+      <AlertError 
+        error={"Error al cargar el perfil"}
+        className="w-[200px]"
+      />
+    );
   }
 
   if (!user) {
-    return <p>Usuario no encontrado.</p>;
+    return (
+      <Alert message={"Usuario no encontrado"} />
+    );
   }
 
   return (
@@ -49,7 +60,7 @@ const ProfilePage = () => {
 
       {/* Section */}
       {postsLoading ? (
-        <p>Cargando publicaciones...</p>
+        <Alert message={"Cargando publicaciones..."} />
       ) : posts.length === 0 ? (
         isOwner ? (
           <p className="text-white">No hay publicaciones</p>
