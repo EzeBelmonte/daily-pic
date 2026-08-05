@@ -124,15 +124,17 @@ export async function deleteById(
 export async function getAccepted(
   userId: number,
 ): Promise<AcceptedContact[]> {
-  const user = await getExistingUserById(userId);
-
   const contacts = 
     await contactsRepository.findAccepted(
       userId,
     );
 
-  return contacts.map((contact) =>
-    toContactDTO(contact, user)
+  return Promise.all(
+    contacts.map(async (contact) => {
+      const user = await getExistingUserById(contact.requesterId);
+
+      return toContactDTO(contact, user);
+    }),
   );
 }
 

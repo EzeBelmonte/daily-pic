@@ -75,6 +75,7 @@ const ProfileHeaderInformation = ({
               className="
                 flex flex-col 
                 items-start sm:gap-1
+                sm:flex-row
               "
             >
               <span>Contactos:</span>

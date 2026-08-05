@@ -31,22 +31,17 @@ const ContactsList = ({ onClose }: Props) => {
     );
   }
 
-  if (!contacts) {
-    return (
-      <p>Sin contactos</p>
-    );
-  }
-
   return (
     <div
       className="
         flex flex-col
-        w-full
-        items-center
+        w-full h-[70vh]
+        items-center 
         bg-[#1b1b1b]
         border border-white/20
         rounded
-        p-1
+        px-4 py-1 gap-3
+        overflow-y-scroll
       ">
       <h2 className="
         w-[90%]
@@ -55,13 +50,17 @@ const ContactsList = ({ onClose }: Props) => {
         border-b border-white
       ">Contactos</h2>
 
-      {contacts.map((contact) => (
-        <ContactCard 
-          key={contact.id}
-          user={contact.user}
-          contactId={contact.id}
-        />
-      ))}
+      {contacts?.length === 0 || contacts === undefined ? (
+          <p className="text-white">Sin contactos</p>
+      ) : (
+        contacts.map((contact) => (
+          <ContactCard 
+            key={contact.id}
+            user={contact.user}
+            contactId={contact.id}
+          />
+        ))
+      )}
     </div>
   );
 }

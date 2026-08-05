@@ -16,6 +16,9 @@ const ContactCard = ({ user, contactId }: Props) => {
     <div className="
       w-full
       flex flex-col
+      sm:flex-row
+      sm:items-center
+      sm:justify-between
       p-2
       bg-[#222222]
       border border-white/20
@@ -23,7 +26,6 @@ const ContactCard = ({ user, contactId }: Props) => {
     ">
       <div className="
         flex
-        w-full
         gap-2
       ">
         <Image 
@@ -33,16 +35,27 @@ const ContactCard = ({ user, contactId }: Props) => {
         />
 
         <div>
-          <p className="text-white"><span>{user.name} </span><span>{user.lastname}</span></p>
-          <p className="text-gray-500 text-[.8rem]">@{user.username}</p>
+          <p className="text-white">
+            <span>{user.name} </span>
+            <span>{user.lastname}</span>
+          </p>
+
+          <p className="text-gray-500 text-[.8rem]">
+            @{user.username}
+          </p>
         </div>
       </div>
 
       <div className="
-        flex 
+        flex
         justify-between
+        mt-3
+        px-1
         text-white text-[.8rem]
-        mt-3 px-1
+
+        sm:mt-0
+        sm:justify-normal
+        sm:gap-6
       ">
         <Button className="
           text-green-300
