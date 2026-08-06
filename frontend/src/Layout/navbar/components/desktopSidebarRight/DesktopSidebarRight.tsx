@@ -1,9 +1,8 @@
-import PublicationTimer from "./components/timer/PublicationTimer";
+import PublicationTimer from "./PublicationTimer";
+import TopLiked from "./TopLiked";
 
-import TopLiked from "@/features/posts/components/TopLiked";
-
-const SidebarInformation = () => {
-
+const DesktopSidebarRight = () => {
+  
   return (
     <div className="
       hidden 
@@ -26,4 +25,4 @@ const SidebarInformation = () => {
   );
 }
 
-export default SidebarInformation;
+export default DesktopSidebarRight;

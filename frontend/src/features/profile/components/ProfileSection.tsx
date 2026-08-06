@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useProfilePosts } from "../hooks/useProfilePosts";
 
 import { 
-  Image,
   LoaderSection,
   InfiniteScrollLoader
 } from "@/components";
+
+import { PostImageAnimated } from "@/features/posts/components";
 
 const ProfileSection = () => {
   const navigate = useNavigate();
@@ -22,30 +23,17 @@ const ProfileSection = () => {
     fetchNextPage,
   } = useProfilePosts(username);
 
-  const handleGoPost = (postId: number) => {
-    navigate(`/post/${postId}`);
-  };
-
   return (
-    <section className="
-      w-full max-w-[900px]
-      mx-auto columns-2 gap-2
-    ">
+    <section className="columns-2 gap-2">
       {isLoading ? (
          <LoaderSection />
       ) : posts.length === 0 ? (
           <p className="text-white">No hay publicaciones</p>
         ) : posts.map((post) => (
-          <div 
-            onClick={() => handleGoPost(post.id)}
-            className="w-full cursor-pointer"
-          >
-            <Image
-              src={post.imageUrl}
-              alt="Publicación"
-              className="reveal-image"
-            />
-          </div>
+          <PostImageAnimated
+            imageUrl={post.imageUrl}
+            onClick={() => navigate(`/post/${post.id}`)}
+          />
         )
       )}
 

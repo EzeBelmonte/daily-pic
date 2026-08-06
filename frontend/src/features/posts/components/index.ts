@@ -17,5 +17,6 @@ export { default as PostActionsMenu } from "./menu/PostActionsMenu";
 export { default as LikeButton } from "./post/LikeButton";
 export { default as PostDescription } from "./post/PostDescription";
 export { default as PostImage } from "./post/PostImage";
+export { default as PostImageAnimated } from "./post/PostImageAnimated";
 export { default as PostUser } from "./post/PostUser";
 

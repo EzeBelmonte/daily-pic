@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { usePost } from "../hooks/queries/usePost";
 
-import  PostCard  from "../components/cards/PostCard";
+import PostSingle from "../components/cards/PostISingle";
 
 import { 
   LoaderSection,
@@ -45,7 +45,7 @@ const PostPage = () => {
       w-full 
       px-4 py-10
     ">
-      <PostCard post={post} />
+      <PostSingle post={post} />
     </main>
   );
 }

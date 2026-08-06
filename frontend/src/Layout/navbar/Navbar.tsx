@@ -1,6 +1,6 @@
-import DesktopSidebar from "./components/DesktopSidebar";
-import MobileNavbarTop from "./components/MobileNavbarTop"
-import MobileNavbarBottom from "./components/MobileNavbarBottom";
+import DesktopSidebarLeft from "./components/desktopSidebarLeft/DesktopSidebarLeft";
+import MobileNavbarTop from "./components/mobileNavbarTop/MobileNavbarTop"
+import MobileNavbarBottom from "./components/mobileNavbarBottom/MobileNavbarBottom";
 
 const Navbar = () => {
   
@@ -17,7 +17,7 @@ const Navbar = () => {
           border-e border-[rgba(255,255,255,0.4)]
           px-2
         ">
-          <DesktopSidebar />
+          <DesktopSidebarLeft />
         </div>
       </div>
     </>

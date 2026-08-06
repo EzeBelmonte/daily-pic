@@ -1,8 +1,8 @@
 import { useScroll } from "@/hooks/useScroll";
 
-import { navItems } from "../constants/navItems";
+import { navItems } from "../../constants/navItems";
 import { cn } from "@/utils/cn";
-import NavItem from "./NavItem";
+import NavItem from "../NavItem";
 
 type Props = {
   className?: string;

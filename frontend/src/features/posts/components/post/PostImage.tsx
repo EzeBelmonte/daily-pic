@@ -4,11 +4,13 @@ import { cn } from "@/utils/cn";
 
 type Props = {
   imageUrl: string;
+  className?: string;
   onClick?: () => void;
 }
 
 const PostImage = ({ 
   imageUrl,
+  className,
   onClick,
 }: Props) => {
 
@@ -30,7 +32,8 @@ const PostImage = ({
             w-auto h-auto
             object-contain
             rounded`,
-            onClick && "cursor-pointer"
+            onClick && "cursor-pointer",
+            className
           )}
         />
       </div>

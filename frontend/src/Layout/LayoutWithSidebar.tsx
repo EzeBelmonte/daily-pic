@@ -1,14 +1,14 @@
 import AppLayout from "./AppLayout";
 
-import SidebarInformation from "./navbar/SidebarInformation";
+import DesktopSidebarRight from "./navbar/components/desktopSidebarRight/DesktopSidebarRight";
 
-import CreatePostFloatingButton from "@/Layout/navbar/components/buttons/CreatePostFloatingButton";
+import CreatePostFloatingButton from "@/Layout/navbar/components/mobileNavbarBottom/CreatePostFloatingButton";
 
 const LayoutWithSidebar = () => {
   return (
     <>
       <AppLayout>
-        <SidebarInformation />
+        <DesktopSidebarRight />
         <CreatePostFloatingButton />
       </AppLayout>
     </>

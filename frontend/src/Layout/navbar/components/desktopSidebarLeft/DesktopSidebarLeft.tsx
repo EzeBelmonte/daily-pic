@@ -2,14 +2,14 @@ import { usePendingContacts } from "@/features/contacts/hooks/queries/usePending
 
 import Logo from "@/components/branding/Logo";
 
-import { navItems } from "../constants/navItems";
-import ProfileNavButton from "./buttons/ProfileNavButton";
+import { navItems } from "../../constants/navItems";
+import ProfileNavButton from "../mobileNavbarTop/ProfileNavButton";
 
-import NavItem from "./NavItem";
+import NavItem from "../NavItem";
 
-import CreatePostMenuButton from "./buttons/CreatePostMenuButton";
+import CreatePostMenuButton from "./CreatePostMenuButton";
 
-const DesktopSidebar = () => {
+const DesktopSidebarLeft = () => {
   const { 
     data: pendingContacts,
   } = usePendingContacts();
@@ -80,4 +80,4 @@ const DesktopSidebar = () => {
   );
 }
 
-export default DesktopSidebar;
+export default DesktopSidebarLeft;

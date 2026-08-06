@@ -4,8 +4,8 @@ import { cn } from "@/utils/cn";
 
 import Logo from "@/components/branding/Logo";
 
-import ProfileNavButton from "./buttons/ProfileNavButton"
-import NotificationNavButton from "./buttons/NotificationNavButton";
+import ProfileNavButton from "./ProfileNavButton"
+import NotificationNavButton from "./NotificationNavButton";
 
 type Props = {
   className?: string;
