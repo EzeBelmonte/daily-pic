@@ -7,23 +7,29 @@ export function useProfilePosts(username?: string) {
   
   // Mis posts
   const myPosts = useMyPosts(!isVisitor);
-
   // Post de usuario
   const userPosts = useUserPosts(username);
 
   // Guardamos los posts dependiendo el caso
-  const posts = isVisitor
-    ? userPosts.data
-    : myPosts.data;
-
-  const query = isVisitor
+  const query  = isVisitor
     ? userPosts
     : myPosts;
 
+  const posts = query.data?.pages.flatMap(
+    (page) => page.posts
+  ) ?? [];
+
   return {
-    posts: posts ?? [],
+    posts,
+
     isLoading: query.isLoading,
     error: query.error,
+
+    hasNextPage: query.hasNextPage,
+    isFetchingNextPage: query.isFetchNextPageError,
+
+    fetchNextPage: query.fetchNextPage,
+
     refetch: query.refetch,
   }
 }

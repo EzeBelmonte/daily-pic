@@ -1,11 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import * as postsApi from "@/api/posts.api";
 
 export function useMyPosts(enabled = true) {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ["posts", "me"],
-    queryFn: postsApi.getMyPosts,
+
+    queryFn: ({ pageParam }) =>
+      postsApi.getMyPosts(pageParam),
+    
+    initialPageParam: undefined as string | undefined,
+
+    getNextPageParam: (lastPage) => 
+      lastPage.nextCursor ?? undefined,
+
     enabled,
   });
 }

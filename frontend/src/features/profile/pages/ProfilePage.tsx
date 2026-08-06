@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useProfileUser } from "../hooks/useProfileUser";
-import { useProfilePosts } from "../hooks/useProfilePosts";
 
 import { 
   ProfileHeader, 
@@ -24,12 +23,6 @@ const ProfilePage = () => {
     isLoading: userLoading,
     error,
   } = useProfileUser(username);
-
-  // Obtenemos mis posts o el del usuario visitado
-  const {
-    posts,
-    isLoading: postsLoading,
-  } = useProfilePosts(username);
 
   if (userLoading) {
     return <LoaderSection fullScreen />
@@ -58,18 +51,8 @@ const ProfilePage = () => {
         isOwner={isOwner}
       />
 
-      {/* Section */}
-      {postsLoading ? (
-        <Alert message={"Cargando publicaciones..."} />
-      ) : posts.length === 0 ? (
-        isOwner ? (
-          <p className="text-white">No hay publicaciones</p>
-        ) : (
-          <p className="text-white">Perfil privado</p>
-        )
-      ) : (
-        <ProfileSection posts={posts} />
-      )}
+      {/* Sección */}
+      <ProfileSection />
     </section>
   );
 }

@@ -1,15 +1,26 @@
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useProfilePosts } from "../hooks/useProfilePosts";
 
-import type { Post } from "@daily-pic/shared/types";
+import { 
+  Image,
+  LoaderSection,
+  InfiniteScrollLoader
+} from "@/components";
 
-import { Image } from "@/components";
-
-type Props = {
-  posts: Post[];
-};
-
-const ProfileSection = ({ posts }: Props) => {
+const ProfileSection = () => {
   const navigate = useNavigate();
+  
+  // Obtenemos el usuario de la url si es que visitamos un perfil
+  const { username } = useParams();
+  
+  const {
+    posts,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useProfilePosts(username);
 
   const handleGoPost = (postId: number) => {
     navigate(`/post/${postId}`);
@@ -20,18 +31,29 @@ const ProfileSection = ({ posts }: Props) => {
       w-full max-w-[900px]
       mx-auto columns-2 gap-2
     ">
-      {posts.map((post) => (
-        <div 
-          onClick={() => handleGoPost(post.id)}
-          className="w-full cursor-pointer"
-        >
-          <Image
-            src={post.imageUrl}
-            alt="Publicación"
-            className="reveal-image"
-          />
-        </div>
-      ))}
+      {isLoading ? (
+         <LoaderSection />
+      ) : posts.length === 0 ? (
+          <p className="text-white">No hay publicaciones</p>
+        ) : posts.map((post) => (
+          <div 
+            onClick={() => handleGoPost(post.id)}
+            className="w-full cursor-pointer"
+          >
+            <Image
+              src={post.imageUrl}
+              alt="Publicación"
+              className="reveal-image"
+            />
+          </div>
+        )
+      )}
+
+      <InfiniteScrollLoader 
+        onLoadMore={fetchNextPage}
+        enabled={hasNextPage}
+        loading={isFetchingNextPage}
+      />
     </section>
   );
 };

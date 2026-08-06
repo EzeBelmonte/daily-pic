@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 }
 
-const FeedPostHeader = ({ 
+const PostUser = ({ 
   user,
   className,
 }: Props) => {
@@ -19,10 +19,13 @@ const FeedPostHeader = ({
 
   return (
     <div className={cn(`
+        min-w-[200px]
         flex items-center
         gap-3 p-1
         absolute
-        z-20`,
+        z-20
+        bg-gradient-to-r from-[rgba(0,0,0,0.6)] to-[rgba(255,255,255,0)]
+        rounded-tl`,
         className
       )}
     >
@@ -42,4 +45,4 @@ const FeedPostHeader = ({
   );
 }
 
-export default FeedPostHeader;
+export default PostUser;

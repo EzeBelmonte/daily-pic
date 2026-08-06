@@ -1,12 +1,18 @@
 import api from "./api";
 
-import type { Post, PostResponse, PostTopLiked } from "@daily-pic/shared/types";
+import type { 
+  PostResponse, 
+  PostTopLiked,
+  MyPosts,
+  UserPosts,
+} from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
 export interface PublicationStatus {
   canPublish: boolean;
   nextPublicationAt: string | null;
 }
+
 
 // ========================================
 // CREAR POST
@@ -35,9 +41,18 @@ export async function create(
 // ========================================
 // OBTENER MIS POSTS
 // ========================================
-export async function getMyPosts() {
-  const response =
-    await api.get<Post[]>("/posts/me");
+export async function getMyPosts(
+  cursor?: string
+): Promise<MyPosts> {
+  const response = await api.get<MyPosts>(
+    "/posts/me",
+    {
+      params: {
+        limit: 20,
+        cursor,
+      },
+    }
+  );
 
   return response.data;
 }
@@ -86,10 +101,18 @@ export async function getPost(
 // OBTENER TODOS LOS POSTS DE UN USUARIO
 // ========================================
 export async function getUserPosts(
-  username: string
-) {
-  const response =
-    await api.get<PostResponse[]>(`/posts/user/${username}`);
+  username: string,
+  cursor?: string
+): Promise<UserPosts> {
+  const response = await api.get<UserPosts>(
+    `/posts/user/${username}`,
+    {
+      params: {
+        limit: 20,
+        cursor,
+      }
+    }
+  );
 
   return response.data;
 }

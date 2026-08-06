@@ -1,11 +1,10 @@
-import FeedLoader from "@/components/infinite-scroll/FeedLoader";
-
 import { useContactsFeed } from "../../hooks/queries/useContactsFeed";
 
 import FeedPostCard from "./FeedPostCard";
 
 import { 
   LoaderSection,
+  InfiniteScrollLoader,
 } from "@/components";
 
 const ContactsFeed = () => {
@@ -48,7 +47,7 @@ const ContactsFeed = () => {
         </div>
       ))}
 
-      <FeedLoader 
+      <InfiniteScrollLoader 
         onLoadMore={fetchNextPage}
         enabled={hasNextPage}
         loading={isFetchingNextPage}

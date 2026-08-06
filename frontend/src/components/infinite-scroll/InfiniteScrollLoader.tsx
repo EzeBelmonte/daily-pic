@@ -6,7 +6,7 @@ type Props = {
   loading: boolean;
 }
 
-const FeedLoader = ({
+const InfiniteScrollLoader = ({
   onLoadMore,
   enabled,
   loading,
@@ -50,4 +50,4 @@ const FeedLoader = ({
   );
 }
 
-export default FeedLoader;
+export default InfiniteScrollLoader;

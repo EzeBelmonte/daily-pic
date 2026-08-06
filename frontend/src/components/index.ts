@@ -23,3 +23,6 @@ export { default as LoaderSection } from "./ui/loaders/LoaderSection";
 export { default as Alert } from "./ui/alerts/Alert";
 export { default as AlertError } from "./ui/alerts/AlertError";
 export { default as AlertToaster } from "./ui/alerts/AlertToaster";
+
+// SCROLL
+export { default as InfiniteScrollLoader } from "./infinite-scroll/InfiniteScrollLoader";

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import type { PostResponse } from "@daily-pic/shared/types"
 
-import FeedPostHeader from "../FeedPostHeader";
+import PostUser from "@/features/posts/components/post/PostUser";
 import PostDescription from "@/features/posts/components/post/PostDescription";
 import PostImage from "@/features/posts/components/post/PostImage";
 import PostActions from "@/features/posts/components/menu/PostActionsMenu";
@@ -17,7 +17,7 @@ const FeedPostCard = ({ post }: Props) => {
   return (
     <article className="w-full max-w-[900px] mx-auto">
       {/* Usuario */}
-      <FeedPostHeader user={post.user} />
+      <PostUser user={post.user} />
 
       {/* Imagen */}
       <div 

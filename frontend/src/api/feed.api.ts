@@ -1,16 +1,11 @@
 import api from "./api";
 
-import type { PostResponse } from "@daily-pic/shared/types";
-
-export type FeedResponse = {
-  posts: PostResponse[];
-  nextCursor: string | null;
-}
+import type { UserPosts } from "@daily-pic/shared/types";
 
 export async function getAccepted(
   cursor?: string
-): Promise<FeedResponse> {
-  const response = await api.get<FeedResponse>(
+): Promise<UserPosts> {
+  const response = await api.get<UserPosts>(
     "feed/contacts",
     {
       params: {
