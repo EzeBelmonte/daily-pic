@@ -1,11 +1,12 @@
-import { eq, desc, count } from "drizzle-orm";
+import { eq, desc, count, or, and, lt } from "drizzle-orm";
 import type { InferInsertModel } from "drizzle-orm";
 
 import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { db } from "../../infrastructure/database/db.js";
-
-import type { PostSchema } from "@daily-pic/shared/schemas";
 import { postLikes } from "../../infrastructure/database/schemas/postLikes.js";
+
+import type { ScrollLoader } from "../../shared/helpers/InfiniteScrollLoader.js";
+import type { PostSchema } from "@daily-pic/shared/schemas";
 
 type NewPost = InferInsertModel<typeof posts>;
 
@@ -36,11 +37,45 @@ export async function findById(id: number) {
 // ========================================
 // OBTENER TODOS LOS POST DE UN USUARIO
 // ========================================
-export async function findByUserId(userId: number) {
-  return await db.query.posts.findMany({ // findMany devuelve un arreglo con los post del usuario
-    where: (posts, { eq }) => eq(posts.userId, userId),
-    orderBy: (posts) => [desc(posts.createdAt)],
+export async function findByUserId(
+  userId: number,
+  limit: number,
+  cursor?: ScrollLoader
+) {
+  const cursorCondition = cursor
+    ? or(
+      lt(
+        posts.createdAt,
+        cursor.createdAt
+      ),
+
+      and(
+        eq(
+          posts.createdAt,
+          cursor.createdAt
+        ),
+        lt(
+          posts.id,
+          cursor.id
+        )
+      )
+    ) : undefined;
+
+  const result = await db.query.posts.findMany({ // findMany devuelve un arreglo con los post del usuario
+    where: and(
+      eq(posts.userId, userId),
+      cursorCondition
+    ),
+
+    orderBy: (posts, { desc }) => [
+      desc(posts.createdAt),
+      desc(posts.id),
+    ],
+
+    limit,
   });
+
+  return result
 }
 
 // ========================================

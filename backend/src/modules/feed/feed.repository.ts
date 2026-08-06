@@ -3,7 +3,7 @@ import { and, eq, or, lt, desc } from "drizzle-orm";
 import { db } from "../../infrastructure/database/db.js";
 import { contacts, posts, users } from "../../infrastructure/database/schemas/index.js";
 
-import type { FeedCursor } from "./feed.cursor.js";
+import type { ScrollLoader } from "../../shared/helpers/InfiniteScrollLoader.js";
 
 // ========================================
 // FEED DE CONTACTOS
@@ -11,7 +11,7 @@ import type { FeedCursor } from "./feed.cursor.js";
 export async function findPosts(
   userId: number,
   limit: number,
-  cursor?: FeedCursor
+  cursor?: ScrollLoader
 ) {
   const cursorCondition = cursor
     ? or(

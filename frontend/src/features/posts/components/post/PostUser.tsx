@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import type { User } from "@daily-pic/shared/types";
 
 import { Image } from "@/components";
@@ -9,13 +7,14 @@ import { cn } from "@/utils/cn";
 type Props = {
   user: User;
   className?: string;
+  onClick?: () => void;
 }
 
 const PostUser = ({ 
   user,
   className,
+  onClick,
 }: Props) => {
-  const navigate = useNavigate();
 
   return (
     <div className={cn(`
@@ -32,8 +31,11 @@ const PostUser = ({
       <Image 
         src={user.profileImageUrl}
         alt="Foto perfil"
-        className="w-10 rounded-[10px] cursor-pointer"
-        onClick={() => navigate(`/profile/${user.username}`)}
+        className={cn(
+          "w-10 rounded-[10px]",
+          onClick && "cursor-pointer"
+        )}
+        onClick={onClick}
       />
 
       {/* Nombre y apellido, y usuario */}

@@ -6,9 +6,9 @@ import { useMe } from "@/app/hooks/queries/useMe";
 
 import type { PostResponse } from "@daily-pic/shared/types";
 
-import LikeButton from "../buttons/LikeButton";
-import EditPost from "../EditPost";
-import DeletePost from "./DeletePost";
+import LikeButton from "../post/LikeButton";
+import EditPost from "../functions/EditPost";
+import DeletePost from "../functions/DeletePost";
 
 import { 
   Button,

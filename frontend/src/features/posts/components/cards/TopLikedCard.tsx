@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 
 import type { PostTopLiked } from "@daily-pic/shared/types";
 
-import { Image } from "@/components";
+import PostImage from "../post/PostImage";
 
 import { formatCompactNumber } from "@/helpers/formatCompactNumber";
 
@@ -29,11 +29,11 @@ const TopLikedCard = ({ post }: Props) => {
         <p className="text-white">{formatCompactNumber(post.countLikes)}</p>
       </div>
 
-      <Image 
-        src={post.imageUrl}
-        alt="Foto publicada"
-        className="rounded-[10px]"
+      <PostImage 
+        imageUrl={post.imageUrl}
       />
+
+
     </div>
   );
 }

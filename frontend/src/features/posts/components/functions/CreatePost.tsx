@@ -1,10 +1,10 @@
-import CreatePostForm from "./forms/CreatePostForm";
+import CreatePostForm from "../forms/CreatePostForm";
 
 type Props = {
   onClose: () => void;
 }
 
-const CreatePost = ({ onClose }: Props) => {
+export default function CreatePost({ onClose }: Props) {
 
   return (
     <div className="
@@ -20,5 +20,3 @@ const CreatePost = ({ onClose }: Props) => {
     </div>
   );
 }
-
-export default CreatePost;

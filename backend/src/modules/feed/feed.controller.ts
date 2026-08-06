@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 
 import * as feedService from "./feed.service.js";
-import { decodeCursor } from "./feed.cursor.js";
+import { decodeCursor } from "../../shared/helpers/InfiniteScrollLoader.js"
 
 // ========================================
 // FEED DE CONTACTOS

@@ -24,3 +24,15 @@ export interface PostTopLiked {
   countLikes: number;
   imageUrl: string;
 }
+
+// Frontend
+export type MyPosts = {
+  posts: Post[];
+  nextCursor: string | null;
+}
+
+// Frontend
+export type UserPosts = {
+  posts: PostResponse[];
+  nextCursor: string | null;
+}

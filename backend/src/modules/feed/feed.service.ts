@@ -2,8 +2,8 @@ import * as feedRepository from "./feed.repository.js";
 
 import {
   encodeCursor,
-  type FeedCursor,
-} from "./feed.cursor.js";
+  type ScrollLoader,
+} from "../../shared/helpers/InfiniteScrollLoader.js";
 
 import { toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 
@@ -13,7 +13,7 @@ import { toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 export async function getAccepted(
   userId: number,
   limit: number,
-  cursor?: FeedCursor
+  cursor?: ScrollLoader
 ) {
   const result =
     await feedRepository.findPosts(

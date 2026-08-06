@@ -1,10 +1,10 @@
-export type FeedCursor = {
+export type ScrollLoader = {
   createdAt: Date;
   id: number;
 };
 
 export function encodeCursor(
-  cursor: FeedCursor
+  cursor: ScrollLoader
 ): string {
   const data = {
     createdAt: cursor.createdAt.toISOString(),
@@ -18,7 +18,7 @@ export function encodeCursor(
 
 export function decodeCursor(
   cursor: string
-): FeedCursor {
+): ScrollLoader {
   const decoded = Buffer
     .from(cursor, "base64url")
     .toString("utf-8");

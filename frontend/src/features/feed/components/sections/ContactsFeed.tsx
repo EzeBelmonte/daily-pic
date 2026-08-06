@@ -1,6 +1,6 @@
 import { useContactsFeed } from "../../hooks/queries/useContactsFeed";
 
-import FeedPostCard from "./FeedPostCard";
+import FeedCard from "../cards/FeedCard";
 
 import { 
   LoaderSection,
@@ -43,7 +43,7 @@ const ContactsFeed = () => {
             rounded-2xl
           "
         >
-          <FeedPostCard post={post} />
+          <FeedCard post={post} />
         </div>
       ))}
 

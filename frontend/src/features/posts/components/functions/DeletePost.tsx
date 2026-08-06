@@ -10,7 +10,7 @@ type Props = {
   onClose: () => void;
 }
 
-const DeletePost = ({ onClose }: Props) => {
+export default function DeletePost({ onClose }: Props) {
   const navigate = useNavigate();
   const { postId } = useParams();
 
@@ -97,5 +97,3 @@ const DeletePost = ({ onClose }: Props) => {
     </div>
   );
 }
-
-export default DeletePost;

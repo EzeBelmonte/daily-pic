@@ -6,8 +6,8 @@ import type { FeedType } from "../types/feed.type";
 import { cn } from "@/utils/cn";
 
 import { Button } from "@/components";
-import ContactsFeed from "../components/contacts/ContactsFeed";
-import DiscoverFeed from "../components/DiscoverFeed";
+import ContactsFeed from "../components/sections/ContactsFeed";
+import DiscoverFeed from "../components/sections/DiscoverFeed";
 
 
 const FeedPage = () => {

@@ -1,10 +1,10 @@
-import EditPostForm from "./forms/EditPostForm";
+import EditPostForm from "../forms/EditPostForm";
 
 type Props = {
   onClose: () => void;
 }
 
-const EditPost = ({ onClose }: Props) => {
+export default function EditPost({ onClose }: Props) {
 
   return (
     <div className="
@@ -20,5 +20,3 @@ const EditPost = ({ onClose }: Props) => {
     </div>
   );
 }
-
-export default EditPost;

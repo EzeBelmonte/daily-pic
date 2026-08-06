@@ -1,10 +1,16 @@
 import { Image } from "@/components";
 
+import { cn } from "@/utils/cn";
+
 type Props = {
   imageUrl: string;
+  onClick?: () => void;
 }
 
-const PostImage = ({ imageUrl }: Props) => {
+const PostImage = ({ 
+  imageUrl,
+  onClick,
+}: Props) => {
 
   return (
     <>
@@ -18,13 +24,14 @@ const PostImage = ({ imageUrl }: Props) => {
         <Image
           src={imageUrl}
           alt="Imagen publicada"
-          className="
+          className={cn(`
             block
             max-w-full max-h-[800px]
             w-auto h-auto
             object-contain
-            rounded
-          "
+            rounded`,
+            onClick && "cursor-pointer"
+          )}
         />
       </div>
     </>

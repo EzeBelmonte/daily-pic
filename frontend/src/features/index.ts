@@ -20,5 +20,5 @@ export { default as Notifications } from "./notifications/pages/Notifications";
 export { default as ConfigPage } from "./configuration/pages/ConfigPage";
 
 // POST
-export { default as CreatePost } from "./posts/components/CreatePost";
+export { default as CreatePost } from "./posts/components/functions/CreatePost";
 export { default as PostPage } from "./posts/pages/PostPage";

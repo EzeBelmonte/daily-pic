@@ -1,25 +1,14 @@
-import type { PostResponse } from "@daily-pic/shared/types"
-
-import PostDescription from "../post/PostDescription";
-import PostImage from "../post/PostImage";
-import PostActionsMenu from "../menu/PostActionsMenu";
+import type { ReactNode } from "react";
 
 type Props = {
-  post: PostResponse;
+  children: ReactNode;
 }
 
-const PostCard = ({ post }: Props) => {
+const PostCard = ({ children }: Props) => {
 
   return (
     <article className="w-full max-w-[900px] mx-auto">
-      {/* Imagen*/}
-      <PostImage imageUrl={post.imageUrl} />
-
-      {/* Botones */}
-      <PostActionsMenu post={post} />
-
-      {/* Descripción */}
-      <PostDescription description={post.description}/>
+      {children}
     </article>
   );
 }

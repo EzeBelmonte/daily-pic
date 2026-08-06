@@ -25,6 +25,10 @@ import {
 import { NotFoundError } from "../../shared/errors/errors.js";
 import { PublicationLimitError } from "../../shared/errors/PublicationLimitError.js";
 
+import {
+  encodeCursor,
+  type ScrollLoader,
+} from "../../shared/helpers/InfiniteScrollLoader.js";
 
 export { toPostDTO };
 
@@ -92,13 +96,35 @@ export async function getPost(
 // OBTENER MIS POSTS
 // ========================================
 export async function getPosts(
-  userId: number
-): Promise<Post[]> {  
-  const posts = await postsRepository.findByUserId(userId);
+  userId: number,
+  limit: number,
+  cursor?: ScrollLoader
+) {  
+  const result = 
+     await postsRepository.findByUserId(
+      userId,
+      limit,
+      cursor
+    );
 
-  return posts.map((post) => 
+  const posts = result.map((post) => 
     toPostDTO(post)
   );
+
+  const lastPost =
+    result[result.length - 1];
+
+  const nextCursor = lastPost
+    ? encodeCursor({
+        createdAt: lastPost.createdAt,
+        id: lastPost.id,
+      })
+    : null;
+  
+  return {
+    posts,
+    nextCursor,
+  }
 }
 
 // ========================================
@@ -106,8 +132,10 @@ export async function getPosts(
 // ========================================
 export async function getPostsByUsername(
   myUserId: number,
-  username: string
-): Promise<PostResponse[]> {
+  username: string,
+  limit: number,
+  cursor?: ScrollLoader
+) {
   const user = await getExistingUserByUsername(username);
 
   const relation = await findRelationship(
@@ -122,11 +150,31 @@ export async function getPostsByUsername(
     return [];
   }
   
-  const posts = await postsRepository.findByUserId(user.id);
+  const result = 
+    await postsRepository.findByUserId(
+      user.id,
+      limit,
+      cursor
+    );
 
-  return posts.map((post) => 
+  const posts = result.map((post) => 
     toUserPostDTO(post, user)
   );
+  
+  const lastPost =
+    result[result.length - 1];
+
+  const nextCursor = lastPost
+    ? encodeCursor({
+        createdAt: lastPost.createdAt,
+        id: lastPost.id,
+      })
+    : null;
+  
+  return {
+    posts,
+    nextCursor,
+  }
 }
 
 // ========================================

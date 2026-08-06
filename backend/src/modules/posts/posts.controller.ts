@@ -4,6 +4,8 @@ import * as postsService from "./posts.service.js";
 
 import { postSchema } from "@daily-pic/shared/schemas";
 
+import { decodeCursor } from "../../shared/helpers/InfiniteScrollLoader.js"
+
 // ========================================
 // CREAR POST
 // ========================================
@@ -55,7 +57,27 @@ export async function getMyPosts(
   // Obtenemos el ID del usuario
   const userId = req.user.userId;
 
-  const posts = await postsService.getPosts(userId);
+  // Cantidad solicitada
+  const requestedLimit = Number(req.query.limit);
+
+  const limit = Math.min(
+    Number.isInteger(requestedLimit) && requestedLimit > 0
+      ? requestedLimit
+      : 20,
+    30
+  );
+
+  const cursor =
+    typeof req.query.cursor === "string"
+      ? decodeCursor(req.query.cursor)
+      : undefined;
+
+  const posts = 
+    await postsService.getPosts(
+      userId,
+      limit,
+      cursor
+    );
 
   // Retornamos los posts
   return res.status(201).json(posts);
@@ -74,7 +96,28 @@ export async function getUserPosts(
   // Obtenemos el ID del usuario
   const username = String(req.params.username);
 
-  const posts = await postsService.getPostsByUsername(myUserId, username);
+  // Cantidad solicitada
+  const requestedLimit = Number(req.query.limit);
+
+  const limit = Math.min(
+    Number.isInteger(requestedLimit) && requestedLimit > 0
+      ? requestedLimit
+      : 20,
+    30
+  );
+
+  const cursor =
+    typeof req.query.cursor === "string"
+      ? decodeCursor(req.query.cursor)
+      : undefined;
+
+  const posts = 
+    await postsService.getPostsByUsername(
+      myUserId,
+      username,
+      limit,
+      cursor
+    );
 
   // Retornamos los posts
   return res.status(201).json(posts);
