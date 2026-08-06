@@ -32,7 +32,6 @@ export async function create(
     });
 
   return res.status(201).json(contact);
-
 }
 
 // ========================================
@@ -103,8 +102,18 @@ export async function acceptRequest(
   // Id de la relación
   const id = Number(req.params.requestId);
 
-  await contactsService.updateAccepted(id);
+  const contact = 
+    await contactsService.updateAccepted(id);
   
+  console.log(contact);
+  
+  getIO()
+    .to(`user:${contact.requesterId}`)
+    .emit("notification", {
+      type: "contactAccepted",
+      fromUserId: contact.addresseeId,
+    });  
+    
   // Devolvemos mensaje de exito
   return res.status(200).send();
 }

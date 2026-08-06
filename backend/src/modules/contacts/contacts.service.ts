@@ -74,7 +74,16 @@ export async function create(
 export async function updateAccepted(
   id: number,
 ) {
-  await contactsRepository.updateAccepted(id);
+  const contact =
+    await contactsRepository.updateAccepted(id);
+
+  if (!contact) {
+    throw new NotFoundError(
+      "Error al aceptar la solicitud"
+    );
+  }
+
+  return contact;
 }
 
 // ========================================
