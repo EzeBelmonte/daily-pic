@@ -145,3 +145,17 @@ export async function getPublicationStatus(
 
   return res.status(200).json(status);
 }
+
+// ========================================
+// TOP 3 POSTS
+// ========================================
+export async function getTopLikedPosts(
+  req: Request,
+  res: Response
+) {
+  const userId = req.user.userId;
+
+  const top = await postsService.getTopLikedPosts(userId);
+
+  return res.status(200).json(top);
+}

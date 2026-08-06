@@ -1,4 +1,4 @@
-import CreatePostForm from "./CreatePostForm";
+import CreatePostForm from "./forms/CreatePostForm";
 
 type Props = {
   onClose: () => void;

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { usePost } from "../hooks/queries/usePost";
 
-import  PostCard  from "../components/post/PostCard";
+import  PostCard  from "../components/cards/PostCard";
 
 import { 
   LoaderSection,

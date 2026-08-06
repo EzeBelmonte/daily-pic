@@ -5,6 +5,7 @@ import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { db } from "../../infrastructure/database/db.js";
 
 import type { PostSchema } from "@daily-pic/shared/schemas";
+import { postLikes } from "../../infrastructure/database/schemas/postLikes.js";
 
 type NewPost = InferInsertModel<typeof posts>;
 
@@ -103,4 +104,26 @@ export async function findLastByUserId(userId: number) {
     .limit(1);
 
   return post;
+}
+
+// ========================================
+// TOP 3 POSTS
+// ========================================
+export async function findTopLikedPosts(
+  userId: number
+) {
+  return db
+    .select({
+      post: posts,
+      likes: count(postLikes.postId),
+    })
+    .from(postLikes)
+    .innerJoin(
+      posts,
+      eq(posts.id, postLikes.postId)
+    )
+    .where(eq(posts.userId, userId))
+    .groupBy(posts.id)
+    .orderBy(desc(count(postLikes.postId)))
+    .limit(3);
 }

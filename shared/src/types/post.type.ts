@@ -17,3 +17,10 @@ export interface Post extends PostSchema { // b
 export interface PostResponse extends Post {
   user: User;
 }
+
+// Frontend y Backend
+export interface PostTopLiked {
+  id: number;
+  countLikes: number;
+  imageUrl: string;
+}

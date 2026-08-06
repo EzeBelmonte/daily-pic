@@ -8,9 +8,9 @@ import {
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
-import { toCreatePostDTO, toPostDTO, toUserPostDTO } from "../../shared/mappers/post.mapper.js";
+import { toCreatePostDTO, toPostDTO, toTopLikedPost, toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { Post, PostResponse } from "@daily-pic/shared/types";
+import type { Post, PostResponse, PostTopLiked } from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
 import { 
@@ -240,4 +240,17 @@ export async function getPublicationStatus(
     canPublish: false, 
     nextPublicationAt: nextPublicationAt.toISOString(), 
   };
+}
+
+// ========================================
+// TOP 3 POSTS
+// ========================================
+export async function getTopLikedPosts(
+  userId: number
+): Promise<PostTopLiked[]> {
+  const result = await postsRepository.findTopLikedPosts(userId);
+
+  return result.map((item) => (
+    toTopLikedPost(item.post, item.likes)
+  ));
 }

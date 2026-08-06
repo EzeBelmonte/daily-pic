@@ -1,17 +1,26 @@
 import PublicationTimer from "./components/timer/PublicationTimer";
 
+import TopLiked from "@/features/posts/components/TopLiked";
+
 const SidebarInformation = () => {
 
   return (
-    <div className="hidden tablet:flex">
-      <div className="
-        fixed
-        top-0 right-0
-        h-screen w-[300px]
-        border-l border-[rgba(255,255,255,0.4)]
-        p-2
-      ">
+    <div className="
+      hidden 
+      fixed
+      top-0 right-0
+      h-screen w-[300px]
+      tablet:flex tablet:flex-col
+      border-l border-[rgba(255,255,255,0.4)]
+      p-2
+      overflow-y-scroll
+    ">
+      <div>
+        {/* Temporizador */}
         <PublicationTimer />
+
+        {/* Top 3 */}
+        <TopLiked />
       </div>
     </div>
   );

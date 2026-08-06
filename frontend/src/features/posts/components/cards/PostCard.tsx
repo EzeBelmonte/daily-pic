@@ -1,7 +1,7 @@
 import type { PostResponse } from "@daily-pic/shared/types"
 
-import PostDescription from "./PostDescription";
-import PostImage from "./PostImage";
+import PostDescription from "../post/PostDescription";
+import PostImage from "../post/PostImage";
 import PostActionsMenu from "../menu/PostActionsMenu";
 
 type Props = {

@@ -1,4 +1,4 @@
-import EditPostForm from "./EditPostForm";
+import EditPostForm from "./forms/EditPostForm";
 
 type Props = {
   onClose: () => void;

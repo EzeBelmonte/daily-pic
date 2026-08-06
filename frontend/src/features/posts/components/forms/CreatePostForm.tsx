@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useCreatePost } from "../hooks/mutations/useCreatePost";
-import { usePublicationStatus } from "../hooks/queries/usePublicationStatus";
+import { useCreatePost } from "../../hooks/mutations/useCreatePost";
+import { usePublicationStatus } from "../../hooks/queries/usePublicationStatus";
 
 import { cn } from "@/utils/cn";
 

@@ -1,9 +1,9 @@
-import type { InferSelectModel } from "drizzle-orm";
+import { like, type InferSelectModel } from "drizzle-orm";
 
 import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { Post, PostResponse } from "@daily-pic/shared/types";
+import type { Post, PostResponse, PostTopLiked } from "@daily-pic/shared/types";
 
 type PostType = InferSelectModel<typeof posts>;
 type UserType = InferSelectModel<typeof users>;
@@ -69,4 +69,18 @@ export function toUserPostDTO(
 
     createdAt: post.createdAt.toString(),
   };
+}
+
+// ========================================
+// OBTENER TOP 3 POSTS
+// ========================================
+export function toTopLikedPost(
+  post: PostType,
+  likes: number,
+) {
+  return {
+    id: post.id,
+    countLikes: likes,
+    imageUrl: post.imageUrl,
+  }
 }

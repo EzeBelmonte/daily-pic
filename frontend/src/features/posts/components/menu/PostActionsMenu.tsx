@@ -7,7 +7,7 @@ import { useMe } from "@/app/hooks/queries/useMe";
 import type { PostResponse } from "@daily-pic/shared/types";
 
 import LikeButton from "../buttons/LikeButton";
-import EditPost from "./EditPost";
+import EditPost from "../EditPost";
 import DeletePost from "./DeletePost";
 
 import { 

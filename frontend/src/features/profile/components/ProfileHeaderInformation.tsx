@@ -3,6 +3,7 @@ import type { CompleteUser } from "@daily-pic/shared/types";
 import { useModalButton } from "@/hooks/useModalButton";
 
 import { cn } from "@/utils/cn";
+import { formatCompactNumber } from "@/helpers/formatCompactNumber";
 
 import { 
   Image,
@@ -67,7 +68,7 @@ const ProfileHeaderInformation = ({
           ">
             <div className="sm:flex sm:gap-1">
               <p>Fotos: </p>
-              <p>{user.stats.postsCount}</p>
+              <p>{formatCompactNumber(user.stats.postsCount)}</p>
             </div>
 
             {/* Botón de contactos */}
@@ -77,12 +78,12 @@ const ProfileHeaderInformation = ({
                 className={countContactStyle}
               >
                 <span>Contactos:</span>
-                {user.stats.contactsCount}
+                {formatCompactNumber(user.stats.contactsCount)}
               </Button>
             ) : (
               <div className={countContactStyle}>
                 <span>Contactos:</span>
-                {user.stats.contactsCount}
+                {formatCompactNumber(user.stats.contactsCount)}
               </div>
             )}
           </div>

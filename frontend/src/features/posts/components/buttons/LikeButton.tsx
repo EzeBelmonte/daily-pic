@@ -8,6 +8,7 @@ import { useHasLiked } from "../../hooks/queries/useHasLiked";
 import { Button } from "@/components";
 
 import { cn } from "@/utils/cn";
+import { formatCompactNumber } from "@/helpers/formatCompactNumber";
 
 type Props = {
   postId: number;
@@ -50,7 +51,7 @@ const LikeButton = ({ postId }: Props) => {
       <Button
         className="text-white cursor-pointer"
       >
-        {countLikes}
+        {formatCompactNumber(countLikes)}
       </Button>
     </div>
   );

@@ -1,6 +1,6 @@
 import api from "./api";
 
-import type { Post, PostResponse } from "@daily-pic/shared/types";
+import type { Post, PostResponse, PostTopLiked } from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
 export interface PublicationStatus {
@@ -100,6 +100,16 @@ export async function getUserPosts(
 export async function getPublicationStatus(): Promise<PublicationStatus> {
   const response =
     await api.get("/posts/publication-status");
+
+  return response.data;
+}
+
+// ========================================
+// TOP 3 POSTS
+// ========================================
+export async function getTopLikedPosts(): Promise<PostTopLiked[]> {
+  const response =
+    await api.get("/posts/top-liked");
 
   return response.data;
 }

@@ -18,6 +18,7 @@ router.get("/me", authenticate, asyncHandler(postsController.getMyPosts));
 router.patch("/:postId", authenticate, asyncHandler(postsController.update));
 router.delete("/:postId", authenticate, asyncHandler(postsController.deleteRequest));
 router.get("/user/:username", authenticate, asyncHandler(postsController.getUserPosts));
+router.get("/top-liked", authenticate, asyncHandler(postsController.getTopLikedPosts));
 
 // ========================================
 // PÚBLICAS
