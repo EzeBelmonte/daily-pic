@@ -1,4 +1,4 @@
-import FeedLoader from "../FeedLoader";
+import FeedLoader from "@/components/infinite-scroll/FeedLoader";
 
 import { useContactsFeed } from "../../hooks/queries/useContactsFeed";
 
