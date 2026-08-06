@@ -18,7 +18,10 @@ const PostSingle = ({ post }: Props) => {
   return (
     <PostCard>
       <PostImage imageUrl={post.imageUrl} />
-      <LikeButton postId={post.id} />
+      <LikeButton
+        postId={post.id}
+        maxWidth={post.imageWidth}
+      />
       <PostDescription description={post.description} />
     </PostCard>
   );

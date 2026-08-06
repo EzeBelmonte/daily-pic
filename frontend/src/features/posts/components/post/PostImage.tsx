@@ -26,6 +26,7 @@ const PostImage = ({
         <Image
           src={imageUrl}
           alt="Imagen publicada"
+          onClick={onClick}
           className={cn(`
             block
             max-w-full max-h-[800px]

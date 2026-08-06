@@ -12,9 +12,15 @@ import { formatCompactNumber } from "@/helpers/formatCompactNumber";
 
 type Props = {
   postId: number;
+  className?: string;
+  maxWidth?: number;
 }
 
-const LikeButton = ({ postId }: Props) => {
+const LikeButton = ({ 
+  postId,
+  className,
+  maxWidth,
+}: Props) => {
   const addLikeMutation = useAddLike();
   const removeLikeMutation = useRemoveLike();
 
@@ -35,7 +41,15 @@ const LikeButton = ({ postId }: Props) => {
   }
 
   return (
-    <div className="flex gap-1.5">
+    <div 
+      className={cn(
+        "flex gap-1.5 mx-auto",
+        className
+      )}
+      style={{
+        maxWidth,
+      }}
+    >
       <Button
         onClick={handleLike}
       >

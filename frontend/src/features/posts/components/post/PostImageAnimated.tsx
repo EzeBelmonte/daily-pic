@@ -19,6 +19,7 @@ const PostImageAnimated = ({
       <Image
         src={imageUrl}
         alt="Imagen publicada"
+        onClick={onClick}
         className={cn(
           "reveal-image",
           onClick && "cursor-pointer",
