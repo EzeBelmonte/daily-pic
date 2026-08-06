@@ -1,20 +1,20 @@
-import type { PostSchema } from "../schemas/post.schema.js";
 import type { User } from "./user.type.js";
 
 // Frontend y Backend
-export interface Post extends PostSchema { // b
+export interface Post { // b
   id: number;
-  imageUrl: string;
-  imagePublicId: string;
 
+  imageUrl: string;
   imageWidth: number;
   imageHeight: number;
+
+  description: string | null;
 
   createdAt: string;
 }
 
 // Frontend y Backend
-export interface PostResponse extends Post {
+export interface PostWithUser extends Post {
   user: User;
 }
 
@@ -25,14 +25,14 @@ export interface PostTopLiked {
   imageUrl: string;
 }
 
-// Frontend
+// Frontend y Backend
 export type MyPosts = {
   posts: Post[];
   nextCursor: string | null;
 }
 
-// Frontend
+// Frontend y Backend
 export type UserPosts = {
-  posts: PostResponse[];
+  posts: PostWithUser[];
   nextCursor: string | null;
 }

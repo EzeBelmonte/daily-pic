@@ -7,7 +7,7 @@ export function useContactsFeed() {
     queryKey: ["feed"],
 
     queryFn: ({ pageParam }) =>
-      feedApi.getAccepted(pageParam),
+      feedApi.getFeedAccepted(pageParam),
 
     initialPageParam: undefined as string | undefined,
 

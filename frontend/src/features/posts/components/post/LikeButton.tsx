@@ -43,7 +43,7 @@ const LikeButton = ({
   return (
     <div 
       className={cn(
-        "flex gap-1.5 mx-auto",
+        "flex gap-1.5 w-full mx-auto",
         className
       )}
       style={{

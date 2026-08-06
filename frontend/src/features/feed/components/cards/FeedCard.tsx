@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import type { PostResponse } from "@daily-pic/shared/types"
+import type { PostWithUser } from "@daily-pic/shared/types"
 
 import { 
   PostUser,
@@ -11,7 +11,7 @@ import {
 } from "@/features/posts/components";
 
 type Props = {
-  post: PostResponse;
+  post: PostWithUser;
 }
 
 const FeedCard = ({ post }: Props) => {
@@ -36,7 +36,7 @@ const FeedCard = ({ post }: Props) => {
 
       {/* Descripción */}
       <PostDescription 
-        description={post.description} 
+        description={post.description ?? ""} 
         className="ml-2"
       />
     </PostCard>

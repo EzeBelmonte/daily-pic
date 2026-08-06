@@ -1,4 +1,4 @@
-import type { PostResponse } from "@daily-pic/shared/types";
+import type { PostWithUser } from "@daily-pic/shared/types";
 
 import PostCard from "./PostCard";
 
@@ -10,7 +10,7 @@ import {
 } from "../";
 
 type Props = {
-  post: PostResponse;
+  post: PostWithUser;
 }
 
 const PostSingle = ({ post }: Props) => {
@@ -22,7 +22,7 @@ const PostSingle = ({ post }: Props) => {
         postId={post.id}
         maxWidth={post.imageWidth}
       />
-      <PostDescription description={post.description} />
+      <PostDescription description={post.description ?? ""} />
     </PostCard>
   );
 }

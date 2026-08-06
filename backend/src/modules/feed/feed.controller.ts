@@ -6,7 +6,7 @@ import { decodeCursor } from "../../shared/helpers/InfiniteScrollLoader.js"
 // ========================================
 // FEED DE CONTACTOS
 // ========================================
-export async function getAccepted(
+export async function getFeedAccepted(
   req: Request,
   res: Response
 ) {
@@ -31,7 +31,7 @@ export async function getAccepted(
 
   // Obtenemos el feed
   const feed =
-    await feedService.getAccepted(
+    await feedService.getFeedAccepted(
       userId,
       limit,
       cursor

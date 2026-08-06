@@ -6,6 +6,7 @@ import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.s
 
 import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 
+import type { CompleteUser } from "@daily-pic/shared/types";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 
 import { toCompleteUserDTO } from "../../shared/mappers/user.mapper.js";
@@ -16,11 +17,11 @@ import {
 } from "../../shared/helpers/getExistingUser.js";
 
 // ========================================
-// OBTENER MIS DATOS
+// MI USUARIO
 // ========================================
 export async function getMe(
   userId: number
-) {
+): Promise<CompleteUser | null> {
   // Obtenemos el usuario
   const user = await getExistingUserById(userId);
 
@@ -37,7 +38,7 @@ export async function getMe(
 }
 
 // ========================================
-// ACTUALIZAR USUARIO
+// ACTUALIZAR MI USUARIO
 // ========================================
 export async function updateMe(
   userId: number,
@@ -60,17 +61,15 @@ export async function updateMe(
     image = await cloudinaryService.uploadImage(imageBuffer);
   }
 
-  const updateProfile = await userRepository.update(userId, data, image);
-
-  return updateProfile;
+  await userRepository.update(userId, data, image);
 }
 
 // ========================================
-// OBTENER PERFIL DE USUARIO
+// OBTENER USUARIO
 // ========================================
 export async function getUserByUsername(
   username: string
-) {
+): Promise<CompleteUser | null> {
   // Obtenemos el usuario
   const user = await getExistingUserByUsername(username);
 

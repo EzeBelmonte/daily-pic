@@ -11,6 +11,6 @@ const router: Router = Router();
 // ========================================
 // PRIVADAS
 // ========================================
-router.get("/contacts", authenticate, asyncHandler(feedController.getAccepted));
+router.get("/contacts", authenticate, asyncHandler(feedController.getFeedAccepted));
 
 export default router;

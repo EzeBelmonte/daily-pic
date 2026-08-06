@@ -9,15 +9,16 @@ import type { UserUpdateSchema } from "@daily-pic/shared/schemas";
 // ========================================
 // MI USUARIO
 // ========================================
-export async function getMe() {
+export async function getMe(
+): Promise<CompleteUser | null> {
   const response =
-    await api.get<CompleteUser>("/users/me");
+    await api.get<CompleteUser | null>("/users/me");
 
   return response.data;
 }
 
 // ========================================
-// ACTUALIZAR MIS DATOS
+// ACTUALIZAR MI USUARIO
 // ========================================
 export async function updateMe(
   image: File | null,
@@ -35,10 +36,7 @@ export async function updateMe(
     }
   });
 
-  const response = 
-    await api.patch<CompleteUser>("/users/me", formData);
-
-  return response.data;
+  await api.patch<CompleteUser>("/users/me", formData);
 }
 
 // ========================================
@@ -46,9 +44,9 @@ export async function updateMe(
 // ========================================
 export async function getUserByUsername(
   username: string
-) {
+): Promise<CompleteUser | null> {
   const response =
-    await api.get<CompleteUser>(`/users/${username}`);
+    await api.get<CompleteUser | null>(`/users/${username}`);
 
   return response.data;
 }

@@ -1,5 +1,7 @@
 import * as feedRepository from "./feed.repository.js";
 
+import type { UserPosts } from "@daily-pic/shared/types";
+
 import {
   encodeCursor,
   type ScrollLoader,
@@ -10,11 +12,11 @@ import { toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 // ========================================
 // FEED DE CONTACTOS
 // ========================================
-export async function getAccepted(
+export async function getFeedAccepted(
   userId: number,
   limit: number,
   cursor?: ScrollLoader
-) {
+): Promise<UserPosts> {
   const result =
     await feedRepository.findPosts(
       userId,

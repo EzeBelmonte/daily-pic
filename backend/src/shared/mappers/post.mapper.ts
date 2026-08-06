@@ -1,9 +1,9 @@
-import { like, type InferSelectModel } from "drizzle-orm";
+import { type InferSelectModel } from "drizzle-orm";
 
 import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { Post, PostResponse, PostTopLiked } from "@daily-pic/shared/types";
+import type { Post, PostWithUser, PostTopLiked } from "@daily-pic/shared/types";
 
 type PostType = InferSelectModel<typeof posts>;
 type UserType = InferSelectModel<typeof users>;
@@ -17,10 +17,10 @@ export function toCreatePostDTO(
   return {
     id: post.id,
     imageUrl: post.imageUrl,
-    imagePublicId: post.imagePublicId,
     imageWidth: post.imageWidth,
     imageHeight: post.imageHeight,
-    description: post.description ?? "",
+
+    description: post.description ?? null,
 
     createdAt: post.createdAt.toISOString(),
   };
@@ -35,10 +35,9 @@ export function toPostDTO(
   return {
     id: post.id,
     imageUrl: post.imageUrl,
-    imagePublicId: post.imagePublicId,
     imageWidth: post.imageWidth,
     imageHeight: post.imageHeight,
-    description: post.description ?? "",
+    description: post.description ?? null,
 
     createdAt: post.createdAt.toString(),
   };
@@ -50,14 +49,13 @@ export function toPostDTO(
 export function toUserPostDTO(
   post: PostType,
   user: UserType
-): PostResponse {
+): PostWithUser {
   return {
     id: post.id,
     imageUrl: post.imageUrl,
-    imagePublicId: post.imagePublicId,
     imageWidth: post.imageWidth,
     imageHeight: post.imageHeight,
-    description: post.description ?? "",
+    description: post.description ?? null,
 
     user: {
       id: user.id,

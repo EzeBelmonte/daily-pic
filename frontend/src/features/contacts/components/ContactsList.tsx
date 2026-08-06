@@ -1,7 +1,5 @@
 import { useAcceptedContacts } from "../hooks/queries/useAcceptedContacts";
 
-import type { AcceptedContact } from "@daily-pic/shared/types";
-
 import { 
   LoaderSection, 
   AlertError,

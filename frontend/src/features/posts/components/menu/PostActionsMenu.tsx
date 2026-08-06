@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useModalButton } from "@/hooks/useModalButton";
 import { useMe } from "@/app/hooks/queries/useMe";
 
-import type { PostResponse } from "@daily-pic/shared/types";
+import type { PostWithUser } from "@daily-pic/shared/types";
 
 import LikeButton from "../post/LikeButton";
 import EditPost from "../functions/EditPost";
@@ -21,7 +21,7 @@ import {
 import { cn } from "@/utils/cn";
 
 type Props = {
-  post: PostResponse
+  post: PostWithUser
 }
 
 const PostActionsMenu = ({ post }: Props) => {

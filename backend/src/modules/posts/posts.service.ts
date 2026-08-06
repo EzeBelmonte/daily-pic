@@ -8,9 +8,9 @@ import {
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
-import { toCreatePostDTO, toPostDTO, toTopLikedPost, toUserPostDTO } from "../../shared/mappers/post.mapper.js";
+import { toPostDTO, toTopLikedPost, toUserPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { Post, PostResponse, PostTopLiked } from "@daily-pic/shared/types";
+import type { Post, PostWithUser, PostTopLiked, MyPosts, UserPosts } from "@daily-pic/shared/types";
 import type { PostSchema } from "@daily-pic/shared/schemas";
 
 import { 
@@ -33,7 +33,7 @@ import {
 export { toPostDTO };
 
 // ========================================
-// CREAR POSTS
+// CREAR POST
 // ========================================
 export async function create(
   userId: number,
@@ -67,6 +67,7 @@ export async function create(
     imagePublicId: upload.imagePublicId,
     imageWidth: upload.imageWidth,
     imageHeight: upload.imageHeight,
+    description: data.description ?? null,
     ...data,
   });
 
@@ -76,20 +77,35 @@ export async function create(
     );
   }
 
-  return toCreatePostDTO(post);
+  return toPostDTO(post);
 }
 
 // ========================================
-// OBTENER UN POST
+// ACTUALIZAR POST
 // ========================================
-export async function getPost(
-  postId: number
-): Promise<PostResponse> {
+export async function update(
+  userId: number,
+  postId: number,
+  data: PostSchema
+): Promise<Post> {
+  // Obtenemos el post
   const post = await getExistingPostsById(postId);
 
-  const user = await getExistingUserById(post.userId);
+  if (post.userId !== userId) {
+    throw new NotFoundError(
+      "No tienes permiso para editar este post"
+    );
+  }
 
-  return toUserPostDTO(post, user);
+  const updatePost = await postsRepository.update(postId, data);
+
+  if (!updatePost) {
+    throw new NotFoundError(
+      "Error al actualizar la publicación"
+    );
+  }
+
+  return toPostDTO(updatePost);
 }
 
 // ========================================
@@ -99,7 +115,7 @@ export async function getPosts(
   userId: number,
   limit: number,
   cursor?: ScrollLoader
-) {  
+): Promise<MyPosts> {  
   const result = 
      await postsRepository.findByUserId(
       userId,
@@ -135,7 +151,7 @@ export async function getPostsByUsername(
   username: string,
   limit: number,
   cursor?: ScrollLoader
-) {
+): Promise<UserPosts> {
   const user = await getExistingUserByUsername(username);
 
   const relation = await findRelationship(
@@ -147,7 +163,10 @@ export async function getPostsByUsername(
     user.isPrivate &&
     relation?.status !== "accepted"
   ) {
-    return [];
+    return {
+      posts: [],
+      nextCursor: null,
+    }
   }
   
   const result = 
@@ -177,30 +196,23 @@ export async function getPostsByUsername(
   }
 }
 
+
 // ========================================
-// ACTUALIZAR POSTS
+// OBTENER UN POST
 // ========================================
-export async function update(
-  userId: number,
-  postId: number,
-  data: PostSchema
-) {
-  // Obtenemos el post
+export async function getPost(
+  postId: number
+): Promise<PostWithUser | null> {
   const post = await getExistingPostsById(postId);
 
-  if (post.userId !== userId) {
-    throw new NotFoundError(
-      "No tienes permiso para editar este post"
-    );
-  }
+  const user = await getExistingUserById(post.userId);
 
-  const updatePost = await postsRepository.update(postId, data);
-
-  return updatePost;
+  return toUserPostDTO(post, user);
 }
 
+
 // ========================================
-// ELIMINAR POSTS
+// ELIMINAR POST
 // ========================================
 export async function deleteById(
   userId: number,
@@ -217,17 +229,6 @@ export async function deleteById(
 
   await cloudinaryService.deleteImage(post.imagePublicId);
   await postsRepository.deleteById(postId);
-}
-
-// ========================================
-// CONTAR POSTS
-// ========================================
-export async function countById(
-  userId: number
-) {
-  const count = await postsRepository.countById(userId);
-
-  return count;
 }
 
 // ========================================
@@ -295,10 +296,22 @@ export async function getPublicationStatus(
 // ========================================
 export async function getTopLikedPosts(
   userId: number
-): Promise<PostTopLiked[]> {
+): Promise<PostTopLiked[] | []> {
   const result = await postsRepository.findTopLikedPosts(userId);
 
   return result.map((item) => (
     toTopLikedPost(item.post, item.likes)
   ));
 }
+
+// ========================================
+// CONTAR POSTS
+// ========================================
+export async function countById(
+  userId: number
+) {
+  const count = await postsRepository.countById(userId);
+
+  return count;
+}
+

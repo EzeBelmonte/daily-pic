@@ -1,7 +1,8 @@
 import api from "./api";
 
 import type { 
-  PostResponse, 
+  Post,
+  PostWithUser, 
   PostTopLiked,
   MyPosts,
   UserPosts,
@@ -20,7 +21,7 @@ export interface PublicationStatus {
 export async function create(
   image: File,
   data: PostSchema
-) {
+): Promise<Post> {
   const formData = new FormData();
 
   formData.append("image", image);
@@ -33,7 +34,23 @@ export async function create(
   });
 
   const response =
-    await api.post("/posts", formData);
+    await api.post<Post>("/posts", formData);
+
+  return response.data;
+}
+
+// ========================================
+// ACTUALIZAR POST
+// ========================================
+export async function update(
+  postId: number,
+  data: PostSchema
+): Promise<Post> {
+  const response =
+    await api.patch<Post>(
+        `/posts/${postId}`,
+      data
+    );
 
   return response.data;
 }
@@ -58,47 +75,7 @@ export async function getMyPosts(
 }
 
 // ========================================
-// EDITAR POST
-// ========================================
-export async function update(
-  postId: number,
-  data: PostSchema
-) {
-  const response =
-    await api.patch<PostSchema>(
-        `/posts/${postId}`,
-      data
-    );
-
-  return response.data;
-}
-
-// ========================================
-// ELIMINAR POST
-// ========================================
-export async function deleteRequest(
-  postId: number
-) {
-  const response = 
-    await api.delete(`/posts/${postId}`);
-
-  return response.data;
-}
-
-// ========================================
-// OBTENER UN POST
-// ========================================
-export async function getPost(
-  postId: number
-) {
-  const response =
-    await api.get<PostResponse>(`/posts/${postId}`);
-
-  return response.data;
-}
-
-// ========================================
-// OBTENER TODOS LOS POSTS DE UN USUARIO
+// OBTENER POSTS DE USUARIO
 // ========================================
 export async function getUserPosts(
   username: string,
@@ -118,11 +95,37 @@ export async function getUserPosts(
 }
 
 // ========================================
+// OBTENER UN POST
+// ========================================
+export async function getPost(
+  postId: number
+): Promise<PostWithUser | null> {
+  const response =
+    await api.get<PostWithUser | null>(`/posts/${postId}`);
+
+  return response.data;
+}
+
+
+// ========================================
+// ELIMINAR POST
+// ========================================
+export async function deleteRequest(
+  postId: number
+) {
+  const response = 
+    await api.delete(`/posts/${postId}`);
+
+  return response.data;
+}
+
+// ========================================
 // OBTENER ESTADO SI PUEDE PUBLICAR
 // ========================================
-export async function getPublicationStatus(): Promise<PublicationStatus> {
+export async function getPublicationStatus(
+): Promise<PublicationStatus> {
   const response =
-    await api.get("/posts/publication-status");
+    await api.get<PublicationStatus>("/posts/publication-status");
 
   return response.data;
 }
@@ -130,9 +133,10 @@ export async function getPublicationStatus(): Promise<PublicationStatus> {
 // ========================================
 // TOP 3 POSTS
 // ========================================
-export async function getTopLikedPosts(): Promise<PostTopLiked[]> {
+export async function getTopLikedPosts(
+): Promise<PostTopLiked[] | []> {
   const response =
-    await api.get("/posts/top-liked");
+    await api.get<PostTopLiked[] | []>("/posts/top-liked");
 
   return response.data;
 }

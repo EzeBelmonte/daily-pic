@@ -1,17 +1,19 @@
 import api from "./api";
 
 import type { 
+  ContactRelationship,
+  Contact,
   PendingContact,
-  AcceptedContact, 
+  AcceptedContact,
 } from "@daily-pic/shared/types";
 
 // ========================================
-// OBTENER RELACIÓN
+// OBTENER RELACIÓN ENTRE DOS USUARIOS
 // ========================================
 export async function getRelationship(
   userId: number
-) {
-  const response = await api.get(
+): Promise<ContactRelationship | null> {
+  const response = await api.get<ContactRelationship | null>(
     `/contacts/relation/${userId}`
   );
 
@@ -19,11 +21,11 @@ export async function getRelationship(
 }
 
 // ========================================
-// ENVIAR SOLICITUD
+// CREAR SOLICITUD
 // ========================================
 export async function create(
   userId: number
-) {
+): Promise<Contact> {
   const response = await api.post(
     `/contacts/add/${userId}`
   );
@@ -43,7 +45,7 @@ export async function acceptRequest(
 }
 
 // ========================================
-// EIMINAR SOLICITUD
+// EIMINAR SOLICITUD / RELACIÓN
 // ========================================
 export async function deleteRequest(
   requestId: number
@@ -54,11 +56,12 @@ export async function deleteRequest(
 }
 
 // ========================================
-// LISTADO DE PENDIENTES
+// SOLICITUDES PENDIENTES
 // ========================================
-export async function getPending() {
+export async function getPending(
+): Promise<PendingContact[] | []> {
   const response =
-    await api.get<PendingContact[]>("/contacts/pending-list");
+    await api.get<PendingContact[] | []>("/contacts/pending-list");
 
   return response.data;
 }
@@ -66,10 +69,10 @@ export async function getPending() {
 // ========================================
 // LISTADO DE ACEPTADOS
 // ========================================
-export async function getAccepted() {
-  console.log("entre")
+export async function getAccepted(
+): Promise<AcceptedContact[] | []> {
   const response =
-    await api.get<AcceptedContact[]>("/contacts");
+    await api.get<AcceptedContact[] | []>("/contacts");
 
   console.log(response.data)
   return response.data;

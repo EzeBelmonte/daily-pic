@@ -2,7 +2,10 @@ import api from "./api";
 
 import type { UserPosts } from "@daily-pic/shared/types";
 
-export async function getAccepted(
+// ========================================
+// FEED DE CONTACTOS
+// ========================================
+export async function getFeedAccepted(
   cursor?: string
 ): Promise<UserPosts> {
   const response = await api.get<UserPosts>(
