@@ -5,10 +5,9 @@ import {
   type ReactNode,
 } from "react";
 
-import { useQueryClient } from "@tanstack/react-query";
-
 import { socket } from "@/lib/socket";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../hooks/useAuth";
 import { useMe } from "../hooks/queries/useMe";
 
@@ -18,9 +17,7 @@ import {
   registerContactListeners
 } from "./index";
 
-type SocketContextType = {
-  connected: boolean;
-}
+import type { SocketContextType } from "./types/socket.type";
 
 const SocketContext = createContext<SocketContextType>({
   connected: false,
@@ -71,7 +68,7 @@ export function SocketProvider({ children }: Props) {
   return (
     <SocketContext.Provider 
       value={{ 
-        connected: socket.connected 
+        connected: socket.connected,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ type Props = {
 
 const PendingCard = ({ contact }: Props) => {
   const acceptContactMutation = useAcceptContact();
-  const rejectContactMutation = useRejectContact();
+  const rejectContactMutation = useRejectContact(); 
 
   return (
     <div className="
