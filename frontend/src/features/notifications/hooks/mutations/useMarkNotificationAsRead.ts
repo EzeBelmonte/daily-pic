@@ -6,7 +6,7 @@ import {
 import * as notificationsApi
   from "@/api/notifications.api";
 
-import type { AppNotification } from "@daily-pic/shared/types";
+import type { NotificationWithSender } from "@daily-pic/shared/types";
 
 export function useMarkNotificationAsRead() {
   const queryClient = useQueryClient();
@@ -16,12 +16,15 @@ export function useMarkNotificationAsRead() {
       notificationsApi.markAsRead,
 
     onSuccess: (notification) => {
-      queryClient.setQueryData<AppNotification[]>(
+      queryClient.setQueryData<NotificationWithSender[]>(
         ["notifications"],
         (old) =>
           old?.map((item) =>
             item.id === notification.id
-              ? notification
+              ? {
+                  ...item,
+                  read: notification.read,
+                }
               : item
           )
       );

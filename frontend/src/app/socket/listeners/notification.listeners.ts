@@ -1,13 +1,15 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { socket } from "@/lib/socket";
 
-import type { AppNotification } from "@daily-pic/shared/types";
+import type { 
+  NotificationWithSender,
+} from "@daily-pic/shared/types";
 
 export function registerNotificationListeners(
   queryClient: QueryClient
 ) {
   const handleNotification = (
-    notification: AppNotification
+    notification: NotificationWithSender
   ) => {
     console.log(
       "🔔 Nueva notificación:",
@@ -17,7 +19,7 @@ export function registerNotificationListeners(
     // Actualizamos queries relacionadas
     switch (notification.type) {
       case "contactRequest":
-        queryClient.setQueryData<AppNotification[]>(
+        queryClient.setQueryData<NotificationWithSender[]>(
           ["notifications"],
           (old) => [
             notification,
@@ -30,15 +32,13 @@ export function registerNotificationListeners(
         });
         break;
 
-      case "contactAccepted":
-        queryClient.setQueryData<AppNotification[]>(
+        case "contactAccepted":
+        queryClient.setQueryData<NotificationWithSender[]>(
           ["notifications"],
-          (old) =>
-            (old ?? []).map((item) =>
-              item.id === notification.id
-                ? notification
-                : item
-            )
+          (old) => [
+            notification,
+            ...(old ?? []),
+          ]
         );
 
         queryClient.invalidateQueries({

@@ -11,6 +11,6 @@ const router: Router = Router();
 // PRIVADAS
 // ========================================
 router.get("/", authenticate, asyncHandler(notificationController.getNotifications));
-//router.patch("/:notificationId/read", authenticate, asyncHandler(notificationController.markAsRead));
+router.patch("/:notificationId/read", authenticate, asyncHandler(notificationController.markAsRead));
 
 export default router;

@@ -34,7 +34,7 @@ export async function create(
 }
 
 // ========================================
-// OBTENER NOTIFICACIÓN
+// OBTENER TODAS LAS NOTIFICACINES DE UN USUARIO
 // ========================================
 export async function getNotifications(
   userId: number
@@ -68,6 +68,17 @@ export async function deleteContactRequest(
 ) {
   return notificationsRepository.deleteContactRequest(
     contactId
+  );
+}
+
+// ========================================
+// OBTENER DATOS DEL USUARIO CON ID DE UNA NOTIFICACIÓN
+// ========================================
+export async function findById(
+  notificationId: number
+) {
+  return notificationsRepository.findById(
+    notificationId
   );
 }
 

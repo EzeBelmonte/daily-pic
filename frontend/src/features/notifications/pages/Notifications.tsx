@@ -1,15 +1,46 @@
-import NotificationList from "../components/NotificationList";
+import { LoaderSection, Alert, AlertError } from "@/components";
+
+import { useNotifications } from "../hooks/queries/useNotifications";
+import NotificationItem from "../components/NotificationItem";
 
 const Notifications = () => {
+  const {
+    data: notifications,
+    isLoading,
+    error,
+  } = useNotifications();
+
+  if (isLoading) {
+    return <LoaderSection />;
+  }
+
+  if (error) {
+    return (
+      <AlertError
+        error="Error al obtener las notificaciones"
+        className="w-[300px]"
+      />
+    );
+  }
+
+  if (!notifications || notifications.length === 0) {
+    return <Alert message="Sin notificaciones" />;
+  }
+
   return (
-    <section className="
+    <div className="
       w-full
-      flex
-      flex-col
+      flex flex-col
       items-center
+      gap-5
     ">
-      <NotificationList />
-    </section>
+      {notifications.map((notification) => (
+        <NotificationItem
+          key={notification.id}
+          notification={notification}
+        />
+      ))}
+    </div>
   );
 };
 

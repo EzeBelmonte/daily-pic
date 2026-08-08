@@ -40,7 +40,7 @@ export async function create(
 }
 
 // ========================================
-// OBTENER NOTIFICACIÓN
+// OBTENER TODAS LAS NOTIFICACINES DE UN USUARIO
 // ========================================
 export async function findByUserId(
   userId: number
@@ -125,6 +125,28 @@ export async function deleteContactRequest(
 
     throw error;
   }
+}
+
+// ========================================
+// OBTENER DATOS DEL USUARIO CON ID DE UNA NOTIFICACIÓN
+// ========================================
+export async function findById(id: number) {
+  return db.query.notifications.findFirst({
+    where: (notifications, { eq }) =>
+      eq(notifications.id, id),
+
+    with: {
+      sender: {
+        columns: {
+          id: true,
+          username: true,
+          name: true,
+          lastname: true,
+          profileImageUrl: true,
+        },
+      },
+    },
+  });
 }
 
 // ========================================

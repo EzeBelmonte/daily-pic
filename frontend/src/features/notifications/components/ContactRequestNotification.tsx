@@ -1,6 +1,6 @@
 import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
 
-import PendingCard from "../components/PendingCard";
+import PendingCard from "./cards/PendingCard";
 
 import { LoaderSection, AlertError } from "@/components";
 

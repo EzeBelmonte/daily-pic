@@ -1,11 +1,10 @@
 import { useAcceptContact } from "@/features/contacts/hooks/mutations/useAcceptContact";
 import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectContact";
 
-import { useMarkNotificationAsRead } from "@/features/notifications/hooks/mutations/useMarkNotificationAsRead";
-
 import type { PendingContact } from "@daily-pic/shared/types";
 
-import { Image, Button } from "@/components";
+import CardInformation from "./CardInformation";
+import { Button } from "@/components";
 
 type Props = {
   contact: PendingContact;
@@ -16,9 +15,6 @@ const PendingCard = ({
 }: Props) => {
   const acceptContactMutation = useAcceptContact();
   const rejectContactMutation = useRejectContact();
-
-  const markAsReadMutation =
-    useMarkNotificationAsRead();
 
   const handleAccept = () => {
     acceptContactMutation.mutate(contact.id);
@@ -35,24 +31,7 @@ const PendingCard = ({
 
   return (
     <div>
-      {/* Información */}
-
-      {/* Foto de perfil */}
-      <Image
-        src={contact.requester.profileImageUrl}
-        alt={contact.requester.username}
-      />
-
-      <div>
-        <p>
-          {contact.requester.name}{" "}
-          {contact.requester.lastname ?? ""}
-        </p>
-
-        <p className="text-gray-500 text-[.8rem]">
-          @{contact.requester.username}
-        </p>
-      </div>
+      <CardInformation user={contact.requester} />
 
       {/* Botones */}
       <div className="
@@ -69,8 +48,7 @@ const PendingCard = ({
         <Button
           onClick={handleAccept}
           disabled={
-            acceptContactMutation.isPending ||
-            markAsReadMutation.isPending
+            acceptContactMutation.isPending
           }
           className="text-green-300"
         >
@@ -80,8 +58,7 @@ const PendingCard = ({
         <Button
           onClick={handleReject}
           disabled={
-            rejectContactMutation.isPending ||
-            markAsReadMutation.isPending
+            rejectContactMutation.isPending
           }
           className="text-red-300"
         >

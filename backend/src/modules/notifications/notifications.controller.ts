@@ -20,7 +20,7 @@ export async function getNotifications(
 // ========================================
 // MARCAR COMO LEIDO
 // ========================================
-/*export async function markAsRead(
+export async function markAsRead(
   req: Request,
   res: Response
 ) {
@@ -33,4 +33,4 @@ export async function getNotifications(
     );
 
   return res.status(200).json(notification);
-}*/
+}

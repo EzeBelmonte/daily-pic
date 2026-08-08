@@ -1,19 +1,19 @@
-import type { AppNotification } from "@daily-pic/shared/types";
+import type { NotificationWithSender } from "@daily-pic/shared/types";
 
 import ContactRequestNotification
   from "./ContactRequestNotification";
 
-/*import ContactAcceptedNotification
+import ContactAcceptedNotification
   from "./ContactAcceptedNotification";
 
-import PostLikeNotification
+/*import PostLikeNotification
   from "./PostLikeNotification";
 
 import MessageNotification
   from "./MessageNotification";*/
 
 type Props = {
-  notification: AppNotification;
+  notification: NotificationWithSender;
 };
 
 const NotificationItem = ({
@@ -28,23 +28,16 @@ const NotificationItem = ({
         />
       );
 
-    /*case "contactAccepted":
+    case "contactAccepted":
       return (
         <ContactAcceptedNotification
           notification={notification}
         />
       );
 
-    case "postLike":
+    /*case "postLike":
       return (
         <PostLikeNotification
-          notification={notification}
-        />
-      );
-
-    case "message":
-      return (
-        <MessageNotification
           notification={notification}
         />
       );*/

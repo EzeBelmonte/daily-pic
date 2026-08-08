@@ -107,18 +107,18 @@ export async function acceptRequest(
 
   // Actualizamos la relación y creamos la notificación
   const { 
-    notificationAccepted,
+    notificationWithSender,
    } =
     await contactsService.updateAccepted(
       contactId
     );
-  
+
   // Emitimos la notificación al usuario
   // que había enviado la solicitud
-  if (notificationAccepted) {
+  if (notificationWithSender) {
     getIO()
-      .to(`user:${notificationAccepted.userId}`)
-      .emit("notification", notificationAccepted);
+      .to(`user:${notificationWithSender.userId}`)
+      .emit("notification", notificationWithSender);
   }
   
   // Devolvemos mensaje de exito

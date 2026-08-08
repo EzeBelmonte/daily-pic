@@ -17,6 +17,10 @@ export function useAcceptContact() {
       queryClient.invalidateQueries({
         queryKey: ["contacts", "accepted"],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["notifications"],
+      });
     },
   });
 }

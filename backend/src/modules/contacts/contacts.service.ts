@@ -7,6 +7,7 @@ import type {
   PendingContact,
   AcceptedContact,
   AppNotification,
+  NotificationWithSender,
 } from "@daily-pic/shared/types";
 
 import { getExistingUserById } from "../../shared/helpers/getExistingUser.js";
@@ -86,8 +87,7 @@ export async function create(
 export async function updateAccepted(
   contactId: number,
 ): Promise<{
-  contact: Contact;
-  notificationAccepted: AppNotification | null;
+  notificationWithSender: NotificationWithSender;
 }> {
   const contact =
     await contactsRepository.updateAccepted(contactId);
@@ -103,9 +103,8 @@ export async function updateAccepted(
     contact.id,
   );
 
-
   // Creamos la notificación de quien fue aceptado
-  const notificationAccepted =
+  const notification =
     await notificationsService.create(
       "contactAccepted",
       contact.addresseeId, // Quien aceptó
@@ -113,10 +112,26 @@ export async function updateAccepted(
       contact.id,
     );
 
-  return {
-    contact,
-    notificationAccepted: notificationAccepted ?? null,
+  if (!notification) {
+    throw new NotFoundError(
+      'Error al crear la notificación'
+    );
   }
+
+  const notificationWithSender =
+    await notificationsService.findById(
+      notification.id
+    );
+
+  if (!notificationWithSender) {
+    throw new NotFoundError(
+      'Error al crear la notificación'
+    );
+  }
+  return { 
+    notificationWithSender: notificationWithSender ?? null
+  };
+  
 }
 
 // ========================================
