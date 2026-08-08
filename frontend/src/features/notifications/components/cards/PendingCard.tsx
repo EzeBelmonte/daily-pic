@@ -3,7 +3,7 @@ import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectC
 
 import type { PendingContact } from "@daily-pic/shared/types";
 
-import CardInformation from "./CardInformation";
+import ContactInformation from "../../../contacts/components/ContactInformation";
 import { Button } from "@/components";
 
 type Props = {
@@ -35,7 +35,7 @@ const PendingCard = ({
       p-2
       bg-[#222222] rounded-[10px]
     ">
-      <CardInformation user={contact.requester} />
+      <ContactInformation user={contact.requester} />
 
       {/* Botones */}
       <div className="

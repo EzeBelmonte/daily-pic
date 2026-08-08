@@ -1,4 +1,4 @@
-import CardInformation from "./CardInformation";
+import ContactInformation from "../../../contacts/components/ContactInformation";
 
 import type { User } from "@daily-pic/shared/types";
 
@@ -16,7 +16,7 @@ const AcceptedCard = ({
       p-2
       bg-[#222222] rounded-[10px]
     ">
-      <CardInformation user={user} />
+      <ContactInformation user={user} />
 
     </div>
   );

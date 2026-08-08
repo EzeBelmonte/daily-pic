@@ -1,11 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 import type { User } from "@daily-pic/shared/types";
 
 import { useRejectContact } from "../hooks/mutations/useRejectContact";
 
-import { 
-  Image,
-  Button,
-} from "@/components";
+import ContactInformation from "./ContactInformation";
+
+import { Button } from "@/components";
 
 type Props = {
   user: User;
@@ -13,6 +14,8 @@ type Props = {
 }
 
 const ContactCard = ({ user, contactId }: Props) => {
+  const navigate = useNavigate();
+
   const rejectContactMutation = useRejectContact();
 
   const handleDeleteContact = () => {
@@ -34,24 +37,10 @@ const ContactCard = ({ user, contactId }: Props) => {
       border border-white/20
       rounded
     ">
-      <div className="flex gap-2">
-        <Image 
-          src={user.profileImageUrl}
-          alt="Foto de perfil"
-          className="w-[50px] h-[50px] rounded-[7px]"
-        />
-
-        <div>
-          <p className="text-white">
-            <span>{user.name} </span>
-            <span>{user.lastname}</span>
-          </p>
-
-          <p className="text-gray-500 text-[.8rem]">
-            @{user.username}
-          </p>
-        </div>
-      </div>
+      <ContactInformation 
+        user={user} 
+        onClick={() => navigate(`/profile/${user.username}`)}
+      />
 
       <div className="
         flex
