@@ -1,19 +1,16 @@
-import PendingList from "../components/PendingList";
+import NotificationList from "../components/NotificationList";
 
 const Notifications = () => {
-
   return (
     <section className="
-      w-full 
-      justify-center
+      w-full
+      flex
+      flex-col
       items-center
-      p-5
     ">
-
-      <PendingList />
-
+      <NotificationList />
     </section>
   );
-}
+};
 
 export default Notifications;

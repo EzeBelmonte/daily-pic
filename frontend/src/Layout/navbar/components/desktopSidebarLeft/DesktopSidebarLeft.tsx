@@ -1,5 +1,3 @@
-import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
-
 import Logo from "@/components/branding/Logo";
 
 import { navItems } from "../../constants/navItems";
@@ -8,13 +6,9 @@ import ProfileNavButton from "../mobileNavbarTop/ProfileNavButton";
 import NavItem from "../NavItem";
 
 import CreatePostMenuButton from "./CreatePostMenuButton";
+import NotificationBadge from "@/features/notifications/components/NotificationBadge";
 
 const DesktopSidebarLeft = () => {
-  const { 
-    data: pendingContacts,
-  } = usePendingContacts();
-
-  const pendingCount = pendingContacts?.length ?? 0;
 
   const itemStyle = `
     text-white text-[1.05rem] font-semibold 
@@ -53,23 +47,12 @@ const DesktopSidebarLeft = () => {
                 className={itemStyle}
               />
 
-              {pendingCount > 0 && item.id === "notifications" && (
-                <span className="
-                  absolute
-                  top-0.5 right-10
-                  min-w-4
-                  h-4
-                  px-1
-                  rounded
-                  bg-red-500
-                  text-white text-[10px]
-                  flex items-center justify-center
-                ">
-                  {pendingCount}
-                </span>
+              {item.id === "notifications" && (
+                <NotificationBadge />
               )}
-          </div>
-        ))}
+            </div>
+          ))
+        }
       </div>
 
       <ProfileNavButton 

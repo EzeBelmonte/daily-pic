@@ -10,6 +10,7 @@ import {
 
 import { users } from "./users.js";
 import { posts } from "./posts.js";
+import { contacts } from "./contacts.js";
 import { conversations } from "./conversations.js";
 
 export const notificationTypeEnum = pgEnum(
@@ -38,6 +39,11 @@ export const notifications = pgTable(
     fromUserId: integer("from_user_id")
       .notNull()
       .references(() => users.id, {
+        onDelete: "cascade",
+      }),
+
+    contactId: integer("contact_id")
+      .references(() => contacts.id, {
         onDelete: "cascade",
       }),
 

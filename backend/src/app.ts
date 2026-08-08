@@ -9,6 +9,7 @@ import contactsRouter from "./modules/contacts/contacts.routes.js";
 import postsRouter from "./modules/posts/posts.routes.js";
 import likesRouter from "./modules/likes/likes.routes.js";
 import feedRouter from "./modules/feed/feed.routes.js";
+import notificationsRouter from "./modules/notifications/notifications.routes.js";
 
 // Error
 import { errorMiddleware } from "./shared/middlewares/error.middleware.js";
@@ -32,6 +33,7 @@ app.use("/contacts", contactsRouter);
 app.use("/posts", postsRouter);
 app.use("/posts", likesRouter);
 app.use("/feed", feedRouter);
+app.use("/notifications", notificationsRouter);
 
 app.use(errorMiddleware);
 

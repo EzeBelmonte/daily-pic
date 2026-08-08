@@ -3,7 +3,6 @@ import { Router } from "express";
 import * as contactsController from "./contacts.controller.js";
 
 import { authenticate } from "../../shared/middlewares/auth.middleware.js";
-
 import { asyncHandler } from "../../shared/middlewares/asyncHandler.js";
 
 const router: Router = Router();

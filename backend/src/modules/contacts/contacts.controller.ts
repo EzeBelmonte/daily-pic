@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
 
-import { getIO } from "../../socket.js";
-
 import * as contactsService from "./contacts.service.js";
+
+import { getIO } from "../../socket.js";
 
 // ========================================
 // CREAR RELACIÓN
@@ -17,19 +17,21 @@ export async function create(
   // Usuario al que se le envía la solicitud
   const addresseeId = Number(req.params.userId);
 
-  const contact =
+  // Obtenemos la relación y la notificación
+  const { contact, notification } = 
     await contactsService.create(
       requesterId,
       addresseeId
     );
 
-  // Notificar al usuario que recibió la solicitud
-  getIO()
-    .to(`user:${addresseeId}`)
-    .emit("notification", {
-      type: "contactRequest",
-      fromUserId: requesterId,
-    });
+  console.log("PENDIENTE: ", notification?.read);
+  // Emitimos la notificación al usuario que recibe 
+  // la solicitud
+  if (notification) {
+    getIO()
+      .to(`user:${addresseeId}`)
+      .emit("notification", notification);
+  }
 
   return res.status(201).json(contact);
 }
@@ -99,21 +101,26 @@ export async function acceptRequest(
   req: Request,
   res: Response
 ) {
-  // Id de la relación
-  const id = Number(req.params.requestId);
 
-  const contact = 
-    await contactsService.updateAccepted(id);
+  // Id de la relación
+  const contactId = Number(req.params.requestId);
+
+  // Actualizamos la relación y creamos la notificación
+  const { 
+    notificationAccepted,
+   } =
+    await contactsService.updateAccepted(
+      contactId
+    );
   
-  console.log(contact);
+  // Emitimos la notificación al usuario
+  // que había enviado la solicitud
+  if (notificationAccepted) {
+    getIO()
+      .to(`user:${notificationAccepted.userId}`)
+      .emit("notification", notificationAccepted);
+  }
   
-  getIO()
-    .to(`user:${contact.requesterId}`)
-    .emit("notification", {
-      type: "contactAccepted",
-      fromUserId: contact.addresseeId,
-    });  
-    
   // Devolvemos mensaje de exito
   return res.status(200).send();
 }

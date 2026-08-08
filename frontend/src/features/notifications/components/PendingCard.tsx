@@ -1,48 +1,57 @@
 import { useAcceptContact } from "@/features/contacts/hooks/mutations/useAcceptContact";
 import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectContact";
 
+import { useMarkNotificationAsRead } from "@/features/notifications/hooks/mutations/useMarkNotificationAsRead";
+
 import type { PendingContact } from "@daily-pic/shared/types";
 
 import { Image, Button } from "@/components";
 
 type Props = {
   contact: PendingContact;
-}
+};
 
-const PendingCard = ({ contact }: Props) => {
+const PendingCard = ({
+  contact,
+}: Props) => {
   const acceptContactMutation = useAcceptContact();
-  const rejectContactMutation = useRejectContact(); 
+  const rejectContactMutation = useRejectContact();
+
+  const markAsReadMutation =
+    useMarkNotificationAsRead();
+
+  const handleAccept = () => {
+    acceptContactMutation.mutate(contact.id);
+  };
+
+  const handleReject = () => {
+    rejectContactMutation.mutate(
+      {
+        requestId: contact.id,
+        userId: contact.requester.id,
+      }
+    );
+  };
 
   return (
-    <div className="
-      w-full max-w-[450px]
-      flex flex-col
-      sm:flex-row
-      sm:items-center
-      sm:justify-between
-      p-2 mt-10
-      bg-[#222222]
-      border border-white/20
-      rounded
-    ">
+    <div>
       {/* Información */}
-      <div className="flex gap-2">
-        {/* Foto de perfil */}
-        <Image 
-          src={contact.requester.profileImageUrl}
-          alt="Foto de perfil"
-          className="w-[50px] h-[50px] rounded-[7px]"
-        />
-        <div>
-          <p className="text-white">
-            <span>{contact.requester.name} </span>
-            <span>{contact.requester.lastname ?? ""}</span>
-          </p>
 
-          <p className="text-gray-500 text-[.8rem]">
-            @{contact.requester.username}
-          </p>
-        </div>
+      {/* Foto de perfil */}
+      <Image
+        src={contact.requester.profileImageUrl}
+        alt={contact.requester.username}
+      />
+
+      <div>
+        <p>
+          {contact.requester.name}{" "}
+          {contact.requester.lastname ?? ""}
+        </p>
+
+        <p className="text-gray-500 text-[.8rem]">
+          @{contact.requester.username}
+        </p>
       </div>
 
       {/* Botones */}
@@ -57,19 +66,23 @@ const PendingCard = ({ contact }: Props) => {
         sm:justify-normal
         sm:gap-6
       ">
-        <Button 
-          onClick={() => acceptContactMutation.mutate(contact.id)}
+        <Button
+          onClick={handleAccept}
+          disabled={
+            acceptContactMutation.isPending ||
+            markAsReadMutation.isPending
+          }
           className="text-green-300"
         >
           Aceptar
         </Button>
 
         <Button
-          onClick={() => 
-            rejectContactMutation.mutate({
-              requestId: contact.id,
-              userId: contact.requester.id }
-          )}
+          onClick={handleReject}
+          disabled={
+            rejectContactMutation.isPending ||
+            markAsReadMutation.isPending
+          }
           className="text-red-300"
         >
           Rechazar
@@ -77,6 +90,6 @@ const PendingCard = ({ contact }: Props) => {
       </div>
     </div>
   );
-}
+};
 
 export default PendingCard;

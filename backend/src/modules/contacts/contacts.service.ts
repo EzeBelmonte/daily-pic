@@ -1,10 +1,12 @@
 import * as contactsRepository from "./contacts.repository.js";
+import * as notificationsService from "../notifications/notifications.service.js";
 
 import type { 
   ContactRelationship,
   Contact,
   PendingContact,
   AcceptedContact,
+  AppNotification,
 } from "@daily-pic/shared/types";
 
 import { getExistingUserById } from "../../shared/helpers/getExistingUser.js";
@@ -19,8 +21,6 @@ export async function getRelationship(
   userA: number,
   userB: number
 ): Promise<ContactRelationship | null> {
-  await getExistingUserById(userA);
-  await getExistingUserById(userB);
 
   const relation = 
     await contactsRepository.findRelationship(
@@ -37,9 +37,10 @@ export async function getRelationship(
 export async function create(
   requesterId: number,
   addresseeId: number
-): Promise<Contact> {
-  await getExistingUserById(requesterId);
-  await getExistingUserById(addresseeId);
+): Promise<{
+  contact: Contact;
+  notification: AppNotification | null;
+}> {
 
   const existingRelation =
     await contactsRepository.findRelationship(
@@ -61,21 +62,35 @@ export async function create(
 
   if (!contact) {
     throw new NotFoundError(
-      "Error al seguir al usuario"
+      "Error en la solicitud o relación entre estos usuarios"
     );
   }
 
-  return contact;
+  const notification = 
+    await notificationsService.create(
+      "contactRequest",
+      requesterId,
+      addresseeId,
+      contact?.id,
+    );
+
+  return {
+    contact,
+    notification: notification ?? null,
+  }
 }
 
 // ========================================
 // ACEPTAR SOLICITUD
 // ========================================
 export async function updateAccepted(
-  id: number,
-) {
+  contactId: number,
+): Promise<{
+  contact: Contact;
+  notificationAccepted: AppNotification | null;
+}> {
   const contact =
-    await contactsRepository.updateAccepted(id);
+    await contactsRepository.updateAccepted(contactId);
 
   if (!contact) {
     throw new NotFoundError(
@@ -83,16 +98,36 @@ export async function updateAccepted(
     );
   }
 
-  return contact;
+  // Actualizamos la notificacion de quien aceptó
+  await notificationsService.updateContactNotification(
+    contact.id,
+  );
+
+
+  // Creamos la notificación de quien fue aceptado
+  const notificationAccepted =
+    await notificationsService.create(
+      "contactAccepted",
+      contact.addresseeId, // Quien aceptó
+      contact.requesterId, // Quien recibe la notificación
+      contact.id,
+    );
+
+  return {
+    contact,
+    notificationAccepted: notificationAccepted ?? null,
+  }
 }
 
 // ========================================
 // EIMINAR SOLICITUD / RELACIÓN
 // ========================================
 export async function deleteById(
-  id: number,
+  contactId: number,
 ) {
-  await contactsRepository.deleteById(id);
+  await contactsRepository.deleteById(contactId);
+
+  await notificationsService.deleteContactRequest(contactId);
 }
 
 // ========================================
@@ -133,10 +168,10 @@ export async function getAccepted(
 // OBTENER CONTACTO
 // ========================================
 export async function getContact(
-  id: number,
+  contactId: number,
 ): Promise<Contact | null> {
   const contact = 
-    await contactsRepository.findById(id);
+    await contactsRepository.findById(contactId);
   
   if (!contact) {
     throw new NotFoundError(
