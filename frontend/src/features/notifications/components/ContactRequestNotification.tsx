@@ -43,9 +43,26 @@ const ContactRequestNotification = ({
   }
 
   return (
-    <PendingCard
-      contact={contact}
-    />
+    <section className="
+      w-full
+      flex flex-col 
+      items-center
+      border-b-2 border-white/20
+      pb-3
+    ">
+      <h3 className="
+        max-w-[250px]
+        text-white text-[1.1rem]
+        mb-3
+        border-b border-white/30
+      ">
+        Solicitud de amistad
+      </h3>
+
+      <PendingCard
+        contact={contact}
+      />
+    </section>
   );
 };
 

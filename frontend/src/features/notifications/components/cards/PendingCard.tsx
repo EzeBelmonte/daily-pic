@@ -30,7 +30,11 @@ const PendingCard = ({
   };
 
   return (
-    <div>
+    <div className="
+      w-full max-w-[400px]
+      p-2
+      bg-[#222222] rounded-[10px]
+    ">
       <CardInformation user={contact.requester} />
 
       {/* Botones */}

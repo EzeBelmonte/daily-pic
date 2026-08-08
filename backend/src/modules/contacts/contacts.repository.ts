@@ -131,8 +131,32 @@ export async function deleteById(id: number) {
 // ========================================
 export async function findAccepted(userId: number) {
   return db
-    .select()
+    .select({
+      id: contacts.id,
+      createdAt: contacts.createdAt,
+
+      user: {
+        id: users.id,
+        name: users.name,
+        lastname: users.lastname,
+        username: users.username,
+        profileImageUrl: users.profileImageUrl,
+      },
+    })
     .from(contacts)
+    .innerJoin(
+      users,
+      or(
+        and(
+          eq(contacts.requesterId, userId),
+          eq(users.id, contacts.addresseeId)
+        ),
+        and(
+          eq(contacts.addresseeId, userId),
+          eq(users.id, contacts.requesterId)
+        )
+      )
+    )
     .where(
       and(
         or(

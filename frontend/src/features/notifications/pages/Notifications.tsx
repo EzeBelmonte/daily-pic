@@ -32,7 +32,8 @@ const Notifications = () => {
       w-full
       flex flex-col
       items-center
-      gap-5
+      gap-5 
+      mt-15 px-2
     ">
       {notifications.map((notification) => (
         <NotificationItem

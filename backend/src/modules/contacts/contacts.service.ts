@@ -10,10 +10,7 @@ import type {
   NotificationWithSender,
 } from "@daily-pic/shared/types";
 
-import { getExistingUserById } from "../../shared/helpers/getExistingUser.js";
 import { NotFoundError } from "../../shared/errors/errors.js";
-
-import { toContactDTO } from "../../shared/mappers/contact.mapper.js";
 
 // ========================================
 // OBTENER RELACIÓN ENTRE DOS USUARIOS
@@ -165,36 +162,31 @@ export async function getPending(
 export async function getAccepted(
   userId: number,
 ): Promise<AcceptedContact[] | []> {
+  
   const contacts = 
     await contactsRepository.findAccepted(
       userId,
     );
 
-  return Promise.all(
-    contacts.map(async (contact) => {
-      const user = await getExistingUserById(contact.requesterId);
-
-      return toContactDTO(contact, user);
-    }),
-  );
+  return contacts ?? [];
 }
 
 // ========================================
 // OBTENER CONTACTO
 // ========================================
 export async function getContact(
-  contactId: number,
-): Promise<Contact | null> {
-  const contact = 
-    await contactsRepository.findById(contactId);
+  userId: number,
+): Promise<AcceptedContact[] | null> {
+  const contacts = 
+    await contactsRepository.findAccepted(userId);
   
-  if (!contact) {
+  if (!contacts) {
     throw new NotFoundError(
       "El contacto no existe"
     );
   }
 
-  return contact;
+  return contacts ?? null;
 }
 
 // ========================================

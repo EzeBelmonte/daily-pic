@@ -50,6 +50,6 @@ export interface PendingContact {
 //Backend y Frontend
 export interface AcceptedContact {
   id: number;
-  createdAt: string;
+  createdAt: Date;
   user: User;
 }

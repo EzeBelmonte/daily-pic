@@ -155,7 +155,7 @@ export async function getAccepted(
     await contactsService.getAccepted(
       userId
     );
-  
+
   return res.status(200).json(contacts);
 }
 

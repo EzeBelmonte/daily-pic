@@ -17,7 +17,7 @@ export function toContactDTO(
 ): AcceptedContact {
   return {
     id: contact.id,
-    createdAt: contact.createdAt.toString(),
+    createdAt: contact.createdAt,
     user: {
       id: user.id,
       name: user.name,

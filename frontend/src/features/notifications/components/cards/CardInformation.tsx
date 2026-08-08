@@ -9,15 +9,21 @@ type Props = {
 const CardInformation = ({ user }: Props) => {
 
   return (
-    <div>
+    <div className="
+      flex gap-3
+    ">
       {/* Foto de perfil */}
       <Image
         src={user.profileImageUrl}
         alt={user.username}
+        className="
+          w-[60px] h-[60px]
+          rounded-[10px]
+        "
       />
 
       <div>
-        <p>
+        <p className="text-white">
           {user.name}{" "}
           {user.lastname ?? ""}
         </p>
