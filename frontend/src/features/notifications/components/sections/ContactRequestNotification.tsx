@@ -1,6 +1,6 @@
 import { usePendingContacts } from "@/features/contacts/hooks/queries/usePendingContacts";
 
-import PendingCard from "./cards/PendingCard";
+import PendingCard from "../cards/PendingCard";
 
 import { LoaderSection, AlertError } from "@/components";
 
@@ -43,15 +43,11 @@ const ContactRequestNotification = ({
   }
 
   return (
-    <section className="
-      w-full
-      flex flex-col
-      items-center
-    ">
+    <div className="w-full flex flex-col items-center">
       <PendingCard
         contact={contact}
       />
-    </section>
+    </div>
   );
 };
 

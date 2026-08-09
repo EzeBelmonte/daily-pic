@@ -1,9 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 
-import { LoaderSection, Alert, AlertError, Button } from "@/components";
+import { LoaderSection, Alert, AlertError } from "@/components";
 
 import { useNotifications } from "../hooks/queries/useNotifications";
 import NotificationItem from "../components/NotificationItem";
+
+import NotificationsNavButtons from "../components/actions/NotificationsNavButtons";
 
 type NotificationFilter =
   | "all"
@@ -70,74 +72,67 @@ const Notifications = () => {
       }
     });
 
+  // Agrupamos las notificaciones por tipo
+  const groupedNotifications = {
+    contactRequest: filteredNotifications.filter(
+      (notification) => notification.type === "contactRequest"
+    ),
+
+    contactAccepted: filteredNotifications.filter(
+      (notification) => notification.type === "contactAccepted"
+    ),
+
+    postLike: filteredNotifications.filter(
+      (notification) => notification.type === "postLike"
+    ),
+
+    message: filteredNotifications.filter(
+      (notification) => notification.type === "message"
+    ),
+  };
+
+  const sectionStyle = "flex flex-col px-1 py-3 gap-2";
+  const h3Style = "text-white text-[1.2rem] mb-2 border-b border-white text-center";
+
   return (
-    <section className="w-full flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5">
 
       {/* Filtros */}
-      <div className="
-        grid grid-cols-3
-        py-1 sm:py-2 md:py-3
-        font-semibold
-        text-white
-        bg-[rgba(31,31,31,0.5)]
-        border-b border-white/20
-      ">
-        <Button
-          onClick={() => changeFilter("all")}
-          className={
-            notificationFilter === "all"
-              ? "text-blue-500"
-              : "mx-auto w-[150px]"
-          }
-        >
-          Todas
-        </Button>
-
-        <Button
-          onClick={() => changeFilter("contacts")}
-          className={
-            notificationFilter === "contacts"
-              ? "text-blue-500"
-              : "mx-auto w-[150px]"
-          }
-        >
-          Contactos
-        </Button>
-
-        <Button
-          onClick={() => changeFilter("likes")}
-          className={
-            notificationFilter === "likes"
-              ? "text-blue-500"
-              : "mx-auto w-[150px]"
-          }
-        >
-          Me gusta
-        </Button>
-      </div>
+      <NotificationsNavButtons
+        notificationFilter={notificationFilter}
+        onFilterChange={changeFilter}
+      />
 
       {/* Notificaciones */}
-      <div className="
-        w-full
-        flex flex-col
-        gap-3
-        p-3
-      ">
-        {filteredNotifications.length === 0 ? (
-          <Alert message="Sin notificaciones" />
-        ) : (
-          filteredNotifications.map(
-            (notification) => (
-              <NotificationItem
-                key={notification.id}
-                notification={notification}
-              />
-            )
-          )
-        )}
-      </div>
+      {/* contactRequest */}
+      {groupedNotifications.contactRequest.length > 0 && (
+        <section className={sectionStyle}>
+          <h3 className={h3Style}>Solicitudes pendientes</h3>
 
-    </section>
+          {groupedNotifications.contactRequest.map((notification) => (
+            <NotificationItem
+              key={notification.id}
+              notification={notification}
+            />
+          ))}
+        </section>
+      )}
+
+      {/* contactRequest */}
+      {groupedNotifications.contactAccepted.length > 0 && (
+        <section className={sectionStyle}>
+          <h3 className={h3Style}>Solicitudes aceptadas</h3>
+
+          {groupedNotifications.contactAccepted.map((notification) => (
+            <NotificationItem
+              key={notification.id}
+              notification={notification}
+            />
+          ))}
+        </section>
+      )}
+
+    </div>
   );
 };
 
