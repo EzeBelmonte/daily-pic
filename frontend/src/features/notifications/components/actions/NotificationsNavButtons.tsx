@@ -2,15 +2,30 @@ import NotificationsNavButton from "./NotificationsNavButton";
 
 type NotificationFilter = "all" | "contacts" | "likes";
 
+type NotificationState = {
+  contact: boolean;
+  likes: boolean;
+}
+
 type Props = {
   notificationFilter: NotificationFilter;
   onFilterChange: (filter: NotificationFilter) => void;
+  notificationState: NotificationState;
 };
 
 const NotificationsNavButtons = ({
   notificationFilter,
   onFilterChange,
+  notificationState,
 }: Props) => {
+
+  const hasContactsNotification = notificationState.contact;
+  const hasLikesNotification = notificationState.likes;
+  const hasNotifications =
+    hasContactsNotification || hasLikesNotification;
+
+  const dotStyle = "absolute top-1 right-3 w-[7px] h-[7px] bg-yellow-500/70 rounded";
+
   return (
       <div className="
         flex
@@ -21,26 +36,44 @@ const NotificationsNavButtons = ({
         border-b border-white/20
         mt-10 sm:mt-0
       ">
-        <NotificationsNavButton
-          active={notificationFilter === "all"}
-          onClick={() => onFilterChange("all")}
-        >
-          Todas
-        </NotificationsNavButton>
+        <div className="flex-1 relative">
+          <NotificationsNavButton
+            active={notificationFilter === "all"}
+            onClick={() => onFilterChange("all")}
+          >
+            Todas
+          </NotificationsNavButton>
 
-        <NotificationsNavButton
-          active={notificationFilter === "contacts"}
-          onClick={() => onFilterChange("contacts")}
-        >
-          Contactos
-        </NotificationsNavButton>
+          {hasNotifications &&
+            <div className={dotStyle} />
+          }
+        </div>
 
-        <NotificationsNavButton
-          active={notificationFilter === "likes"}
-          onClick={() => onFilterChange("likes")}
-        >
-          Me gusta
-        </NotificationsNavButton>
+        <div className="flex-1 relative">
+          <NotificationsNavButton
+            active={notificationFilter === "contacts"}
+            onClick={() => onFilterChange("contacts")}
+          >
+            Contactos
+          </NotificationsNavButton>
+
+          {hasContactsNotification &&
+            <div className={dotStyle} />
+          }
+        </div>
+
+        <div className="flex-1 relative">
+          <NotificationsNavButton
+            active={notificationFilter === "likes"}
+            onClick={() => onFilterChange("likes")}
+          >
+            Me gusta
+          </NotificationsNavButton>
+
+          {hasLikesNotification &&
+            <div className={dotStyle} />
+          }
+        </div>
     </div>
   );
 };

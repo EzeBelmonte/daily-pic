@@ -54,45 +54,52 @@ const Notifications = () => {
     return <Alert message="Sin notificaciones" />;
   }
 
-  const filteredNotifications =
-    notifications.filter((notification) => {
-      switch (notificationFilter) {
-        case "contacts":
-          return (
-            notification.type === "contactRequest" ||
-            notification.type === "contactAccepted"
-          );
-
-        case "likes":
-          return notification.type === "postLike";
-
-        case "all":
-        default:
-          return true;
-      }
-    });
-
   // Agrupamos las notificaciones por tipo
   const groupedNotifications = {
-    contactRequest: filteredNotifications.filter(
+    contactRequest: notifications.filter(
       (notification) => notification.type === "contactRequest"
     ),
 
-    contactAccepted: filteredNotifications.filter(
+    contactAccepted: notifications.filter(
       (notification) => notification.type === "contactAccepted"
     ),
 
-    postLike: filteredNotifications.filter(
+    postLike: notifications.filter(
       (notification) => notification.type === "postLike"
     ),
 
-    message: filteredNotifications.filter(
+    message: notifications.filter(
       (notification) => notification.type === "message"
     ),
   };
 
+  const notificationState = {
+    contact:
+      groupedNotifications.contactRequest.length > 0,
+
+    likes: groupedNotifications.postLike.length > 0,
+  };
+
+  // Filtramos SOLO para mostrar
+  /*const filteredNotifications = notifications.filter((notification) => {
+    switch (notificationFilter) {
+      case "contacts":
+        return (
+          notification.type === "contactRequest" ||
+          notification.type === "contactAccepted"
+        );
+
+      case "likes":
+        return notification.type === "postLike";
+
+      case "all":
+      default:
+        return true;
+    }
+  });*/
+
   const sectionStyle = "flex flex-col px-1 py-3 gap-2";
-  const h3Style = "text-white text-[1.2rem] mb-2 border-b border-white text-center";
+  const h3Style = "w-[300px] mx-auto text-white text-[1.2rem] mb-2 border-b border-white text-center";
 
   return (
     <div className="w-full flex flex-col gap-5">
@@ -101,29 +108,47 @@ const Notifications = () => {
       <NotificationsNavButtons
         notificationFilter={notificationFilter}
         onFilterChange={changeFilter}
+        notificationState={notificationState}
       />
 
-      {/* Notificaciones */}
-      {/* contactRequest */}
-      {groupedNotifications.contactRequest.length > 0 && (
+      {(notificationFilter === "all" ||
+        notificationFilter === "contacts") && (
+      <>
+        {groupedNotifications.contactRequest.length > 0 && (
+          <section className={sectionStyle}>
+            <h3 className={h3Style}>Solicitudes pendientes</h3>
+
+            {groupedNotifications.contactRequest.map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+              />
+            ))}
+          </section>
+        )}
+
+        {groupedNotifications.contactAccepted.length > 0 && (
+          <section className={sectionStyle}>
+            <h3 className={h3Style}>Solicitudes aceptadas</h3>
+
+            {groupedNotifications.contactAccepted.map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+              />
+            ))}
+          </section>
+        )}
+      </>
+    )}
+
+    {(notificationFilter === "all" ||
+      notificationFilter === "likes") &&
+      groupedNotifications.postLike.length > 0 && (
         <section className={sectionStyle}>
-          <h3 className={h3Style}>Solicitudes pendientes</h3>
+          <h3 className={h3Style}>Me gusta</h3>
 
-          {groupedNotifications.contactRequest.map((notification) => (
-            <NotificationItem
-              key={notification.id}
-              notification={notification}
-            />
-          ))}
-        </section>
-      )}
-
-      {/* contactRequest */}
-      {groupedNotifications.contactAccepted.length > 0 && (
-        <section className={sectionStyle}>
-          <h3 className={h3Style}>Solicitudes aceptadas</h3>
-
-          {groupedNotifications.contactAccepted.map((notification) => (
+          {groupedNotifications.postLike.map((notification) => (
             <NotificationItem
               key={notification.id}
               notification={notification}

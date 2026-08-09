@@ -16,7 +16,7 @@ const NotificationsNavButton = ({
     <Button
       onClick={onClick}
       className={cn(
-        "flex-1",
+        "w-full",
         active ? "text-blue-500" : "text-white"
       )}
     >
