@@ -21,11 +21,9 @@ const DesktopSidebarLeft = () => {
   return (
     <nav className="flex flex-col h-[100%] pt-5">
       <Logo 
-        className="w-[180px]" 
-        iconScale={0.6}
-        iconY={50}
-        textX={-50}
-        centered 
+        className="w-[180px] flex items-center gap-1 justify-center"
+        iconClassName="w-[50px]"
+        textClassName="text-white text-[2rem]"
       />
 
       <div className="

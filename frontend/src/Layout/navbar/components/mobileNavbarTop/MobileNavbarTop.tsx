@@ -34,10 +34,9 @@ const Topbar = ({ className }: Props) => {
       />
 
       <Logo 
-        className="w-[100px]" 
-        iconX={-20}
-        textScale={1.1}
-        textX={20}
+        className="w-[110px] flex items-center gap-1"
+        iconClassName="w-[30px]"
+        textClassName="text-white text-[1.1rem]"
       />
 
       <NotificationNavButton />
