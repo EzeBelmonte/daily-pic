@@ -7,7 +7,7 @@ export function registerPostLikeListener(
 ) {
   const handleLike = () => {
     queryClient.invalidateQueries({
-      queryKey: ["likes"],
+      queryKey: ["postlike"],
     });
   };
 

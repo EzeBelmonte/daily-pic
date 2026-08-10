@@ -1,8 +1,7 @@
 export type NotificationType =
   | "contactRequest"
   | "contactAccepted"
-  | "postLike"
-  | "message";
+  | "postLike";
 
 import type { User } from "./user.type.js";
 
@@ -37,12 +36,32 @@ export interface NotificationWithSender extends AppNotification{
   sender: User
 }
 
+export interface ContactRequestNotification
+  extends NotificationWithSender {
+  type: "contactRequest";
+}
+
+export interface ContactAcceptedNotification
+  extends NotificationWithSender {
+  type: "contactAccepted";
+}
+
 // ========================================
 // OBTENER NOTIFICACIÓN CON POST
 // ========================================
-export interface NotificationWithPost extends NotificationWithSender{
+export interface PostLikeNotification
+  extends NotificationWithSender {
+  type: "postLike";
   post: {
     id: number;
     imageUrl: string;
   };
 }
+
+// ========================================
+// EXPORTAR
+// ========================================
+export type Notification =
+  | ContactRequestNotification
+  | ContactAcceptedNotification
+  | PostLikeNotification;

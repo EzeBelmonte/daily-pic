@@ -1,14 +1,13 @@
 import api from "./api";
 
-import type { NotificationWithSender } from "@daily-pic/shared/types";
+import type { Notification } from "@daily-pic/shared/types";
 
 // ========================================
 // CREAR NOTIFICACIÓN
 // ========================================
-export async function getNotifications(
-): Promise<NotificationWithSender[] | []> {
+export async function getNotifications(): Promise<Notification[]> {
   const response =
-    await api.get<NotificationWithSender[] | []>("/notifications");
+    await api.get<Notification[]>("/notifications");
 
   return response.data;
 }

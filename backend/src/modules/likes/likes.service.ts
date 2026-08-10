@@ -1,7 +1,7 @@
 import * as likesRepository from "../likes/likes.repository.js";
 import * as notificationsService from "../notifications/notifications.service.js";
 
-import type { NotificationWithPost } from "@daily-pic/shared/types";
+import type { PostLikeNotification } from "@daily-pic/shared/types";
 
 import { 
   getExistingPostsById 
@@ -30,7 +30,7 @@ export async function like(
   postId: number
 ): Promise<{
   addresseeId: number,
-  notification: NotificationWithPost | null,
+  notification: PostLikeNotification | null,
 }> {
   const post = await getExistingPostsById(postId);
 
@@ -65,8 +65,9 @@ export async function like(
     );
   }
 
-  const notificationResponse = {
+  const notificationResponse: PostLikeNotification = {
     ...notificationWithSender,
+    type: "postLike",
     post: {
       id: post.id,
       imageUrl: post.imageUrl,

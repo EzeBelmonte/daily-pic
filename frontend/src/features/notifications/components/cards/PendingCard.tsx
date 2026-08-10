@@ -1,10 +1,12 @@
+import { UserRoundPlus } from "lucide-react";
+
 import { useAcceptContact } from "@/features/contacts/hooks/mutations/useAcceptContact";
 import { useRejectContact } from "@/features/contacts/hooks/mutations/useRejectContact";
 
 import type { PendingContact } from "@daily-pic/shared/types";
 
 import ContactInformation from "../../../contacts/components/ContactInformation";
-import { Button } from "@/components";
+import { Button, Card } from "@/components";
 
 type Props = {
   contact: PendingContact;
@@ -30,12 +32,15 @@ const PendingCard = ({
   };
 
   return (
-    <div className="
-      w-full max-w-[400px]
-      p-2
-      bg-[#222222] rounded-[10px]
-    ">
-      <ContactInformation user={contact.requester} />
+    <Card className="border-t border-b border-green-400">
+      <div className="flex items-center justify-between">
+        <ContactInformation user={contact.requester} />
+
+        <UserRoundPlus 
+          size={24}
+          className="stroke-green-400"
+        />
+      </div>
 
       {/* Botones */}
       <div className="
@@ -69,7 +74,7 @@ const PendingCard = ({
           Rechazar
         </Button>
       </div>
-    </div>
+    </Card>
   );
 };
 

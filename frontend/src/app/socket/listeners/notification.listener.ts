@@ -2,13 +2,9 @@ import type { QueryClient } from "@tanstack/react-query";
 import { socket } from "@/lib/socket";
 
 import type { 
-  NotificationWithSender,
-  NotificationWithPost,
+  Notification,
 } from "@daily-pic/shared/types";
 
-type Notification = 
-  | NotificationWithSender  
-  | NotificationWithPost;
 
 export function registerNotificationListener(
   queryClient: QueryClient
@@ -62,16 +58,9 @@ export function registerNotificationListener(
         );
 
         queryClient.invalidateQueries({
-          queryKey: ["likes"],
+          queryKey: ["postlike"],
         });
       break;
-
-      case "message":
-        queryClient.invalidateQueries({
-          queryKey: ["message"],
-        });
-
-        break;
     }
   };
 

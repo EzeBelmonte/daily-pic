@@ -1,14 +1,14 @@
-import type { NotificationWithSender } from "@daily-pic/shared/types";
+import type { PostLikeNotification } from "@daily-pic/shared/types";
 
 import { useMarkNotificationAsRead } from "@/features/notifications/hooks/mutations/useMarkNotificationAsRead";
 
-import AcceptedCard from "../cards/AcceptedCard";
+import PostLikedCard from "../cards/PostLikedCard";
 
 type Props = {
-  notification: NotificationWithSender;
+  notification: PostLikeNotification;
 };
 
-const PostLikeNotification = ({
+const PostLikedNotification = ({
   notification
 }: Props) => {
 
@@ -26,8 +26,9 @@ const PostLikeNotification = ({
       onClick={handleNotification}
     >
       
-      <AcceptedCard
+      <PostLikedCard
         user={notification.sender}
+        postImage={notification.post.imageUrl}
         read={notification.read}
       />
 
@@ -35,4 +36,4 @@ const PostLikeNotification = ({
   );
 }
 
-export default PostLikeNotification;
+export default PostLikedNotification;

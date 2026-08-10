@@ -1,9 +1,9 @@
 import { Heart } from "lucide-react";
 
-import { useCountLikes } from "../../hooks/queries/useCountLikes";
-import { useAddLike } from "../../hooks/mutations/useAddLike";
-import { useRemoveLike } from "../../hooks/mutations/useRemoveLike";
-import { useHasLiked } from "../../hooks/queries/useHasLiked";
+import { useCountLikes } from "@/features/postLikes/hooks/queries/useCountLikes";
+import { useAddLike } from "@/features/postLikes/hooks/mutations/useAddLike";
+import { useRemoveLike } from "@/features/postLikes/hooks/mutations/useRemoveLike";
+import { useHasLiked } from "@/features/postLikes/hooks/queries/useHasLiked";
 
 import { Button } from "@/components";
 

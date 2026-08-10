@@ -19,7 +19,6 @@ export const notificationTypeEnum = pgEnum(
     "contactRequest",
     "contactAccepted",
     "postLike",
-    "message",
   ]
 );
 

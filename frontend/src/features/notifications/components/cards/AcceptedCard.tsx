@@ -1,6 +1,10 @@
+import { UserRound } from "lucide-react";
+
 import ContactInformation from "../../../contacts/components/ContactInformation";
 
 import type { User } from "@daily-pic/shared/types";
+
+import { Card } from "@/components";
 
 import { cn } from "@/utils/cn";
 
@@ -15,18 +19,23 @@ const AcceptedCard = ({
 }: Props) => {
 
   return (
-    <div className={cn(`
-      w-full max-w-[400px]
-      p-2
-      bg-[#222222] rounded-[10px]`,
-      !read && "border border-amber-400/50 cursor-pointer"
-    )}>
+    <Card
+      className={cn(`
+        flex items-center`,
+        !read && 
+        "border-t border-b border-blue-400 cursor-pointer")}
+    >
       
-        <ContactInformation 
-          user={user} 
-        />
+      <ContactInformation 
+        user={user} 
+      />
+
+      <UserRound 
+        size={30}
+        className="fill-cyan-500 stroke-cyan-600"
+      />
       
-    </div>
+    </Card>
   );
 }
 

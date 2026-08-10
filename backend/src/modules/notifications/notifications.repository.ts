@@ -1,16 +1,12 @@
-//userId        quien recibe la notificación
-//fromUserId    quien genera la notificación
-
 import { db } from "../../infrastructure/database/db.js";
-import { and, eq, or, count, not } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { notifications } from "../../infrastructure/database/schemas/notifications.js";
 
-type NotificationType = 
-  |"contactRequest" 
-  | "contactAccepted" 
-  | "postLike" 
-  | "message";
+type NotificationType =
+  | "contactRequest"
+  | "contactAccepted"
+  | "postLike";
 
 // ========================================
 // CREAR NOTIFICACIÓN
@@ -44,39 +40,41 @@ export async function create(
 }
 
 // ========================================
-// OBTENER TODAS LAS NOTIFICACINES DE UN USUARIO
+// OBTENER TODAS LAS NOTIFICACIONES
+// DE UN USUARIO
 // ========================================
-export async function findByUserId(
-  userId: number
-) {
-  try {
-    return db.query.notifications.findMany({
-      where: (notifications, { eq }) =>
-        eq(notifications.userId, userId),
+export async function findByUserId(userId: number) {
+  return db.query.notifications.findMany({
+    where: (notifications, { eq }) =>
+      eq(notifications.userId, userId),
 
-      with: {
-        sender: {
-          columns: {
-            id: true,
-            username: true,
-            name: true,
-            lastname: true,
-            profileImageUrl: true,
-          },
+    with: {
+      sender: {
+        columns: {
+          id: true,
+          username: true,
+          name: true,
+          lastname: true,
+          profileImageUrl: true,
         },
       },
 
-      orderBy: (notifications, { desc }) =>
-        [desc(notifications.createdAt)],
-    });
-  } catch (error) {
-    console.error("❌ ERROR INSERT NOTIFICATION:", error);
-    throw error;
-  }
+      post: {
+        columns: {
+          id: true,
+          imageUrl: true,
+        },
+      },
+    },
+
+    orderBy: (notifications, { desc }) =>
+      [desc(notifications.createdAt)],
+  });
 }
 
 // ========================================
 // ACTUALIZAR LA NOTIFICACIÓN
+// DE SOLICITUD DE CONTACTO
 // ========================================
 export async function updateContactNotification(
   contactId: number,
@@ -85,7 +83,7 @@ export async function updateContactNotification(
     .update(notifications)
     .set({
       type: "contactAccepted",
-      read:true,
+      read: true,
     })
     .where(
       and(
@@ -98,7 +96,7 @@ export async function updateContactNotification(
     )
     .returning();
 
-      console.log(
+  console.log(
     "🔔 NOTIFICACIÓN ACTUALIZADA:",
     notification
   );
@@ -117,10 +115,13 @@ export async function deleteContactRequest(
       .delete(notifications)
       .where(
         and(
-        eq(notifications.contactId, contactId),
-        eq( notifications.type, "contactRequest")
-      )
-    );
+          eq(notifications.contactId, contactId),
+          eq(
+            notifications.type,
+            "contactRequest"
+          )
+        )
+      );
   } catch (error) {
     console.error(
       "❌ ERROR DELETE CONTACT NOTIFICATION:",
@@ -132,7 +133,7 @@ export async function deleteContactRequest(
 }
 
 // ========================================
-// OBTENER DATOS DEL USUARIO CON ID DE UNA NOTIFICACIÓN
+// OBTENER DATOS DE UNA NOTIFICACIÓN
 // ========================================
 export async function findById(id: number) {
   return db.query.notifications.findFirst({
@@ -149,12 +150,19 @@ export async function findById(id: number) {
           profileImageUrl: true,
         },
       },
+
+      post: {
+        columns: {
+          id: true,
+          imageUrl: true,
+        },
+      },
     },
   });
 }
 
 // ========================================
-// MARCAR COMO LEIDO
+// MARCAR COMO LEÍDO
 // ========================================
 export async function markAsRead(
   notificationId: number,

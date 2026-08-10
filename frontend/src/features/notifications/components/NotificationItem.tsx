@@ -1,13 +1,13 @@
-import type { NotificationWithSender } from "@daily-pic/shared/types";
+import type { Notification } from "@daily-pic/shared/types";
 
 import { 
   ContactRequestNotification,
   ContactAcceptedNotification,
-  PostLikeNotification
+  PostLikedNotification,
 } from "./sections";
 
 type Props = {
-  notification: NotificationWithSender;
+  notification: Notification;
 };
 
 const NotificationItem = ({
@@ -31,7 +31,7 @@ const NotificationItem = ({
 
     case "postLike":
       return (
-        <PostLikeNotification
+        <PostLikedNotification
           notification={notification}
         />
       );

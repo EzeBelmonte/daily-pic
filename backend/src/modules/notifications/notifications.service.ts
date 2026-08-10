@@ -1,83 +1,115 @@
-import * as notificationsRepository from './notifications.repository.js';
+import * as notificationsRepository
+  from "./notifications.repository.js";
 
-import type { 
+import type {
   AppNotification,
-  NotificationWithSender,
-} from '@daily-pic/shared/types';
+  Notification,
+} from "@daily-pic/shared/types";
 
-import { NotFoundError } from '../../shared/errors/errors.js';
+import { NotFoundError }
+  from "../../shared/errors/errors.js";
 
 // ========================================
 // CREAR NOTIFICACIÓN
 // ========================================
 export async function create(
-  type: AppNotification['type'],
+  type: AppNotification["type"],
   fromUserId: number,
   userId: number,
   contactId: number | null,
   postId: number | null,
   conversationId: number | null,
-  
-): Promise<AppNotification | null> {
+): Promise<AppNotification> {
 
-  const notification = await notificationsRepository.create(
-    type,
-    fromUserId,
-    userId,
-    contactId,
-    postId,
-    conversationId,
-  );
+  const notification =
+    await notificationsRepository.create(
+      type,
+      fromUserId,
+      userId,
+      contactId,
+      postId,
+      conversationId,
+    );
 
   if (!notification) {
     throw new NotFoundError(
-      'Error al crear la notificación'
+      "Error al crear la notificación"
     );
   }
 
-  return notification ?? null;
-}
-
-// ========================================
-// OBTENER TODAS LAS NOTIFICACINES DE UN USUARIO
-// ========================================
-export async function getNotifications(
-  userId: number
-): Promise<NotificationWithSender[] | []> {
-
-  const notifications = 
-    await notificationsRepository.findByUserId(userId);
-
-  return notifications || [];
-}
-
-// ========================================
-// ACTUALIZAR LA NOTIFICACIÓN
-// ========================================
-export async function updateContactNotification(
-  contactId: number,
-) {
-  const notification = 
-    await notificationsRepository.updateContactNotification(
-      contactId,
-    );
-    
   return notification;
 }
 
 // ========================================
-// ELIMINAR LA NOTIFICACIÓN
+// OBTENER TODAS LAS NOTIFICACIONES
 // ========================================
-export async function deleteContactRequest(
-  contactId: number
-) {
-  return notificationsRepository.deleteContactRequest(
-    contactId
+export async function getNotifications(
+  userId: number
+): Promise<Notification[]> {
+
+  const notifications =
+    await notificationsRepository.findByUserId(
+      userId
+    );
+
+  return notifications.flatMap(
+    (notification): Notification[] => {
+
+      switch (notification.type) {
+
+        case "contactRequest":
+          return [{
+            ...notification,
+            type: "contactRequest",
+          }];
+
+        case "contactAccepted":
+          return [{
+            ...notification,
+            type: "contactAccepted",
+          }];
+
+        case "postLike":
+
+          if (!notification.post) {
+            return [];
+          }
+
+          return [{
+            ...notification,
+            type: "postLike",
+            post: notification.post,
+          }];
+
+        default:
+          return [];
+      }
+    }
   );
 }
 
 // ========================================
-// OBTENER DATOS DEL USUARIO CON ID DE UNA NOTIFICACIÓN
+// ACTUALIZAR NOTIFICACIÓN
+// ========================================
+export async function updateContactNotification(
+  contactId: number,
+) {
+  return notificationsRepository
+    .updateContactNotification(contactId);
+}
+
+// ========================================
+// ELIMINAR NOTIFICACIÓN
+// ========================================
+export async function deleteContactRequest(
+  contactId: number
+) {
+  return notificationsRepository
+    .deleteContactRequest(contactId);
+}
+
+// ========================================
+// OBTENER NOTIFICACIÓN POR ID
 // ========================================
 export async function findById(
   notificationId: number
@@ -88,7 +120,7 @@ export async function findById(
 }
 
 // ========================================
-// MARCAR COMO LEIDO
+// MARCAR COMO LEÍDO
 // ========================================
 export async function markAsRead(
   notificationId: number,

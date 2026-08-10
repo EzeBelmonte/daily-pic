@@ -16,13 +16,16 @@ export { DropdownMenu } from "./ui/dropdown-menu/DropdownMenu";
 export { DropdownMenuTrigger } from "./ui/dropdown-menu/DropdownMenu";
 export { DropdownMenuContent } from "./ui/dropdown-menu/DropdownMenu";
 
-// LOADERS
+// UI -> LOADERS
 export { default as LoaderSection } from "./ui/loaders/LoaderSection";
 
-// ALERTS
+// UI -> ALERTS
 export { default as Alert } from "./ui/alerts/Alert";
 export { default as AlertError } from "./ui/alerts/AlertError";
 export { default as AlertToaster } from "./ui/alerts/AlertToaster";
 
-// SCROLL
+// UI -> SCROLL
 export { default as InfiniteScrollLoader } from "./infinite-scroll/InfiniteScrollLoader";
+
+// UI -> CARDS
+export { default as Card } from "./ui/cards/Card";
