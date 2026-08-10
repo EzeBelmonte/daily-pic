@@ -14,14 +14,19 @@ export async function create(
   type: AppNotification['type'],
   fromUserId: number,
   userId: number,
-  contactId: number,
+  contactId: number | null,
+  postId: number | null,
+  conversationId: number | null,
+  
 ): Promise<AppNotification | null> {
 
   const notification = await notificationsRepository.create(
     type,
     fromUserId,
     userId,
-    contactId
+    contactId,
+    postId,
+    conversationId,
   );
 
   if (!notification) {

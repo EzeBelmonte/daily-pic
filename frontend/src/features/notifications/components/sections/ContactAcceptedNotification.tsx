@@ -27,6 +27,7 @@ const ContactAcceptedNotification = ({
       >
         <AcceptedCard
           user={notification.sender}
+          read={notification.read}
         />
 
       </div>

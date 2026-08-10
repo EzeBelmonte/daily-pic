@@ -2,6 +2,8 @@ import type { Request, Response } from "express";
 
 import * as likesService from "./likes.service.js";
 
+import { getIO } from "../../socket.js";
+
 // ========================================
 // CONTAR LIKES
 // ========================================
@@ -28,8 +30,17 @@ export async function like(
 
   // Obtenemos el ID del post
   const postId = Number(req.params.postId);
+  
+  const {
+    addresseeId,
+    notification,
+  } = await likesService.like(userId, postId);
 
-  await likesService.like(userId, postId);
+  if (notification) {
+    getIO()
+      .to(`user:${addresseeId}`)
+      .emit("notification", notification);
+  }
 
   return res.sendStatus(204);
 }

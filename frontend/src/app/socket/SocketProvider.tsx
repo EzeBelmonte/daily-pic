@@ -12,9 +12,10 @@ import { useAuth } from "../hooks/useAuth";
 import { useMe } from "../hooks/queries/useMe";
 
 import { 
-  registerNotificationListeners,
-  registerChatListeners,
-  registerContactListeners
+  registerNotificationListener,
+  registerChatListener,
+  registerContactListener,
+  registerPostLikeListener
 } from "./index";
 
 import type { SocketContextType } from "./types/socket.type";
@@ -48,18 +49,22 @@ export function SocketProvider({ children }: Props) {
     });
       
     const unregisterNotification = 
-      registerNotificationListeners(queryClient);
-
-    const unregisterChat = 
-      registerChatListeners(queryClient);
+      registerNotificationListener(queryClient);
 
     const unregisterContact = 
-      registerContactListeners(queryClient);
+      registerContactListener(queryClient);
+
+    const unregisterLike =
+      registerPostLikeListener(queryClient);
+
+    const unregisterChat = 
+      registerChatListener(queryClient);
 
     return () => {
       unregisterNotification();
-      unregisterChat();
+      unregisterLike();
       unregisterContact();
+      unregisterChat();
 
       socket.disconnect();
     }

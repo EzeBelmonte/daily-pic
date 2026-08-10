@@ -20,6 +20,8 @@ export async function create(
   fromUserId: number,
   userId: number,
   contactId: number | null,
+  postId: number | null,
+  conversationId: number | null,
 ) {
   try {
     const [notification] = await db
@@ -29,6 +31,8 @@ export async function create(
         fromUserId,
         userId,
         contactId,
+        postId,
+        conversationId,
       })
       .returning();
 

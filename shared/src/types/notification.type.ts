@@ -31,8 +31,18 @@ export interface AppNotification {
 }
 
 // ========================================
-// OBTENER NOTIFICACIÓN
+// OBTENER NOTIFICACIÓN CON USUARIO
 // ========================================
 export interface NotificationWithSender extends AppNotification{
   sender: User
+}
+
+// ========================================
+// OBTENER NOTIFICACIÓN CON POST
+// ========================================
+export interface NotificationWithPost extends NotificationWithSender{
+  post: {
+    id: number;
+    imageUrl: string;
+  };
 }

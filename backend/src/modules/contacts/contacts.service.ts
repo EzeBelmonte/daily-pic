@@ -70,6 +70,8 @@ export async function create(
       requesterId,
       addresseeId,
       contact?.id,
+      null,
+      null
     );
 
   return {
@@ -107,6 +109,8 @@ export async function updateAccepted(
       contact.addresseeId, // Quien aceptó
       contact.requesterId, // Quien recibe la notificación
       contact.id,
+      null,
+      null
     );
 
   if (!notification) {

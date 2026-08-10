@@ -3,13 +3,18 @@ import { socket } from "@/lib/socket";
 
 import type { 
   NotificationWithSender,
+  NotificationWithPost,
 } from "@daily-pic/shared/types";
 
-export function registerNotificationListeners(
+type Notification = 
+  | NotificationWithSender  
+  | NotificationWithPost;
+
+export function registerNotificationListener(
   queryClient: QueryClient
 ) {
   const handleNotification = (
-    notification: NotificationWithSender
+    notification: Notification,
   ) => {
     console.log(
       "🔔 Nueva notificación:",
@@ -19,7 +24,7 @@ export function registerNotificationListeners(
     // Actualizamos queries relacionadas
     switch (notification.type) {
       case "contactRequest":
-        queryClient.setQueryData<NotificationWithSender[]>(
+        queryClient.setQueryData<Notification[]>(
           ["notifications"],
           (old) => [
             notification,
@@ -30,10 +35,10 @@ export function registerNotificationListeners(
         queryClient.invalidateQueries({
           queryKey: ["contacts", "pending"],
         });
-        break;
+      break;
 
-        case "contactAccepted":
-        queryClient.setQueryData<NotificationWithSender[]>(
+      case "contactAccepted":
+        queryClient.setQueryData<Notification[]>(
           ["notifications"],
           (old) => [
             notification,
@@ -45,18 +50,27 @@ export function registerNotificationListeners(
           queryKey: ["contacts", "accepted"],
         });
 
-        break;
+      break;
+
+      case "postLike":
+        queryClient.setQueryData<Notification[]>(
+          ["notifications"],
+          (old) => [
+            notification,
+            ...(old ?? []),
+          ]
+        );
+
+        queryClient.invalidateQueries({
+          queryKey: ["likes"],
+        });
+      break;
 
       case "message":
         queryClient.invalidateQueries({
           queryKey: ["message"],
         });
 
-        break;
-
-      case "postLike":
-        // No necesitamos invalidar nada
-        // por ahora.
         break;
     }
   };

@@ -18,7 +18,6 @@ export async function count(
 export async function like(
   postId: number
 ) {
-
   await api.post(`/posts/${postId}/add-like`);
 
 }

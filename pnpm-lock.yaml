@@ -313,7 +313,7 @@ importers:
         specifier: ^5.101.4
         version: 5.101.4(react@19.2.8)
       axios:
-        specifier: ^1.18.1
+        specifier: ^1.19.0
         version: 1.19.0(debug@4.4.3(supports-color@5.5.0))(supports-color@5.5.0)
       clsx:
         specifier: ^2.1.1

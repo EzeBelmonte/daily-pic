@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { socket } from "@/lib/socket";
 
-export function registerContactListeners(
+export function registerContactListener(
   queryClient: QueryClient
 ) {
   const handleAccepted = () => {

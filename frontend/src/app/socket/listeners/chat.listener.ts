@@ -3,7 +3,7 @@ import { socket } from "@/lib/socket";
 
 import type { ChatMessage } from "@/features/chat/types/chat.type";
 
-export function registerChatListeners(
+export function registerChatListener(
   queryClient: QueryClient
 ) {
   const handleMessage = (message: ChatMessage) => {
