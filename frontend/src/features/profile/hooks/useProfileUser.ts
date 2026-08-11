@@ -13,6 +13,10 @@ export function useProfileUser(username?: string) {
     ? userQuery.data
     : meQuery.data;
 
+  const isOwner = !!user && !!meQuery.data
+    ? user.id === meQuery.data.id
+    : false;
+
   const isLoading = username
     ? userQuery.isLoading || meQuery.isLoading
     : meQuery.isLoading;
@@ -20,10 +24,6 @@ export function useProfileUser(username?: string) {
   const error = username
     ? userQuery.error
     : meQuery.error;
-
-  const isOwner = !!user && !!meQuery.data
-    ? user.id === meQuery.data.id
-    : false;
 
   return {
     user,

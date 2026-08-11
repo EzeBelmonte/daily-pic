@@ -61,11 +61,17 @@ export async function getUser(
   req: Request,
   res: Response
 ) {
-  // Obtenemos el usuario buscado
+  // Usiario
+  const userId = req.user.userId;
+  // Obtenemos el usuario visitado
   const username = String(req.params.username);
 
   // Obtenemos el perfil propio
-  const profile = await userService.getUserByUsername(username);
+  const profile = 
+    await userService.getUserByUsername(
+      userId,
+      username
+    );
 
   // Retornamos el perfil
   return res.status(200).json(profile);

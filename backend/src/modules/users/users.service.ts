@@ -1,6 +1,7 @@
 import * as userRepository from "./users.repository.js";
 import * as postsServices from "../posts/posts.service.js";
 import * as contactsServices from "../contacts/contacts.service.js";
+import * as blockServices from "../blocks/block.service.js";
 
 import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
@@ -68,20 +69,25 @@ export async function updateMe(
 // OBTENER USUARIO
 // ========================================
 export async function getUserByUsername(
+  userId: number | null,
   username: string
 ): Promise<CompleteUser | null> {
-  // Obtenemos el usuario
-  const user = await getExistingUserByUsername(username);
 
-  await getExistingUserByUsername(username);
-  
+  // Obtenemos el usuario visitado
+  const userVisit = 
+    await getExistingUserByUsername(username);
+
   // Obtener cantidad de post
-  const postsCount = await postsServices.countById(user.id);
+  const postsCount = 
+    await postsServices.countById(userVisit.id);
+
   // Obtener cantidad de contacos
-  const contactsCount = await contactsServices.countAccepted(user.id);
+  const contactsCount = 
+    await contactsServices.countAccepted(userVisit.id);
+
 
   return toCompleteUserDTO(
-      user,
+      userVisit,
       contactsCount ?? 0,
       postsCount ?? 0,
   );

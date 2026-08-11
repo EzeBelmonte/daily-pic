@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useProfilePosts } from "../hooks/useProfilePosts";
+import { useBlock } from "@/features/block/hooks/queries/useBlock";
 
 import { 
+  Alert,
   LoaderSection,
   InfiniteScrollLoader
 } from "@/components";
@@ -16,26 +18,38 @@ const ProfileSection = () => {
   const { username } = useParams();
   
   const {
+    data: block, 
+  } = useBlock(username ?? "");
+
+  const {
     posts,
     isLoading,
+    error,
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
   } = useProfilePosts(username);
 
+  if (isLoading) {
+    return <LoaderSection />
+  }
+
+  if (error) {
+    return <Alert message={"Error al obtener las publicaciones"} />
+  }
+
+  if (block && username) {
+    return <Alert message={"Bloqueaste a este usuario"} />
+  }
+
   return (
     <section className="columns-2 gap-2">
-      {isLoading ? (
-         <LoaderSection />
-      ) : posts.length === 0 ? (
-          <p className="text-white">No hay publicaciones</p>
-        ) : posts.map((post) => (
-          <PostImageAnimated
-            imageUrl={post.imageUrl}
-            onClick={() => navigate(`/post/${post.id}`)}
-          />
-        )
-      )}
+      {posts.map((post) => (
+        <PostImageAnimated
+          imageUrl={post.imageUrl}
+          onClick={() => navigate(`/post/${post.id}`)}
+        />
+      ))}
 
       <InfiniteScrollLoader 
         onLoadMore={fetchNextPage}
